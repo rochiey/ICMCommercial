@@ -392,11 +392,12 @@ public class SalesOrder_ButtonFunctions {
                         }
                         else if(daysleft==-29)//5th week
                         {
-                            float temp = (float) (money*0.05);
+                            float temp = (float) (money*0.10);
                             penalty+=temp;
                             money+=temp;
                             dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+", total_net="+money);
                         }
+                        //after 5th week, send demand letter to the unpaid dealer. after 1 month of demand letter. send subpoena and file a case
                     }
                  createDB();
                  float totalBalance=0;
