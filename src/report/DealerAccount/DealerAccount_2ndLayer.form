@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="33" green="33" red="33" type="rgb"/>
+    </Property>
+  </Properties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <Component id="btn_RefreshOutstanding" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btn_GenerateCLTrans" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btn_PrintReturn" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btn_LogOutOutstanding" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace pref="158" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="btn_GenerateCLTrans" min="-2" pref="89" max="-2" attributes="0"/>
+                  <Component id="btn_RefreshOutstanding" min="-2" pref="89" max="-2" attributes="0"/>
+                  <Component id="btn_LogOutOutstanding" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+                  <Component id="btn_PrintReturn" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="btn_LogOutOutstanding">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="12" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Invoice Logut 2.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_LogOutOutstandingFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_LogOutOutstandingFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_LogOutOutstandingMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_LogOutOutstandingMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_LogOutOutstandingActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_LogOutOutstanding.getInputMap(btn_LogOutOutstanding.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0), &quot;btn_LogOutOutstanding&quot;);&#xa;         btn_LogOutOutstanding.getActionMap().put(&quot;btn_LogOutOutstanding&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                System.exit(0);&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_LogOutOutstanding.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F11&lt;/font&gt;&lt;br/&gt;Logout&lt;br/&gt;Account&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_PrintReturn">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="12" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Print.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_PrintReturnFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_PrintReturnFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_PrintReturnMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_PrintReturnMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_PrintReturnActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_PrintReturn.getInputMap(btn_PrintReturn.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), &quot;btn_PrintReturn&quot;);&#xa;         btn_PrintReturn.getActionMap().put(&quot;btn_PrintReturn&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                button.printBalance();&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_PrintReturn.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F9&lt;/font&gt;&lt;br/&gt;Print&lt;br/&gt;Details&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_RefreshOutstanding">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="12" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Record_refresh.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_RefreshOutstandingFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_RefreshOutstandingFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_RefreshOutstandingMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_RefreshOutstandingMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_RefreshOutstandingActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_RefreshOutstanding.getInputMap(btn_RefreshOutstanding.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), &quot;btn_RefreshOutstanding&quot;);&#xa;         btn_RefreshOutstanding.getActionMap().put(&quot;btn_RefreshOutstanding&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;               button.refresh_Outstanding();&#xa;                DealerAccount_1stLayer.generateIncomingDue();&#xa;                DealerAccount_1stLayer.generateUpdate();&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_RefreshOutstanding.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F1&lt;/font&gt;&lt;br/&gt;Refresh&lt;br/&gt;Records&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_GenerateCLTrans">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="11" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Credit_Line.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_GenerateCLTransFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_GenerateCLTransFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_GenerateCLTransMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_GenerateCLTransMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_GenerateCLTransActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_GenerateCLTrans.getInputMap(btn_GenerateCLTrans.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), &quot;btn_GenerateCLTrans&quot;);&#xa;         btn_GenerateCLTrans.getActionMap().put(&quot;btn_GenerateCLTrans&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;               button.generateCLForm();&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_GenerateCLTrans.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F3&lt;/font&gt;&lt;br/&gt;Generate&lt;br/&gt;Credit Line&lt;br/&gt;Transactions&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
+    </Component>
+  </SubComponents>
+</Form>

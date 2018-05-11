@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="33" green="33" red="33" type="rgb"/>
+    </Property>
+  </Properties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <Component id="btn_InventoryNew" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btn_InventoryUpdate" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btn_InventoryPO" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btn_InventoryStock" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="btn_InventoryLogout" min="-2" pref="148" max="-2" attributes="0"/>
+              <EmptySpace pref="608" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="btn_InventoryPO" min="-2" pref="89" max="-2" attributes="0"/>
+                  <Component id="btn_InventoryLogout" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+                  <Component id="btn_InventoryStock" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+                  <Component id="btn_InventoryUpdate" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+                  <Component id="btn_InventoryNew" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="btn_InventoryNew">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="12" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Product_New.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryNewFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryNewFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryNewMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryNewMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_InventoryNewActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_InventoryNew.getInputMap(btn_InventoryNew.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), &quot;btn_InventoryNew&quot;);&#xa;         btn_InventoryNew.getActionMap().put(&quot;btn_InventoryNew&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;               button.inventoryNew();&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_InventoryNew.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F3&lt;/font&gt;&lt;br/&gt;New&lt;br/&gt;Product&lt;br/&gt;&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_InventoryUpdate">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="12" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Product_Update.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryUpdateFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryUpdateFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryUpdateMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryUpdateMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_InventoryUpdateActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_InventoryUpdate.getInputMap(btn_InventoryUpdate.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), &quot;btn_InventoryUpdate&quot;);&#xa;         btn_InventoryUpdate.getActionMap().put(&quot;btn_InventoryUpdate&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;               button.inventoryUpdate();&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_InventoryUpdate.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F4&lt;/font&gt;&lt;br/&gt;Update&lt;br/&gt;Product&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_InventoryStock">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="12" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Product_AddDeduct.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryStockFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryStockFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryStockMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryStockMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_InventoryStockActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_InventoryStock.getInputMap(btn_InventoryStock.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0), &quot;btn_InventoryStock&quot;);&#xa;         btn_InventoryStock.getActionMap().put(&quot;btn_InventoryStock&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                button.inventoryStockMovement();&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_InventoryStock.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F6&lt;/font&gt;&lt;br/&gt;Inventory&lt;br/&gt;Movement&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_InventoryLogout">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="12" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Invoice Logut 2.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryLogoutFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryLogoutFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryLogoutMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryLogoutMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_InventoryLogoutActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_InventoryLogout.getInputMap(btn_InventoryLogout.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0), &quot;btn_InventoryLogout&quot;);&#xa;         btn_InventoryLogout.getActionMap().put(&quot;btn_InventoryLogout&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                System.exit(0);&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_InventoryLogout.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F11&lt;/font&gt;&lt;br/&gt;Logout&lt;br/&gt;Account&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_InventoryPO">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century" size="12" style="1"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/zIcons/Product Order.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryPOFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryPOFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryPOMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryPOMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_InventoryPOActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_InventoryPO.getInputMap(btn_InventoryPO.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), &quot;btn_InventoryPO&quot;);&#xa;         btn_InventoryPO.getActionMap().put(&quot;btn_InventoryPO&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                button.inventoryProductOrder();&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_InventoryPO.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F5&lt;/font&gt;&lt;br/&gt;Product&lt;br/&gt;Order&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+      </AuxValues>
+    </Component>
+  </SubComponents>
+</Form>

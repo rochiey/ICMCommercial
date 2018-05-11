@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9389f041-215a-4d65-8a29-7e2d07e51e5a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT product.idproduct AS 'Code', product.product_name AS 'Article Name', supplier.supplier_name AS 'Company Name', category.category_name AS 'Category', REPLACE(product.product_size, 'NULL', '-') AS 'Size', product_color.color_code AS 'Color Code',product.quantity AS 'Quantity', product.selling_price AS 'Retail Price', IFNULL(DATE_FORMAT(product.expiration, '%b. %d, %Y'),'-') AS 'Expiration Date', IFNULL(DATEDIFF(expiration,CURDATE()),'-') AS 'Remain. Days' FROM product,supplier,product_color,category WHERE product.supplier = supplier.idsupplier and product.category = category.idcategory and product.product_color = product_color.idproduct_color and quantity BETWEEN -1 AND 15]]>
+	</queryString>
+	<field name="Code" class="java.lang.Integer"/>
+	<field name="Article Name" class="java.lang.String"/>
+	<field name="Company Name" class="java.lang.String"/>
+	<field name="Category" class="java.lang.String"/>
+	<field name="Size" class="java.lang.String"/>
+	<field name="Color Code" class="java.lang.String"/>
+	<field name="Quantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Retail Price" class="java.lang.Double"/>
+	<field name="Expiration Date" class="java.lang.String"/>
+	<field name="Remain. Days" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="20" uuid="e82ada81-c0fc-484a-a38a-2d17e4689ef7"/>
+				<text><![CDATA[Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="80" height="20" uuid="55c9173e-37cf-4440-b06e-3b0ab9906d45"/>
+				<text><![CDATA[Article Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="80" height="20" uuid="58a42319-da9b-4634-9639-219ee0aa53b4"/>
+				<text><![CDATA[Company Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="0" width="80" height="20" uuid="92da9d70-0571-40ae-b318-53b7cabd321a"/>
+				<text><![CDATA[Category]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="80" height="20" uuid="bda40a55-9374-47cc-8c92-7883d5e77901"/>
+				<text><![CDATA[Size]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="80" height="20" uuid="55d29113-c1f6-44ed-b5aa-7e90f815c0d3"/>
+				<text><![CDATA[Color Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="80" height="20" uuid="d87bf477-aa30-4af6-8e69-258ab00a1380"/>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="560" y="0" width="80" height="20" uuid="e5e4f20a-60a3-471b-ab53-2d17f253480e"/>
+				<text><![CDATA[Retail Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="640" y="0" width="80" height="20" uuid="ef08a1f8-7345-4fbb-a2bf-066db39cf6a4"/>
+				<text><![CDATA[Expiration Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="720" y="0" width="80" height="20" uuid="cb3b2683-dba0-4a2f-a513-d3d42f08e9a5"/>
+				<text><![CDATA[Remain. Days]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="20" uuid="e23954a2-3ff8-4fc5-861f-6cc1e82fe174"/>
+				<textFieldExpression><![CDATA[$F{Code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="80" height="20" uuid="ed18c7ba-c2e7-4ba7-8b7a-103d80be817e"/>
+				<textFieldExpression><![CDATA[$F{Article Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="80" height="20" uuid="9caa4543-cbff-460b-9217-ae5257ca8fd1"/>
+				<textFieldExpression><![CDATA[$F{Company Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="80" height="20" uuid="98247ec3-98a1-4289-9b3d-e14351088a31"/>
+				<textFieldExpression><![CDATA[$F{Category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="80" height="20" uuid="9e83337e-293d-4d19-97cb-e90b5f7d506d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Size}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="80" height="20" uuid="9782b70f-631b-4d4f-b26c-ae0ec8f6c112"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Color Code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="80" height="20" uuid="733bd579-6a76-4b0b-b086-7e23abcfc895"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="560" y="0" width="80" height="20" uuid="fed8a3d7-a7fe-48ad-b1f5-aa99ff0a0a4e"/>
+				<textFieldExpression><![CDATA[$F{Retail Price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="640" y="0" width="80" height="20" uuid="464af7fb-f406-44fb-ab83-6752e626e2fb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Expiration Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="720" y="0" width="80" height="20" uuid="6c1c09b8-1aa3-431a-aac1-b1563737da0c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Remain. Days}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
