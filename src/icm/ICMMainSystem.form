@@ -83,8 +83,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Sales Order">
-                    <Property name="tabTitle" type="java.lang.String" value="Sales Order"/>
+                  <JTabbedPaneConstraints tabName="SALES ORDER">
+                    <Property name="tabTitle" type="java.lang.String" value="SALES ORDER"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -144,8 +144,8 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Inventory Management">
-                    <Property name="tabTitle" type="java.lang.String" value="Inventory Management"/>
+                  <JTabbedPaneConstraints tabName="INVENTORY">
+                    <Property name="tabTitle" type="java.lang.String" value="INVENTORY"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -195,8 +195,8 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Dealer Accounts">
-                    <Property name="tabTitle" type="java.lang.String" value="Dealer Accounts"/>
+                  <JTabbedPaneConstraints tabName="DEALER ACCOUNTS">
+                    <Property name="tabTitle" type="java.lang.String" value="DEALER ACCOUNTS"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -246,8 +246,8 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="User Accounts">
-                    <Property name="tabTitle" type="java.lang.String" value="User Accounts"/>
+                  <JTabbedPaneConstraints tabName="USER ACCOUNTS">
+                    <Property name="tabTitle" type="java.lang.String" value="USER ACCOUNTS"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -294,8 +294,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="System Reports">
-                    <Property name="tabTitle" type="java.lang.String" value="System Reports"/>
+                  <JTabbedPaneConstraints tabName="SYSTEM REPORTS">
+                    <Property name="tabTitle" type="java.lang.String" value="SYSTEM REPORTS"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>

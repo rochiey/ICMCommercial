@@ -155,7 +155,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
                 .addComponent(pnl_Sales3rdLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Tab_Main.addTab("Sales Order", pnl_SalesOrder);
+        Tab_Main.addTab("SALES ORDER", pnl_SalesOrder);
 
         pnl_InventoryManagement.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -178,7 +178,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
                 .addComponent(pnl_Inventory2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Tab_Main.addTab("Inventory Management", pnl_InventoryManagement);
+        Tab_Main.addTab("INVENTORY", pnl_InventoryManagement);
 
         pnl_DealerAccounts.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -201,7 +201,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
                 .addComponent(pnl_Dealer2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Tab_Main.addTab("Dealer Accounts", pnl_DealerAccounts);
+        Tab_Main.addTab("DEALER ACCOUNTS", pnl_DealerAccounts);
 
         pnl_UserAccounts.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -224,7 +224,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
                 .addComponent(pnl_User2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Tab_Main.addTab("User Accounts", pnl_UserAccounts);
+        Tab_Main.addTab("USER ACCOUNTS", pnl_UserAccounts);
 
         pnl_Reports.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -356,7 +356,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
             .addComponent(Tab_Report)
         );
 
-        Tab_Main.addTab("System Reports", pnl_Reports);
+        Tab_Main.addTab("SYSTEM REPORTS", pnl_Reports);
 
         pnl_Main.add(Tab_Main);
         /*Tab_Main.setEnabledAt(1, false);
