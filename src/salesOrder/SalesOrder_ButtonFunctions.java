@@ -216,7 +216,7 @@ public class SalesOrder_ButtonFunctions {
         }
         return sellingprice;
     }
-    private static int getDiscount(String barcode) //FOR NOW WALA PA NA CODE COZ WLAY DISCOUNT TXTFIELD SO ZERO TANAN DISCOUNT!!!!DOTA DOTADOTADOTADOTA
+    private static int getDiscount(String barcode) 
     {
         createDB(); int discount=0;
         try {

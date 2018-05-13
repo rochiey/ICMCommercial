@@ -3,6 +3,7 @@ package salesOrder;
 
 import com.JTableFixer;
 import static com.JTableFixer.setJTableColumnsWidth;
+import static dialog_salesOrder.SalesOrder_ButtonFunctions.clickedID_onTable;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
@@ -48,7 +49,7 @@ public class SalesPnl_2ndLayer extends javax.swing.JPanel {
         {
             int row = tbl_data.getSelectedRow();
             clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
-            SalesPnl_1stLayer.txt_SalesInput.setText(tbl_SalesCart.getValueAt(row, 1).toString());
+            dialog_salesOrder.SalesOrder_ButtonFunctions.clickedID_onTable = tbl_SalesCart.getValueAt(row, 1).toString();
         }
         
     }

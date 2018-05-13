@@ -75,16 +75,16 @@ public class SalesOrder_ButtonFunctions {
             }
         }
     }
-    public static int clickedID_onTable = 0;
-    public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
-    {
-        if(evt.getClickCount() >= 1 )
-        {
-            int row = tbl_data.getSelectedRow();
-            clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
-        }
-        
-    }
+    public static String clickedBarcode = "";
+//    public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
+//    {
+//        if(evt.getClickCount() >= 1 )
+//        {
+//            int row = tbl_data.getSelectedRow();
+//            clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
+//        }
+//        
+//    }
     
     protected void creditDateSort(javax.swing.JComboBox cboOption)
     {
@@ -129,9 +129,9 @@ public class SalesOrder_ButtonFunctions {
                     {
                         DecimalFormat df = new DecimalFormat("#,###.00");
                         salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(discount, i, 7);
-                        salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString());
-                        SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(Float.parseFloat(String.format("%.2f", getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7).toString(), txt_SalesInput)))), i, 8);
-                        salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(Float.parseFloat(String.format("%.2f", salesOrder.SalesOrder_ButtonFunctions.getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString(), txt_SalesInput)))), i, 9);
+                       // salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString());
+                        SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(Float.parseFloat(String.format("%.2f", getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString())))), i, 8);
+                        salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(Float.parseFloat(String.format("%.2f", salesOrder.SalesOrder_ButtonFunctions.getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString())))), i, 9);
                         salesOrder.SalesPnl_2ndLayer.getTotalNet();
                     }
                     break;
@@ -144,9 +144,9 @@ public class SalesOrder_ButtonFunctions {
                         try{
                             DecimalFormat df = new DecimalFormat("#,###.00");
                             salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(discount, SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7);
-                            salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString());
-                            SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(String.format("%.2f", getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), txt_SalesInput))), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8);
-                            salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(String.format("%.2f", salesOrder.SalesOrder_ButtonFunctions.getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5).toString(), txt_SalesInput))), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 9);
+                           // salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString());
+                            SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(String.format("%.2f", getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), clickedBarcode))), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8);
+                            salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(String.format("%.2f", salesOrder.SalesOrder_ButtonFunctions.getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5).toString(), clickedBarcode))), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 9);
                             salesOrder.SalesPnl_2ndLayer.getTotalNet();
                         }catch(NumberFormatException e)
                         {
