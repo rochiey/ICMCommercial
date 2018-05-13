@@ -54,9 +54,6 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
         });
         
     }
-    public void disableButtonSalesCart(boolean flag){
-        btn_SalesAddCart.setEnabled(flag);
-    }
     static Connection conn = null;
     static Statement stmt = null;
     static ResultSet rs = null;
@@ -110,9 +107,6 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
         tbl_SalesCustomerDetails = new javax.swing.JTable();
         lbl_SalesProductCode = new javax.swing.JLabel();
         txt_SalesInput = new javax.swing.JTextField();
-        txt_SalesQuantity = new javax.swing.JTextField();
-        lbl_SalesQty = new javax.swing.JLabel();
-        btn_SalesAddCart = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -151,35 +145,6 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
             }
         });
 
-        txt_SalesQuantity.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        txt_SalesQuantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        lbl_SalesQty.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lbl_SalesQty.setText("Qty:");
-
-        btn_SalesAddCart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Add Cart.png"))); // NOI18N
-        btn_SalesAddCart.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                btn_SalesAddCartFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                btn_SalesAddCartFocusLost(evt);
-            }
-        });
-        btn_SalesAddCart.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_SalesAddCartMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_SalesAddCartMouseExited(evt);
-            }
-        });
-        btn_SalesAddCart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SalesAddCartActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,14 +154,7 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_SalesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_SalesProductCode))
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txt_SalesQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(btn_SalesAddCart))
-                    .addComponent(lbl_SalesQty))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 666, Short.MAX_VALUE)
                 .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -209,48 +167,10 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbl_SalesProductCode)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_SalesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl_SalesQty)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_SalesQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_SalesAddCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(txt_SalesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_SalesAddCart, txt_SalesInput, txt_SalesQuantity});
-
-        btn_SalesAddCart.registerKeyboardAction(btn_SalesAddCart.getActionForKeyStroke(
-            KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
-        KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
-        JComponent.WHEN_FOCUSED);
-
-    btn_SalesAddCart.registerKeyboardAction(btn_SalesAddCart.getActionForKeyStroke(
-        KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
-    KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
-    JComponent.WHEN_FOCUSED);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_SalesAddCartFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesAddCartFocusGained
-        btn_SalesAddCart.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_SalesAddCartFocusGained
-
-    private void btn_SalesAddCartFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesAddCartFocusLost
-        btn_SalesAddCart.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_SalesAddCartFocusLost
-
-    private void btn_SalesAddCartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesAddCartMouseEntered
-        btn_SalesAddCart.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_SalesAddCartMouseEntered
-
-    private void btn_SalesAddCartMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesAddCartMouseExited
-        btn_SalesAddCart.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_SalesAddCartMouseExited
-
-    private void btn_SalesAddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesAddCartActionPerformed
-        button.addSalesCart();
-    }//GEN-LAST:event_btn_SalesAddCartActionPerformed
 
     private void txt_SalesInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_SalesInputActionPerformed
         //SalesOrder_ButtonFunctions.trigger -> is the object that holds the value of F3 changing
@@ -275,12 +195,9 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton btn_SalesAddCart;
     private javax.swing.JScrollPane jScrollPane16;
     public static javax.swing.JLabel lbl_SalesProductCode;
-    public static javax.swing.JLabel lbl_SalesQty;
     public static javax.swing.JTable tbl_SalesCustomerDetails;
     public static javax.swing.JTextField txt_SalesInput;
-    public static javax.swing.JTextField txt_SalesQuantity;
     // End of variables declaration//GEN-END:variables
 }

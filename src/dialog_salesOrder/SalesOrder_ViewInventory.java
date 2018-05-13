@@ -570,13 +570,13 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
 
     }//GEN-LAST:event_formWindowLostFocus
     public static int clickedID_onTable = 0;
-    public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
+    public void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
     {
         if(evt.getClickCount() >= 1 )
         {
             int row = tbl_data.getSelectedRow();
             clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
-            SalesPnl_1stLayer.txt_SalesInput.setText(clickedID_onTable+"");
+            button.ViewInventory_productID = clickedID_onTable; //pass the clicked id inside view inventory(sales order 0)
         }
     }
     private void txt_ProductNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ProductNameKeyReleased

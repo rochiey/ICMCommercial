@@ -26,7 +26,6 @@ import javax.swing.JTable;
 import static salesOrder.SalesOrder_ButtonFunctions.*;
 import salesOrder.SalesPnl_1stLayer;
 import static salesOrder.SalesPnl_1stLayer.txt_SalesInput;
-import static salesOrder.SalesPnl_1stLayer.txt_SalesQuantity;
 import salesOrder.SalesPnl_2ndLayer;
 
 
@@ -495,12 +494,12 @@ public class SalesOrder_ButtonFunctions {
         }
     }
     public static int inventoryView = 0;
-    public static boolean isHigherQuantity(javax.swing.JTextField idprod,int quantity)
+    public static boolean isHigherQuantity(int quantity)
     {
         createDB(); 
         int dbQuantity = 0;
         try {
-            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+idprod.getText());
+            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+ViewInventory_productID);
             while(rs.next())
             {
                 if(rs.getObject("quantity") != null)dbQuantity = Integer.parseInt(rs.getObject("quantity").toString());
@@ -512,23 +511,22 @@ public class SalesOrder_ButtonFunctions {
         if(quantity>dbQuantity) return true;
         else return false;
     }
+    protected static int ViewInventory_productID = 0;
     protected void addCart(){
         
             if(inventoryView==0)
             {
                         int quantity = Integer.parseInt(JOptionPane.showInputDialog("Quantity:"));
-                        SalesPnl_1stLayer.txt_SalesQuantity.setText(quantity+"");
-                        if(isHigherQuantity(salesOrder.SalesPnl_1stLayer.txt_SalesInput,quantity) || quantity <= 0)
+                        if(isHigherQuantity(quantity) || quantity <= 0) //higher && below quantity trapped
                         {
                             JOptionPane.showMessageDialog(null,"conflict with the product's stored quantity.");
-                            txt_SalesInput.setText("");
-                            SalesPnl_1stLayer.txt_SalesQuantity.setText("");
+                            SalesPnl_1stLayer.txt_SalesInput.setText("");
+                            ViewInventory_productID = 0; //revert to init
                         }
                         else{
                             
                             try{
-                                int TRAP = Integer.parseInt(txt_SalesInput.getText());
-                                if(!checkDuplicate(txt_SalesInput)){
+                                if(!checkDuplicate(ViewInventory_productID)){
                                     if(customerInfo[0][1] == "Dealer")
                                     {
                                         updateCustomerInfo();

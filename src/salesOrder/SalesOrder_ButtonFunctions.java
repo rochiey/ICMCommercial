@@ -139,30 +139,23 @@ public class SalesOrder_ButtonFunctions {
         SalesPnl_2ndLayer.tbl_SalesCart.setShowVerticalLines(true);
     }
     static Vector<Vector<Object>> poListRows = new Vector<Vector<Object>>();
-    public static void setProduct_toCart(javax.swing.JTextField txtidProduct)
+    public static void setProduct_toCart(String barcode)
     {
          DecimalFormat formatter = new DecimalFormat ("#, ###.00");
-         if(isHigherQuantity(txtidProduct,txt_SalesQuantity) || Integer.parseInt(txt_SalesQuantity.getText()) < 0){
-            JOptionPane.showMessageDialog(null, "Conflict with the product's stored quantity.");
-            txt_SalesInput.setText("");
-            txt_SalesQuantity.setText("");
-         }
-         else
-         {
-             Vector<Object>newRow = new Vector<Object>();
+            Vector<Object>newRow = new Vector<Object>();
             newRow.add(SalesPnl_2ndLayer.tbl_SalesCart.getRowCount()+1);
-            newRow.add(txtidProduct.getText());
-            newRow.add(getproductName(txtidProduct));
-            newRow.add(getColorCode(txtidProduct));
-            newRow.add(getSize(txtidProduct));
-            newRow.add(txt_SalesQuantity.getText());
-            newRow.add("₱"+formatter.format(Float.parseFloat(String.format("%.2f", getSellingPrice(txtidProduct)))));
-            newRow.add(getDiscount(txtidProduct));
-            newRow.add("₱"+formatter.format(Float.parseFloat(String.format("%.2f", getDiscountedPrice(txtidProduct)))));
-            newRow.add("₱"+formatter.format(Float.parseFloat(String.format("%.2f", getTotalPrice(txt_SalesQuantity.getText(), txtidProduct)))));
+            newRow.add(barcode);
+            newRow.add(getproductName(barcode));
+            newRow.add(getColorCode(barcode));
+            newRow.add(getSize(barcode));
+            newRow.add(1); //default quantity when scanning barcode. modify later using change quantity btn
+            newRow.add("₱"+formatter.format(Float.parseFloat(String.format("%.2f", getSellingPrice(barcode)))));
+            newRow.add(getDiscount(barcode));
+            newRow.add("₱"+formatter.format(Float.parseFloat(String.format("%.2f", getDiscountedPrice(barcode)))));
+            newRow.add("₱"+formatter.format(Float.parseFloat(String.format("%.2f", getTotalPrice(1, barcode)))));
             poListRows.add(newRow);
             SalesPnl_2ndLayer.tbl_SalesCart.setModel(SalesPnl_2ndLayer.tblModel = new DefaultTableModel(poListRows,SalesPnl_2ndLayer.colNames));
-         }
+        
     }
     private static Object getSize(javax.swing.JTextField idprod)
     {
@@ -192,7 +185,7 @@ public class SalesOrder_ButtonFunctions {
         }
         return color;
     }
-    public static boolean isHigherQuantity(javax.swing.JTextField idprod,javax.swing.JTextField txtQuantity)
+    public static boolean isHigherQuantity(String barcode,javax.swing.JTextField txtQuantity)
     {
         createDB(); int quantity = Integer.parseInt(txtQuantity.getText());
         int dbQuantity = 0;
@@ -489,25 +482,21 @@ public class SalesOrder_ButtonFunctions {
     public void SalesOrder_CDateSort() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public static boolean checkDuplicate(JTextField idprod)
+    public static boolean checkDuplicate(int idprod)
     {
-        boolean result = false;int id =0;
-        try{
-             id = Integer.parseInt(idprod.getText());
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Please enter correct Product ID");
-        }
+        boolean result = false;
+        
         int counter = salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getRowCount();
         for(int i=0;i<counter;i++)
         {
             int comparator = Integer.parseInt(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString());
-            if(comparator == id) result = true;
+            if(comparator == idprod) result = true;
         }
        return result;
     }
     protected void addSalesCartBarcode()
     {
-        
+        //init
     }
     protected void addSalesCart(){
         if (SalesPnl_1stLayer.lbl_SalesProductCode.getText().equals("Article Code:")){

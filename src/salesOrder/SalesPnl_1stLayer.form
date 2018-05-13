@@ -27,16 +27,7 @@
                   <Component id="txt_SalesInput" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
                   <Component id="lbl_SalesProductCode" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="txt_SalesQuantity" min="-2" pref="75" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="btn_SalesAddCart" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="lbl_SalesQty" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="523" max="32767" attributes="0"/>
+              <EmptySpace pref="666" max="32767" attributes="0"/>
               <Component id="jScrollPane16" min="-2" pref="346" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
@@ -51,15 +42,7 @@
                   <Group type="102" attributes="0">
                       <Component id="lbl_SalesProductCode" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txt_SalesInput" linkSize="1" min="-2" pref="40" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="lbl_SalesQty" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txt_SalesQuantity" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btn_SalesAddCart" linkSize="1" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="txt_SalesInput" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -148,46 +131,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_SalesInputActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt_SalesQuantity">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_SalesQty">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Qty:"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_SalesAddCart">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/zIcons/Add Cart.png"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_SalesAddCartFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_SalesAddCartFocusLost"/>
-        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_SalesAddCartMouseEntered"/>
-        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_SalesAddCartMouseExited"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_SalesAddCartActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_SalesAddCart.registerKeyboardAction(btn_SalesAddCart.getActionForKeyStroke(&#xa;    KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),&#xa;    KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),&#xa;    JComponent.WHEN_FOCUSED);&#xa;&#xa;btn_SalesAddCart.registerKeyboardAction(btn_SalesAddCart.getActionForKeyStroke(&#xa;    KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),&#xa;    KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),&#xa;    JComponent.WHEN_FOCUSED);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
