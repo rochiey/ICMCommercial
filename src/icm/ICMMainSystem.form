@@ -103,7 +103,7 @@
                           <Component id="pnl_Sales1stLayer" min="-2" pref="167" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Component id="pnl_Sales2ndLayer" min="-2" pref="435" max="-2" attributes="0"/>
-                          <EmptySpace pref="82" max="32767" attributes="0"/>
+                          <EmptySpace pref="78" max="32767" attributes="0"/>
                           <Component id="pnl_Sales3rdLayer" min="-2" pref="105" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -160,7 +160,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="pnl_Inventory1stLayer" pref="676" max="32767" attributes="0"/>
+                          <Component id="pnl_Inventory1stLayer" pref="672" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="pnl_Inventory2ndLayer" min="-2" pref="105" max="-2" attributes="0"/>
                       </Group>
@@ -211,7 +211,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="pnl_Dealer1stLayer" pref="676" max="32767" attributes="0"/>
+                          <Component id="pnl_Dealer1stLayer" pref="672" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="pnl_Dealer2ndLayer" min="-2" pref="105" max="-2" attributes="0"/>
                       </Group>
@@ -262,7 +262,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="pnl_User1stLayer" pref="676" max="32767" attributes="0"/>
+                          <Component id="pnl_User1stLayer" pref="672" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="pnl_User2ndLayer" min="-2" pref="105" max="-2" attributes="0"/>
                       </Group>
@@ -346,7 +346,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="pnl_Report1stLayer" pref="592" max="32767" attributes="0"/>
+                                  <Component id="pnl_Report1stLayer" pref="646" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnl_Report2ndLayer" min="-2" pref="105" max="-2" attributes="0"/>
                               </Group>
@@ -394,7 +394,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="pnl_InvStatus1stLayer" pref="592" max="32767" attributes="0"/>
+                                  <Component id="pnl_InvStatus1stLayer" pref="646" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnl_InvStatus2ndLayer" min="-2" pref="105" max="-2" attributes="0"/>
                               </Group>
@@ -442,7 +442,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="pnl_InvTransactions1stLayer" pref="592" max="32767" attributes="0"/>
+                                  <Component id="pnl_InvTransactions1stLayer" pref="646" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnl_InvTransactions2ndLayer" min="-2" pref="105" max="-2" attributes="0"/>
                               </Group>
@@ -490,7 +490,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="pnl_Return1stLayer" pref="592" max="32767" attributes="0"/>
+                                  <Component id="pnl_Return1stLayer" pref="646" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnl_Return2ndLayer" min="-2" pref="105" max="-2" attributes="0"/>
                               </Group>
@@ -538,7 +538,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="pnl_Outstanding1stLayer" pref="592" max="32767" attributes="0"/>
+                                  <Component id="pnl_Outstanding1stLayer" pref="646" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="pnl_Outstanding2ndLayer" min="-2" pref="105" max="-2" attributes="0"/>
                               </Group>

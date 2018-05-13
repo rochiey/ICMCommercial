@@ -151,7 +151,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
                 .addComponent(pnl_Sales1stLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(pnl_Sales2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(pnl_Sales3rdLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -173,7 +173,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_InventoryManagementLayout.setVerticalGroup(
             pnl_InventoryManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_InventoryManagementLayout.createSequentialGroup()
-                .addComponent(pnl_Inventory1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+                .addComponent(pnl_Inventory1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnl_Inventory2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -196,7 +196,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_DealerAccountsLayout.setVerticalGroup(
             pnl_DealerAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_DealerAccountsLayout.createSequentialGroup()
-                .addComponent(pnl_Dealer1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+                .addComponent(pnl_Dealer1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnl_Dealer2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -219,7 +219,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_UserAccountsLayout.setVerticalGroup(
             pnl_UserAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_UserAccountsLayout.createSequentialGroup()
-                .addComponent(pnl_User1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+                .addComponent(pnl_User1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnl_User2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -246,7 +246,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_SalesReportLayout.setVerticalGroup(
             pnl_SalesReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_SalesReportLayout.createSequentialGroup()
-                .addComponent(pnl_Report1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addComponent(pnl_Report1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnl_Report2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -269,7 +269,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_InventoryStatusLayout.setVerticalGroup(
             pnl_InventoryStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_InventoryStatusLayout.createSequentialGroup()
-                .addComponent(pnl_InvStatus1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addComponent(pnl_InvStatus1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnl_InvStatus2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -292,7 +292,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_InventoryReportLayout.setVerticalGroup(
             pnl_InventoryReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_InventoryReportLayout.createSequentialGroup()
-                .addComponent(pnl_InvTransactions1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addComponent(pnl_InvTransactions1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnl_InvTransactions2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -315,7 +315,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_ReturnReportLayout.setVerticalGroup(
             pnl_ReturnReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_ReturnReportLayout.createSequentialGroup()
-                .addComponent(pnl_Return1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addComponent(pnl_Return1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnl_Return2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -338,7 +338,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_OutstandingReportLayout.setVerticalGroup(
             pnl_OutstandingReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_OutstandingReportLayout.createSequentialGroup()
-                .addComponent(pnl_Outstanding1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addComponent(pnl_Outstanding1stLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnl_Outstanding2ndLayer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
