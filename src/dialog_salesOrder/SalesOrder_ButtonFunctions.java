@@ -518,7 +518,7 @@ public class SalesOrder_ButtonFunctions {
             {
                         int quantity = Integer.parseInt(JOptionPane.showInputDialog("Quantity:"));
                         SalesPnl_1stLayer.txt_SalesQuantity.setText(quantity+"");
-                        if(isHigherQuantity(salesOrder.SalesPnl_1stLayer.txt_SalesInput,quantity) || quantity < 0)
+                        if(isHigherQuantity(salesOrder.SalesPnl_1stLayer.txt_SalesInput,quantity) || quantity <= 0)
                         {
                             JOptionPane.showMessageDialog(null,"conflict with the product's stored quantity.");
                             txt_SalesInput.setText("");
