@@ -499,7 +499,7 @@ public class SalesOrder_ButtonFunctions {
         createDB(); 
         int dbQuantity = 0;
         try {
-            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+ViewInventory_productID);
+            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+barcode);
             while(rs.next())
             {
                 if(rs.getObject("quantity") != null)dbQuantity = Integer.parseInt(rs.getObject("quantity").toString());
@@ -511,7 +511,7 @@ public class SalesOrder_ButtonFunctions {
         if(quantity>dbQuantity) return true;
         else return false;
     }
-    protected static int ViewInventory_productID = 0;
+    protected static String barcode = "";
     protected void addCart(){
         
             if(inventoryView==0)
@@ -521,16 +521,16 @@ public class SalesOrder_ButtonFunctions {
                         {
                             JOptionPane.showMessageDialog(null,"conflict with the product's stored quantity.");
                             SalesPnl_1stLayer.txt_SalesInput.setText("");
-                            ViewInventory_productID = 0; //revert to init
+                            this.barcode = ""; //revert to init
                         }
                         else{
                             
                             try{
-                                if(!checkDuplicate(ViewInventory_productID)){
+                                if(!checkDuplicate(barcode)){
                                     if(customerInfo[0][1] == "Dealer")
                                     {
                                         updateCustomerInfo();
-                                        setProduct_toCart(txt_SalesInput);
+                                        setProduct_toCart(this.barcode);
                                         SalesPnl_2ndLayer.getTotalNet();
                                     }else{
                                         customerInfo[0][1] = "Walk-in";
@@ -540,7 +540,7 @@ public class SalesOrder_ButtonFunctions {
                                         customerInfo[4][1]="₱0.00";
                                         updateCustomerInfo();
                                         getCustomerName();
-                                        setProduct_toCart(txt_SalesInput);
+                                        setProduct_toCart(this.barcode);
                                         SalesPnl_2ndLayer.getTotalNet();
                                     }
                                 }
@@ -556,21 +556,21 @@ public class SalesOrder_ButtonFunctions {
                                             try
                                             {
                                                 rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1));
-                                            while(rs.next())
-                                            {
-                                                currentQuantity = rs.getInt("quantity");
-                                            }
-                                            if(quantity<currentQuantity && quantity >0)
-                                            {
-                                                salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(quantity, i, 5);
-                                                salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1).toString());
-                                                StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 8).toString());
-                                                sb.deleteCharAt(0);
-                                                Float discountedPrice = Float.parseFloat(sb.toString());
-                                                discountedPrice*=quantity;
-                                                salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(String.format("%.2f", discountedPrice)), i, 9);
-                                                salesOrder.SalesPnl_2ndLayer.getTotalNet();
-                                            }else JOptionPane.showMessageDialog(null, "The input quantity is either above the stored quantity or below zero. Please try again.");
+                                                while(rs.next())
+                                                {
+                                                    currentQuantity = rs.getInt("quantity");
+                                                }
+                                                if(quantity<currentQuantity && quantity >0)
+                                                {
+                                                    salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(quantity, i, 5);
+                                                    salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1).toString());
+                                                    StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 8).toString());
+                                                    sb.deleteCharAt(0);
+                                                    Float discountedPrice = Float.parseFloat(sb.toString());
+                                                    discountedPrice*=quantity;
+                                                    salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(String.format("%.2f", discountedPrice)), i, 9);
+                                                    salesOrder.SalesPnl_2ndLayer.getTotalNet();
+                                                }else JOptionPane.showMessageDialog(null, "The input quantity is either above the stored quantity or below zero. Please try again.");
                                             }catch(SQLException e)
                                             {
                                                 e.printStackTrace();
@@ -588,7 +588,7 @@ public class SalesOrder_ButtonFunctions {
             }
             else if(inventoryView==1)
             {
-                dialog_inventory.Inventory_ProductMovement.txt_ArticleName.setText(dialog_salesOrder.SalesOrder_ViewInventory.clickedID_onTable+"");
+                dialog_inventory.Inventory_ProductMovement.txt_ArticleName.setText(dialog_salesOrder.SalesOrder_ViewInventory.clickedBarcode_onTable+"");
                 
             }
     }

@@ -49,7 +49,6 @@ public class SalesPnl_2ndLayer extends javax.swing.JPanel {
             int row = tbl_data.getSelectedRow();
             clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
             SalesPnl_1stLayer.txt_SalesInput.setText(tbl_SalesCart.getValueAt(row, 1).toString());
-            SalesPnl_1stLayer.txt_SalesQuantity.setText(tbl_SalesCart.getValueAt(row, 5).toString());
         }
         
     }
@@ -180,11 +179,11 @@ public class SalesPnl_2ndLayer extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Unit No.", "Code", "Name", "Color", "Size", "Qty", "Selling Price", "Discount", "Discounted Price", "Total Price"
+                "Unit No.", "Barcode", "Name", "Color", "Size", "Qty", "Selling Price", "Discount", "Discounted Price", "Total Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, false, false, false, false, false, false
+                true, true, false, true, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
