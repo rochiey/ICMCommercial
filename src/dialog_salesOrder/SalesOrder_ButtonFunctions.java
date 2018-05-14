@@ -179,7 +179,6 @@ public class SalesOrder_ButtonFunctions {
                 if(quantity<currentQuantity && quantity >0)
                 {
                     salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(quantity, SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5);
-                    salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1).toString());
                     StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8).toString());
                     sb.deleteCharAt(0);
                     Float discountedPrice = Float.parseFloat(sb.toString());

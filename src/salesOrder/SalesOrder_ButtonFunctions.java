@@ -545,13 +545,16 @@ public class SalesOrder_ButtonFunctions {
                                 {
                                     currentQuantity = rs.getInt("quantity");
                                 }
-                                salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(++cartQuantity, i, 5);
-                                StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 8).toString());
-                                sb.deleteCharAt(0); //take peso sign
-                                Float discountedPrice = Float.parseFloat(sb.toString()); //cast to float
-                                discountedPrice*=(cartQuantity);
-                                salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(discountedPrice), i, 9);
-                                salesOrder.SalesPnl_2ndLayer.getTotalNet();
+                                if(cartQuantity<=currentQuantity && cartQuantity>0)
+                                {
+                                    salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(++cartQuantity, i, 5);
+                                    StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 8).toString());
+                                    sb.deleteCharAt(0); //take peso sign
+                                    Float discountedPrice = Float.parseFloat(sb.toString()); //cast to float
+                                    discountedPrice*=(cartQuantity);
+                                    salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(discountedPrice), i, 9);
+                                    salesOrder.SalesPnl_2ndLayer.getTotalNet();
+                                }
                             }
                         }
                        // JOptionPane.showMessageDialog(null, "You can't add the same product again. You might want to edit the quantity?");
