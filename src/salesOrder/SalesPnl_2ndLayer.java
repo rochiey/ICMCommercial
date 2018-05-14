@@ -42,7 +42,7 @@ public class SalesPnl_2ndLayer extends javax.swing.JPanel {
         tbl_SalesCart.setModel(tblModel = new DefaultTableModel(initial,SalesPnl_2ndLayer.colNames));
         setJTable();
     }
-    static int clickedID_onTable;
+    static int clickedID_onTable = 0;
     public static void tableclicked(java.awt.event.MouseEvent evt,javax.swing.JTable tbl_data)
     {
         if(evt.getClickCount() >= 1 )

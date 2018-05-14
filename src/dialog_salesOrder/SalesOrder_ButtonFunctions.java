@@ -171,7 +171,7 @@ public class SalesOrder_ButtonFunctions {
                 Integer quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter new quantity"));
                 createDB();
                 int currentQuantity=0;
-                rs = stmt.executeQuery("SELECT quantity FROM product WHERE product.barcode='"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1)+"'");
+                rs = stmt.executeQuery("SELECT quantity FROM product WHERE product.barcode='"+this.clickedBarcode+"'");
                 while(rs.next())
                 {
                     currentQuantity = rs.getInt("quantity");

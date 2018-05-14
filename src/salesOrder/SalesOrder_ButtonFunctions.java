@@ -362,14 +362,14 @@ public class SalesOrder_ButtonFunctions {
         generateCustomerInfo(ID);
     }
     public static int clickedID_onTable = 0;
-    public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
-    {
-        if(evt.getClickCount() >= 1 )
-        {
-            int row = tbl_data.getSelectedRow();
-            clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
-        }
-    }
+//    public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data) 
+//    {
+//        if(evt.getClickCount() >= 1 )
+//        {
+//            int row = tbl_data.getSelectedRow();
+//            clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
+//        }
+//    }
     public static void SalesOrderNew(){
         salesOrder.SalesOrder_ButtonFunctions.cleanCustomerInfo();
         SalesPnl_2ndLayer.tblModel.setRowCount(0);
@@ -545,7 +545,7 @@ public class SalesOrder_ButtonFunctions {
                                 {
                                     currentQuantity = rs.getInt("quantity");
                                 }
-                                if(cartQuantity<=currentQuantity && cartQuantity>0)
+                                if(cartQuantity<currentQuantity && cartQuantity>0)
                                 {
                                     salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(++cartQuantity, i, 5);
                                     StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 8).toString());
@@ -555,6 +555,7 @@ public class SalesOrder_ButtonFunctions {
                                     salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(discountedPrice), i, 9);
                                     salesOrder.SalesPnl_2ndLayer.getTotalNet();
                                 }
+                                else JOptionPane.showMessageDialog(null, "Quantity of selected product is reach of limit.");
                             }
                         }
                        // JOptionPane.showMessageDialog(null, "You can't add the same product again. You might want to edit the quantity?");
