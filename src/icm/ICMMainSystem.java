@@ -127,6 +127,11 @@ public class ICMMainSystem extends javax.swing.JFrame {
 
         Tab_Main.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
         Tab_Main.setPreferredSize(new java.awt.Dimension(1366, 768));
+        Tab_Main.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                Tab_MainStateChanged(evt);
+            }
+        });
 
         pnl_SalesOrder.setBackground(new java.awt.Color(255, 255, 255));
         pnl_SalesOrder.setPreferredSize(new java.awt.Dimension(1361, 768));
@@ -382,6 +387,13 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Tab_MainStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_Tab_MainStateChanged
+        if(pnl_SalesOrder.isShowing())
+        {
+            salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_Tab_MainStateChanged
     static Connection conn = null;
     static Statement stmt = null;
     static ResultSet rs = null; 

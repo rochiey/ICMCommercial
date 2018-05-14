@@ -172,7 +172,7 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
             button.addSalesCart();
             txt_SalesInput.setText("");
         } else {
-            // some character has been read, append it to your "barcode cache"
+            // if barcode scanner's default input is not enter
         }
     }//GEN-LAST:event_txt_SalesInputKeyReleased
 
