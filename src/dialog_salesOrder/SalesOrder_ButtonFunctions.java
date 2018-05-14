@@ -176,7 +176,7 @@ public class SalesOrder_ButtonFunctions {
                 {
                     currentQuantity = rs.getInt("quantity");
                 }
-                if(quantity<currentQuantity && quantity >0)
+                if(quantity<=currentQuantity && quantity >0)
                 {
                     salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(quantity, SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5);
                     StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8).toString());
