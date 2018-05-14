@@ -20,40 +20,8 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
     public SalesPnl_1stLayer() {
         initComponents();
         SalesOrder_ButtonFunctions.cleanCustomerInfo();
-        barcodeListener();  
     }
-    private void barcodeListener()
-    {
-        txt_SalesInput.getDocument().addDocumentListener(new DocumentListener() {
-            Timer timer;
-            {
-                this.timer = new Timer(100, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        button.salesBarcode = txt_SalesInput.getText();
-                        button.addSalesCart();
-                        txt_SalesInput.setText("");
-                    }
-                });
-                timer.setRepeats(false);
-            }
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                if (timer.isRunning()) {
-                    timer.restart();
-                } else {    
-                    timer.start();
-                }
-            }
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-            }
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-        
-    }
+    
     static Connection conn = null;
     static Statement stmt = null;
     static ResultSet rs = null;
@@ -144,6 +112,11 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
                 txt_SalesInputActionPerformed(evt);
             }
         });
+        txt_SalesInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_SalesInputKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -192,6 +165,16 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
         }
        
     }//GEN-LAST:event_txt_SalesInputActionPerformed
+
+    private void txt_SalesInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SalesInputKeyReleased
+        if(evt.getKeyCode() == evt.VK_ENTER) {
+            button.salesBarcode = txt_SalesInput.getText();
+            button.addSalesCart();
+            txt_SalesInput.setText("");
+        } else {
+            // some character has been read, append it to your "barcode cache"
+        }
+    }//GEN-LAST:event_txt_SalesInputKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
