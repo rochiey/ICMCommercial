@@ -399,6 +399,14 @@ public class SalesOrder_ButtonFunctions {
 //            trigger="product";
 //        }
 //    }
+    protected void viewDealers()
+    {
+        Dealer_ViewAccount dealer = new Dealer_ViewAccount(null, true);
+        dealer.flag=2;
+        dealer.pack();
+        dealer.setLocationRelativeTo(null);
+        dealer.setVisible(true);
+    }
      
     protected void SalesOrderView(){
         if (lbl_SalesProductCode.getText().equals("Article Code:")){
@@ -407,14 +415,6 @@ public class SalesOrder_ButtonFunctions {
             sales.pack();
             sales.setLocationRelativeTo(null);
             sales.setVisible(true);
-        }
-        else{
-            Dealer_ViewAccount dealer = new Dealer_ViewAccount(null, true);
-            dealer.flag=2;
-            dealer.pack();
-            dealer.setLocationRelativeTo(null);
-            dealer.setVisible(true);
-            
         }
     }
     

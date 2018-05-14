@@ -516,7 +516,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_SalesTenderActionPerformed
 
     private void btn_SalesInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesInputActionPerformed
-        
+        button.viewDealers();
     }//GEN-LAST:event_btn_SalesInputActionPerformed
 
     private void btn_SalesViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesViewActionPerformed
