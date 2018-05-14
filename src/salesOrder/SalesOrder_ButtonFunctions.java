@@ -379,26 +379,26 @@ public class SalesOrder_ButtonFunctions {
         salesOrder.SalesOrder_ButtonFunctions.clickedID_onTable=0;
     }
     public static String trigger ="product";
-    protected void SalesOrderInput(){
-        if (SalesPnl_1stLayer.lbl_SalesProductCode.getText().equals("Article Code:")){
-            lbl_SalesProductCode.setText("Customer Name/Code:");
-            txt_SalesInput.setText("");
-            btn_SalesInput.setText("<html><center><font color=blue>F3</font><br/>Product Input</center></html>");
-            btn_SalesInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice inv.png")));
-            btn_SalesView.setText("<html><center><font color=blue>F4</font><center>View<br/>Dealers</html>");
-            btn_SalesView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice_View Dealer.png")));
-            trigger = "customer";
-        }
-        else{
-            lbl_SalesProductCode.setText("Article Code:");
-            txt_SalesInput.setText("");
-            btn_SalesInput.setText("<html><center><font color=blue>F3</font><br/>Customer<br/>Input</center></html>");
-            btn_SalesInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice Customer 2.png")));
-            btn_SalesView.setText("<html><center><font color=blue>F4</font><center>View<br/>Inventory</html>");
-            btn_SalesView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice_View Inventory.png")));
-            trigger="product";
-        }
-    }
+//    protected void SalesOrderInput(){
+//        if (SalesPnl_1stLayer.lbl_SalesProductCode.getText().equals("Article Code:")){
+//            lbl_SalesProductCode.setText("Customer Name/Code:");
+//            txt_SalesInput.setText("");
+//            btn_SalesInput.setText("<html><center><font color=blue>F3</font><br/>Product Input</center></html>");
+//            btn_SalesInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice inv.png")));
+//            btn_SalesView.setText("<html><center><font color=blue>F4</font><center>View<br/>Dealers</html>");
+//            btn_SalesView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice_View Dealer.png")));
+//            trigger = "customer";
+//        }
+//        else{
+//            lbl_SalesProductCode.setText("Article Code:");
+//            txt_SalesInput.setText("");
+//            btn_SalesInput.setText("<html><center><font color=blue>F3</font><br/>Customer<br/>Input</center></html>");
+//            btn_SalesInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice Customer 2.png")));
+//            btn_SalesView.setText("<html><center><font color=blue>F4</font><center>View<br/>Inventory</html>");
+//            btn_SalesView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice_View Inventory.png")));
+//            trigger="product";
+//        }
+//    }
      
     protected void SalesOrderView(){
         if (lbl_SalesProductCode.getText().equals("Article Code:")){

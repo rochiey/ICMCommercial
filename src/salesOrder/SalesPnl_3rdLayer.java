@@ -87,8 +87,8 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
         });
 
         btn_SalesInput.setFont(new java.awt.Font("Century", 1, 12)); // NOI18N
-        btn_SalesInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice Customer 2.png"))); // NOI18N
-        btn_SalesInput.setText("<html><center><font color=blue>F3</font><br/>Customer<br/>Input</center></html>");
+        btn_SalesInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice_View Dealer.png"))); // NOI18N
+        btn_SalesInput.setText("<html><center><font color=blue>F3</font><br/>View<br/>Dealers</center></html>");
         btn_SalesInput.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 btn_SalesInputFocusGained(evt);
@@ -322,12 +322,6 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
                 //else JOptionPane.showMessageDialog(null,"Please select an item again.");
             }
         });
-        btn_SalesInput.getInputMap(btn_SalesInput.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), "btn_SalesInput");
-        btn_SalesInput.getActionMap().put("btn_SalesInput", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                button.SalesOrderInput();
-            }
-        });
         btn_SalesView.getInputMap(btn_SalesView.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), "btn_SalesView");
         btn_SalesView.getActionMap().put("btn_SalesView", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
@@ -522,7 +516,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_SalesTenderActionPerformed
 
     private void btn_SalesInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesInputActionPerformed
-        button.SalesOrderInput();
+        
     }//GEN-LAST:event_btn_SalesInputActionPerformed
 
     private void btn_SalesViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesViewActionPerformed
