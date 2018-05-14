@@ -576,7 +576,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         {
             int row = tbl_data.getSelectedRow();
             clickedBarcode_onTable = tbl_data.getModel().getValueAt(row, 0).toString();
-            button.barcode = clickedBarcode_onTable; //pass the clicked barcode inside view inventory(sales order 0)
+            button.dialogSalesBarcode = clickedBarcode_onTable; //pass the clicked barcode inside view inventory(sales order 0)
         }
     }
     private void txt_ProductNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ProductNameKeyReleased

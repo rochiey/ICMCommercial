@@ -30,8 +30,8 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
                 this.timer = new Timer(100, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String barcode = txt_SalesInput.getText();
-                        button.setProduct_toCart(barcode);
+                        button.salesBarcode = txt_SalesInput.getText();
+                        button.addSalesCart();
                         txt_SalesInput.setText("");
                     }
                 });

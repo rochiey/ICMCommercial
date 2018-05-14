@@ -481,7 +481,7 @@ public class SalesOrder_ButtonFunctions {
         for(int i=0;i<counter;i++)
         {
             String comparator = salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString();
-            if(comparator == barcode) result = true;
+            if(comparator.equals(barcode)) result = true;
         }
        return result;
     }
@@ -491,124 +491,82 @@ public class SalesOrder_ButtonFunctions {
         
         return barcode;
     }
-//    protected void addSalesCart(){
-//        if (SalesPnl_1stLayer.lbl_SalesProductCode.getText().equals("Article Code:")){
-//            if (txt_SalesQuantity.isEnabled()){
-//                if(txt_SalesInput.getText().equals("") || txt_SalesQuantity.getText().equals("")){
-//                    JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please make sure that you fill-out all the fields<font color=white>..</font>"
-//                        + "<br/>before adding product to the cart and try again.</font></center></html>", "Error Message", 0);
-//                }
-//                 else{
-//                    //ADD TO CART
-//                    try{
-//                        int TRAP = Integer.parseInt(txt_SalesInput.getText());
-//                        createDB();
-//                        try {
-//                            boolean found = false;
-//                            rs = stmt.executeQuery("SELECT idproduct FROM product");
-//                            while(rs.next())
-//                            {
-//                                if(rs.getInt("idproduct") == TRAP) found = true;
-//                            }
-//                            if(found)
-//                            {
-//                                if(!checkDuplicate(txt_SalesInput)){
-//                                    if(customerInfo[0][1] == "Dealer")
-//                                    {
-//                                        updateCustomerInfo();
-//                                        setProduct_toCart(txt_SalesInput);
-//                                        SalesPnl_2ndLayer.getTotalNet();
-//                                         txt_SalesInput.setText("");
-//                                         txt_SalesQuantity.setText("");
-//                                    }else{
-//                                        setProduct_toCart(txt_SalesInput);
-//                                        customerInfo[0][1] = "Walk-in";
-//                                        customerInfo[1][1] = " ";
-//                                        customerInfo[2][1]="₱0.00";
-//                                        customerInfo[3][1]="₱0.00";
-//                                        customerInfo[4][1]="₱0.00";
-//                                        updateCustomerInfo();
-//                                        getCustomerName();
-//                                        SalesPnl_2ndLayer.getTotalNet();
-//                                        txt_SalesInput.setText("");
-//                                        txt_SalesQuantity.setText("");
-//                                        }
-//                                }
-//                                else{
-//                                    int quantity = Integer.parseInt(txt_SalesQuantity.getText());
-//                                    for(int i=0;i<salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getRowCount();i++)
-//                                    {
-//                                        DecimalFormat df = new DecimalFormat("#,###.00");
-//                                        if(txt_SalesInput.getText().equals(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString()))
-//                                        {
-//                                            createDB();
-//                                            int currentQuantity=0;
-//                                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1));
-//                                            while(rs.next())
-//                                            {
-//                                                currentQuantity = rs.getInt("quantity");
-//                                            }
-//                                            if(quantity<=currentQuantity && quantity >0)
-//                                            {
-//                                                salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(quantity, i, 5);
-//                                                salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1).toString());
-//                                                StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 8).toString());
-//                                                sb.deleteCharAt(0);
-//                                                Float discountedPrice = Float.parseFloat(sb.toString());
-//                                                discountedPrice*=quantity;
-//                                                salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(discountedPrice), i, 9);
-//                                                salesOrder.SalesPnl_2ndLayer.getTotalNet();
-//                                            }else JOptionPane.showMessageDialog(null, "The input quantity is either above the stored quantity or below zero. Please try again.");
-//                                        }
-//                                    }
-//                                   // JOptionPane.showMessageDialog(null, "You can't add the same product again. You might want to edit the quantity?");
-//                                }
-//                            }
-//                            else JOptionPane.showMessageDialog(null, "Article not found");
-//                        } catch (SQLException ex) {
-//                            Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    }catch(NumberFormatException e)
-//                    {
-//                        JOptionPane.showMessageDialog(null, "Please enter Product ID/Quantity correctly");
-//                    }
-//                    SalesPnl_2ndLayer.getTotalNet();
-//                }
-//            }
-//             else{
-//                if(txt_SalesInput.getText().equals("")  || txt_SalesQuantity.getText().equals("")){
-//                    JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please make sure that you fill-out all the fields<font color=white>..</font>"
-//                        + "<br/>before adding product to the cart and try again.</font></center></html>", "Error Message", 0);
-//                }
-//                else{
-//                     
-//                }
-//            }
-//        }
-//        else{
-//            if(txt_SalesInput.getText().equals("")){
-//                JOptionPane.showMessageDialog(null, "Please input customer id or name.", "Error Message", 0);
-//            }
-//            else{
-//                if(SalesOrder_ButtonFunctions.trigger.equals("customer")){
-//                        if(SalesPnl_2ndLayer.tbl_SalesCart.getRowCount() == 0){
-//                            try
-//                            {
-//                                int dealer = Integer.parseInt(txt_SalesInput.getText());
-//                                SalesOrder_ButtonFunctions.customerInfo[0][1]="Dealer";
-//                                SalesOrder_ButtonFunctions.getCustomerName();
-//                            }catch(NumberFormatException e)
-//                            {
-//                                SalesOrder_ButtonFunctions.customerInfo[0][1]="Walk-in";
-//                                SalesOrder_ButtonFunctions.getCustomerName();
-//                            }
-//                        }
-//                        else JOptionPane.showMessageDialog(null, "There is ongoing transaction. Cannot modify customer.");
-//                }
-//            }
-//        }
-//        
-//    }
+    public static String salesBarcode = "";
+    protected void addSalesCart(){
+        //ADD TO CART
+        try{
+            String TRAP = this.salesBarcode;
+            createDB();
+            try {
+                int cartQuantity=0;
+                boolean found = false;
+                rs = stmt.executeQuery("SELECT barcode FROM product");
+                while(rs.next())
+                {
+                    if(rs.getString("barcode").equals(TRAP.toString()))
+                    {
+                        found = true;
+                    }
+                }
+                if(found)
+                {
+                    if(!checkDuplicate(this.salesBarcode)){ //for not duplicated
+                        if(customerInfo[0][1] == "Dealer")
+                        {
+                            updateCustomerInfo();
+                            setProduct_toCart(this.salesBarcode);
+                            SalesPnl_2ndLayer.getTotalNet();
+                            txt_SalesInput.setText("");
+                        }else{
+                            setProduct_toCart(this.salesBarcode);
+                            customerInfo[0][1] = "Walk-in";
+                            customerInfo[1][1] = " ";
+                            customerInfo[2][1]="₱0.00";
+                            customerInfo[3][1]="₱0.00";
+                            customerInfo[4][1]="₱0.00";
+                            updateCustomerInfo();
+                            getCustomerName();
+                            SalesPnl_2ndLayer.getTotalNet();
+                            txt_SalesInput.setText("");
+                            }
+                    }
+                    else{ //if found duplicate barcode
+                        
+                        for(int i=0;i<salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getRowCount();i++)
+                        {
+                            DecimalFormat df = new DecimalFormat("#,###.00");
+                            if(this.salesBarcode.equals(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString()))
+                            {
+                                cartQuantity = Integer.parseInt(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString());
+                                createDB();
+                                int currentQuantity=0;
+                                rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+this.salesBarcode+"'");
+                                while(rs.next())
+                                {
+                                    currentQuantity = rs.getInt("quantity");
+                                }
+                                salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(++cartQuantity, i, 5);
+                                StringBuilder sb = new StringBuilder(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 8).toString());
+                                sb.deleteCharAt(0); //take peso sign
+                                Float discountedPrice = Float.parseFloat(sb.toString()); //cast to float
+                                discountedPrice*=(cartQuantity);
+                                salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(discountedPrice), i, 9);
+                                salesOrder.SalesPnl_2ndLayer.getTotalNet();
+                            }
+                        }
+                       // JOptionPane.showMessageDialog(null, "You can't add the same product again. You might want to edit the quantity?");
+                    }
+                }
+                else JOptionPane.showMessageDialog(null, "Article not found");
+            } catch (SQLException ex) {
+                Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null, "Please enter Product ID/Quantity correctly");
+        }
+        this.salesBarcode = ""; //revert to init
+    }
     
     protected void SalesOrderReturn(){
         SalesOrder_ReturnForm sales = new SalesOrder_ReturnForm(null, true);

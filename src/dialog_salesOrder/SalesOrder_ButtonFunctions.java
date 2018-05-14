@@ -171,7 +171,7 @@ public class SalesOrder_ButtonFunctions {
                 Integer quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter new quantity"));
                 createDB();
                 int currentQuantity=0;
-                rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1));
+                rs = stmt.executeQuery("SELECT quantity FROM product WHERE product.barcode='"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1)+"'");
                 while(rs.next())
                 {
                     currentQuantity = rs.getInt("quantity");
@@ -499,7 +499,7 @@ public class SalesOrder_ButtonFunctions {
         createDB(); 
         int dbQuantity = 0;
         try {
-            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+barcode);
+            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+dialogSalesBarcode);
             while(rs.next())
             {
                 if(rs.getObject("quantity") != null)dbQuantity = Integer.parseInt(rs.getObject("quantity").toString());
@@ -511,7 +511,7 @@ public class SalesOrder_ButtonFunctions {
         if(quantity>dbQuantity) return true;
         else return false;
     }
-    protected static String barcode = "";
+    protected static String dialogSalesBarcode = "";
     protected void addCart(){
         
             if(inventoryView==0)
@@ -521,16 +521,16 @@ public class SalesOrder_ButtonFunctions {
                         {
                             JOptionPane.showMessageDialog(null,"conflict with the product's stored quantity.");
                             SalesPnl_1stLayer.txt_SalesInput.setText("");
-                            this.barcode = ""; //revert to init
+                            this.dialogSalesBarcode = ""; //revert to init
                         }
                         else{
                             
                             try{
-                                if(!checkDuplicate(barcode)){
+                                if(!checkDuplicate(dialogSalesBarcode)){
                                     if(customerInfo[0][1] == "Dealer")
                                     {
                                         updateCustomerInfo();
-                                        setProduct_toCart(this.barcode);
+                                        setProduct_toCart(this.dialogSalesBarcode);
                                         SalesPnl_2ndLayer.getTotalNet();
                                     }else{
                                         customerInfo[0][1] = "Walk-in";
@@ -540,7 +540,7 @@ public class SalesOrder_ButtonFunctions {
                                         customerInfo[4][1]="₱0.00";
                                         updateCustomerInfo();
                                         getCustomerName();
-                                        setProduct_toCart(this.barcode);
+                                        setProduct_toCart(this.dialogSalesBarcode);
                                         SalesPnl_2ndLayer.getTotalNet();
                                     }
                                 }
