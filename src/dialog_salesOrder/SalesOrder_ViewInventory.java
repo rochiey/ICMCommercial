@@ -122,7 +122,6 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         lbl_NewDiscount1 = new javax.swing.JLabel();
         txt_ProductName = new javax.swing.JTextField();
         btn_AddCart = new javax.swing.JButton();
-        btn_InventorySearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dealer's Credit Amount");
@@ -282,30 +281,6 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
             }
         });
 
-        btn_InventorySearch.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
-        btn_InventorySearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/All Search.png"))); // NOI18N
-        btn_InventorySearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                btn_InventorySearchFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                btn_InventorySearchFocusLost(evt);
-            }
-        });
-        btn_InventorySearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_InventorySearchMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_InventorySearchMouseExited(evt);
-            }
-        });
-        btn_InventorySearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_InventorySearchActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -322,8 +297,6 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
                                 .addComponent(lbl_NewDiscount1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txt_ProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(btn_InventorySearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lbl_NewDiscount)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -342,13 +315,11 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_InventorySearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbl_NewDiscount)
-                        .addComponent(cbo_ProductCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_NewDiscount1)
-                        .addComponent(txt_ProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_NewDiscount)
+                    .addComponent(cbo_ProductCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_NewDiscount1)
+                    .addComponent(txt_ProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -358,31 +329,21 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
                 .addGap(6, 6, 6))
         );
 
-        btn_InventorySearch.registerKeyboardAction(btn_InventorySearch.getActionForKeyStroke(
-            KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
-        KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
-        JComponent.WHEN_FOCUSED);
+        background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 38, -1, -1));
 
-    btn_InventorySearch.registerKeyboardAction(btn_InventorySearch.getActionForKeyStroke(
-        KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
-    KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
-    JComponent.WHEN_FOCUSED);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
-    background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 38, -1, -1));
-
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
-    );
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-    );
-
-    pack();
-    setLocationRelativeTo(null);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void frameGrabberMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameGrabberMouseDragged
@@ -551,26 +512,6 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btn_AddCartActionPerformed
 
-    private void btn_InventorySearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_InventorySearchFocusGained
-        btn_InventorySearch.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_InventorySearchFocusGained
-
-    private void btn_InventorySearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_InventorySearchFocusLost
-        btn_InventorySearch.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_InventorySearchFocusLost
-
-    private void btn_InventorySearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_InventorySearchMouseEntered
-        btn_InventorySearch.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_InventorySearchMouseEntered
-
-    private void btn_InventorySearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_InventorySearchMouseExited
-        btn_InventorySearch.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_InventorySearchMouseExited
-
-    private void btn_InventorySearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InventorySearchActionPerformed
-        dialogSalesButton.productSearchViewInventory();
-    }//GEN-LAST:event_btn_InventorySearchActionPerformed
-
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         background.setBackground(new Color(65, 105, 225));
         text.setVisible(true);
@@ -659,7 +600,6 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
     private javax.swing.JPanel background;
     protected static javax.swing.JButton btn_AddCart;
     protected static javax.swing.JButton btn_CloseInventory;
-    protected static javax.swing.JButton btn_InventorySearch;
     protected static javax.swing.JComboBox<String> cbo_ProductCompany;
     private javax.swing.JLabel frameGrabber;
     private javax.swing.JPanel jPanel1;

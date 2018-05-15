@@ -482,16 +482,6 @@ public class SalesOrder_ButtonFunctions {
         sales.setLocationRelativeTo(null);
         sales.setVisible(true);
     }
-    
-    protected void productSearchViewInventory(){
-        if (txt_ProductName.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please input product code or <font color=white></font>"
-                + "<br/>name to search and try again.</font></center></html>", "Error Message", 0);
-        }
-        else{
-            //SEARCH PRODUCT
-        }
-    }
     public static int inventoryView = 0;
     
     protected void customerType(){
