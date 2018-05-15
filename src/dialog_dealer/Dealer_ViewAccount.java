@@ -408,8 +408,10 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
         try{
             int id = Integer.parseInt(txt_ViewDealerID.getText());
             DatabaseLinker.updateTable(tbl_ViewDealerList, query+" WHERE iddealer LIKE '%"+id+"%'");
+            setJTable();
         }catch(NumberFormatException e){
             DatabaseLinker.updateTable(tbl_ViewDealerList, query+" WHERE first_name LIKE '%"+txt_ViewDealerID.getText()+"%'");
+            setJTable();
         }
     }//GEN-LAST:event_txt_ViewDealerIDKeyReleased
     public static int flag = 1;
