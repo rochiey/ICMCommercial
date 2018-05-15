@@ -25,7 +25,7 @@
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Component id="btn_SalesNew" linkSize="1" min="-2" pref="142" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="btn_SalesInput" linkSize="1" min="-2" pref="142" max="-2" attributes="0"/>
+              <Component id="btn_SalesDealer" linkSize="1" min="-2" pref="142" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="btn_SalesView" linkSize="1" min="-2" pref="146" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -58,7 +58,7 @@
                           <Component id="btn_SalesRemove" alignment="0" min="-2" pref="89" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btn_SalesView" min="-2" pref="89" max="-2" attributes="0"/>
-                      <Component id="btn_SalesInput" min="-2" pref="89" max="-2" attributes="0"/>
+                      <Component id="btn_SalesDealer" min="-2" pref="89" max="-2" attributes="0"/>
                       <Component id="btn_SalesEdit" alignment="0" min="-2" pref="89" max="-2" attributes="0"/>
                       <Component id="btn_SalesNew" min="-2" pref="89" max="-2" attributes="0"/>
                   </Group>
@@ -86,7 +86,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_SalesNewActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_SalesNew.getInputMap(btn_SalesNew.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), &quot;btn_SalesNew&quot;);&#xa;         btn_SalesNew.getActionMap().put(&quot;btn_SalesNew&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                button.SalesOrderNew();&#xa;            }&#xa;       });"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_SalesNew.getInputMap(btn_SalesNew.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), &quot;btn_SalesNew&quot;);&#xa;         btn_SalesNew.getActionMap().put(&quot;btn_SalesNew&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                button.SalesOrderNew();&#xa;                salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();&#xa;            }&#xa;       });"/>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_SalesNew.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F1&lt;/font&gt;&lt;br/&gt;New Sales&lt;br/&gt;Transaction&lt;/center&gt;&lt;/html&gt;&quot;);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
       </AuxValues>
@@ -113,7 +113,7 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="btn_SalesInput">
+    <Component class="javax.swing.JButton" name="btn_SalesDealer">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Century" size="12" style="1"/>
@@ -123,14 +123,14 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_SalesInputFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_SalesInputFocusLost"/>
-        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_SalesInputMouseEntered"/>
-        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_SalesInputMouseExited"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_SalesInputActionPerformed"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_SalesDealerFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_SalesDealerFocusLost"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_SalesDealerMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_SalesDealerMouseExited"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_SalesDealerActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_SalesInput.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F3&lt;/font&gt;&lt;br/&gt;View&lt;br/&gt;Dealers&lt;/center&gt;&lt;/html&gt;&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_SalesDealer.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F3&lt;/font&gt;&lt;br/&gt;View&lt;br/&gt;Dealers&lt;/center&gt;&lt;/html&gt;&quot;);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
       </AuxValues>
     </Component>

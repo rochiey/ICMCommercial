@@ -2,7 +2,6 @@
 package salesOrder;
 
 import dialog_dealer.Dealer_ViewAccount;
-import static dialog_dealer.Dealer_ViewAccount.setJTable;
 import dialog_salesOrder.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -356,7 +355,7 @@ public class SalesOrder_ButtonFunctions {
             updateCustomerInfo();
         }
     }
-    public static void getCustomerName(int ID)
+    public static void getDealerDetails(int ID)
     {
         cleanCustomerInfo();
         generateCustomerInfo(ID);

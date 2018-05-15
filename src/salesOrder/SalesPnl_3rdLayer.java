@@ -26,7 +26,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
 
         btn_SalesNew = new javax.swing.JButton();
         btn_SalesEdit = new javax.swing.JButton();
-        btn_SalesInput = new javax.swing.JButton();
+        btn_SalesDealer = new javax.swing.JButton();
         btn_SalesView = new javax.swing.JButton();
         btn_SalesDiscount = new javax.swing.JButton();
         btn_SalesLogout = new javax.swing.JButton();
@@ -86,28 +86,28 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
             }
         });
 
-        btn_SalesInput.setFont(new java.awt.Font("Century", 1, 12)); // NOI18N
-        btn_SalesInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice_View Dealer.png"))); // NOI18N
-        btn_SalesInput.setText("<html><center><font color=blue>F3</font><br/>View<br/>Dealers</center></html>");
-        btn_SalesInput.addFocusListener(new java.awt.event.FocusAdapter() {
+        btn_SalesDealer.setFont(new java.awt.Font("Century", 1, 12)); // NOI18N
+        btn_SalesDealer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice_View Dealer.png"))); // NOI18N
+        btn_SalesDealer.setText("<html><center><font color=blue>F3</font><br/>View<br/>Dealers</center></html>");
+        btn_SalesDealer.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                btn_SalesInputFocusGained(evt);
+                btn_SalesDealerFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                btn_SalesInputFocusLost(evt);
+                btn_SalesDealerFocusLost(evt);
             }
         });
-        btn_SalesInput.addMouseListener(new java.awt.event.MouseAdapter() {
+        btn_SalesDealer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_SalesInputMouseEntered(evt);
+                btn_SalesDealerMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_SalesInputMouseExited(evt);
+                btn_SalesDealerMouseExited(evt);
             }
         });
-        btn_SalesInput.addActionListener(new java.awt.event.ActionListener() {
+        btn_SalesDealer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SalesInputActionPerformed(evt);
+                btn_SalesDealerActionPerformed(evt);
             }
         });
 
@@ -269,7 +269,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
                 .addGap(13, 13, 13)
                 .addComponent(btn_SalesNew, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btn_SalesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_SalesDealer, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_SalesView, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -287,7 +287,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_SalesDiscount, btn_SalesEdit, btn_SalesInput, btn_SalesLogout, btn_SalesNew, btn_SalesRemove, btn_SalesReturn, btn_SalesTender, btn_SalesView});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_SalesDealer, btn_SalesDiscount, btn_SalesEdit, btn_SalesLogout, btn_SalesNew, btn_SalesRemove, btn_SalesReturn, btn_SalesTender, btn_SalesView});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,7 +302,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
                             .addComponent(btn_SalesDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_SalesRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(btn_SalesView, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_SalesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_SalesDealer, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_SalesEdit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_SalesNew, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -312,6 +312,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
         btn_SalesNew.getActionMap().put("btn_SalesNew", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 button.SalesOrderNew();
+                salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
             }
         });
         btn_SalesEdit.getInputMap(btn_SalesEdit.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0), "btn_SalesEdit");
@@ -404,21 +405,21 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
         btn_SalesEdit.setBackground(UIManager.getColor("control"));
     }//GEN-LAST:event_btn_SalesEditMouseExited
 
-    private void btn_SalesInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesInputFocusGained
-        btn_SalesInput.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_SalesInputFocusGained
+    private void btn_SalesDealerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesDealerFocusGained
+        btn_SalesDealer.setBackground(Color.decode("#8fc6f8"));
+    }//GEN-LAST:event_btn_SalesDealerFocusGained
 
-    private void btn_SalesInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesInputFocusLost
-        btn_SalesInput.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_SalesInputFocusLost
+    private void btn_SalesDealerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesDealerFocusLost
+        btn_SalesDealer.setBackground(UIManager.getColor("control"));
+    }//GEN-LAST:event_btn_SalesDealerFocusLost
 
-    private void btn_SalesInputMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesInputMouseEntered
-        btn_SalesInput.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_SalesInputMouseEntered
+    private void btn_SalesDealerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesDealerMouseEntered
+        btn_SalesDealer.setBackground(Color.decode("#8fc6f8"));
+    }//GEN-LAST:event_btn_SalesDealerMouseEntered
 
-    private void btn_SalesInputMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesInputMouseExited
-        btn_SalesInput.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_SalesInputMouseExited
+    private void btn_SalesDealerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesDealerMouseExited
+        btn_SalesDealer.setBackground(UIManager.getColor("control"));
+    }//GEN-LAST:event_btn_SalesDealerMouseExited
 
     private void btn_SalesViewFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesViewFocusGained
         btn_SalesView.setBackground(Color.decode("#8fc6f8"));
@@ -515,9 +516,9 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
         button.SalesOrderTender();
     }//GEN-LAST:event_btn_SalesTenderActionPerformed
 
-    private void btn_SalesInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesInputActionPerformed
+    private void btn_SalesDealerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesDealerActionPerformed
         button.viewDealers();
-    }//GEN-LAST:event_btn_SalesInputActionPerformed
+    }//GEN-LAST:event_btn_SalesDealerActionPerformed
 
     private void btn_SalesViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesViewActionPerformed
         button.SalesOrderView();
@@ -567,9 +568,9 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    protected static javax.swing.JButton btn_SalesDealer;
     protected static javax.swing.JButton btn_SalesDiscount;
     protected static javax.swing.JButton btn_SalesEdit;
-    protected static javax.swing.JButton btn_SalesInput;
     private javax.swing.JButton btn_SalesLogout;
     protected static javax.swing.JButton btn_SalesNew;
     protected static javax.swing.JButton btn_SalesRemove;

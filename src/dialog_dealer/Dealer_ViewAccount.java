@@ -29,12 +29,11 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
     public Dealer_ViewAccount(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
         dealer = new DatabaseLinker(tbl_ViewDealerList, query);
         setJTable();
     }
 
-    public static void setJTable(){
+    public void setJTable(){
         setJTableColumnsWidth(tbl_ViewDealerList, 360, 7, 20);
         JTableFixer.setViewDealerTableField(tbl_ViewDealerList);
     }
@@ -316,8 +315,9 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_ViewDealerSelectMouseExited
 
     private void btn_ViewDealerSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ViewDealerSelectActionPerformed
-        if(!txt_ViewDealerID.getText().equals("")) this.dispose();
-        //JOptionPane.showMessageDialog(null, tbl_ViewDealerList.getWidth());
+        int row = tbl_ViewDealerList.getSelectedRow();
+        salesOrder.SalesOrder_ButtonFunctions.getDealerDetails((int)tbl_ViewDealerList.getValueAt(row,0));
+        //this.dispose();
     }//GEN-LAST:event_btn_ViewDealerSelectActionPerformed
 
     private void btn_ViewDealerCloseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ViewDealerCloseFocusGained
@@ -374,15 +374,14 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
 
     private void tbl_ViewDealerListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ViewDealerListMousePressed
         dialog_dealer.Dealer_ButtonFunctions.tableclicked(evt, tbl_ViewDealerList);
-       int row = tbl_ViewDealerList.getSelectedRow();
-       txt_ViewDealerID.setText((String) tbl_ViewDealerList.getValueAt(row, 1));
+        int row = tbl_ViewDealerList.getSelectedRow();
+        txt_ViewDealerID.setText((String) tbl_ViewDealerList.getValueAt(row, 1)); //populating  name in the search textfield
         switch (flag) {
-            case 1:
+            case 1: //flag of picking sponspor upline
                 dialog_dealer.Dealer_NewAccount.txt_NewDealerSponsor.setText((String) tbl_ViewDealerList.getValueAt(row, 1));
                 setJTable();
                 break;
-            case 2:
-                salesOrder.SalesOrder_ButtonFunctions.getCustomerName((int)tbl_ViewDealerList.getValueAt(row,0));
+            case 2: //flag of populating dealer in the dealer information
                 salesOrder.SalesOrder_ButtonFunctions.iddealer=dialog_dealer.Dealer_ButtonFunctions.clickedID_onTable;
                 setJTable();
                 break;
