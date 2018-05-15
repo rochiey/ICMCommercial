@@ -66,7 +66,8 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="Tab_MainStateChanged"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Tab_MainMouseClicked"/>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Tab_MainMouseReleased"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="/*Tab_Main.setEnabledAt(1, false);&#xa;Tab_Main.setEnabledAt(2, false);&#xa;Tab_Main.setEnabledAt(3, false);&#xa;*/"/>
@@ -297,8 +298,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="SYSTEM REPORTS">
-                    <Property name="tabTitle" type="java.lang.String" value="SYSTEM REPORTS"/>
+                  <JTabbedPaneConstraints tabName="REPORTS &amp; TRANSACTIONS">
+                    <Property name="tabTitle" type="java.lang.String" value="REPORTS &amp; TRANSACTIONS"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>

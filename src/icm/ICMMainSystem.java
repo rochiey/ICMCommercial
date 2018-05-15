@@ -127,9 +127,12 @@ public class ICMMainSystem extends javax.swing.JFrame {
 
         Tab_Main.setFont(new java.awt.Font("Century", 1, 14)); // NOI18N
         Tab_Main.setPreferredSize(new java.awt.Dimension(1366, 768));
-        Tab_Main.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                Tab_MainStateChanged(evt);
+        Tab_Main.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tab_MainMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                Tab_MainMouseReleased(evt);
             }
         });
 
@@ -361,7 +364,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
             .addComponent(Tab_Report)
         );
 
-        Tab_Main.addTab("SYSTEM REPORTS", pnl_Reports);
+        Tab_Main.addTab("REPORTS & TRANSACTIONS", pnl_Reports);
 
         pnl_Main.add(Tab_Main);
         /*Tab_Main.setEnabledAt(1, false);
@@ -388,12 +391,19 @@ public class ICMMainSystem extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Tab_MainStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_Tab_MainStateChanged
-        if(pnl_SalesOrder.isShowing())
+    private void Tab_MainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tab_MainMouseClicked
+        if(pnl_Sales1stLayer.isShowing())
         {
-            salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
+            SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
         }
-    }//GEN-LAST:event_Tab_MainStateChanged
+    }//GEN-LAST:event_Tab_MainMouseClicked
+
+    private void Tab_MainMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tab_MainMouseReleased
+        if(pnl_Sales1stLayer.isShowing())
+        {
+            SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_Tab_MainMouseReleased
     static Connection conn = null;
     static Statement stmt = null;
     static ResultSet rs = null; 
