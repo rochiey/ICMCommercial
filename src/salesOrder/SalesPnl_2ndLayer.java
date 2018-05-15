@@ -29,14 +29,14 @@ public class SalesPnl_2ndLayer extends javax.swing.JPanel {
         initComponents();
         
         colNames.add("No.");
-        colNames.add("Code");
+        colNames.add("BarCode");
         colNames.add("Article Name");
         colNames.add("Color");
         colNames.add("Size");
         colNames.add("Qty");
         colNames.add("Retail Price");
-        colNames.add("%");
-        colNames.add("% Price");
+        colNames.add("Discount (%)");
+        colNames.add("Discounted Price");
         colNames.add("Total Price");
         Vector initial = new Vector();
         tbl_SalesCart.setModel(tblModel = new DefaultTableModel(initial,SalesPnl_2ndLayer.colNames));
@@ -124,7 +124,7 @@ public class SalesPnl_2ndLayer extends javax.swing.JPanel {
     
     public static void setJTable()
     {
-        setJTableColumnsWidth(tbl_SalesCart, 1331, 4, 4, 20, 6, 6, 4, 9, 4, 9, 9);
+        setJTableColumnsWidth(tbl_SalesCart, 1331, 3, 7, 17, 6, 6, 4, 7, 6, 9, 9);
         JTableFixer.setSalesOrderTableField(tbl_SalesCart);
     }
     @SuppressWarnings("unchecked")

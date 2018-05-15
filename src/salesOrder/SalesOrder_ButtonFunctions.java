@@ -484,14 +484,8 @@ public class SalesOrder_ButtonFunctions {
         }
        return result;
     }
-    public static String addSalesCartBarcode()
-    {
-        String barcode = "";
-        
-        return barcode;
-    }
-    public static String salesBarcode = "";
-    protected void addSalesCart(){
+    public String salesBarcode = "";
+    public void addSalesCart(){
         //ADD TO CART
         try{
             String TRAP = this.salesBarcode;
@@ -519,7 +513,7 @@ public class SalesOrder_ButtonFunctions {
                         }else{
                             setProduct_toCart(this.salesBarcode);
                             customerInfo[0][1] = "Walk-in";
-                            customerInfo[1][1] = " ";
+                            customerInfo[1][1] = "Walk-in";
                             customerInfo[2][1]="₱0.00";
                             customerInfo[3][1]="₱0.00";
                             customerInfo[4][1]="₱0.00";

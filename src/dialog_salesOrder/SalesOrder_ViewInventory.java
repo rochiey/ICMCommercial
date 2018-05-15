@@ -29,7 +29,8 @@ import salesOrder.SalesPnl_1stLayer;
 
 public class SalesOrder_ViewInventory extends javax.swing.JDialog {
 
-    SalesOrder_ButtonFunctions button = new SalesOrder_ButtonFunctions();
+    SalesOrder_ButtonFunctions dialogSalesButton = new SalesOrder_ButtonFunctions();
+    salesOrder.SalesOrder_ButtonFunctions salesOrderButton = new salesOrder.SalesOrder_ButtonFunctions();
     int xMouse, yMouse;
     static Connection conn = null;
     static Statement stmt = null;
@@ -466,23 +467,36 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
     private void btn_AddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCartActionPerformed
         
         if(SalesOrder_ButtonFunctions.inventoryView==0){
-            button.addCart();
-            this.dispose();
+            String barcode="";
+            createDB();
+            try {
+                //fetch barcode thru product id
+                rs = stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);
+                while(rs.next())
+                {
+                    barcode = rs.getObject("barcode").toString();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            salesOrderButton.salesBarcode = barcode;
+            salesOrderButton.addSalesCart();
+//            this.dispose();
         }
         else if(SalesOrder_ButtonFunctions.inventoryView==2)
         {
             boolean found = false;
-            dialog_inventory.Inventory_ProductOrder.txt_ArticleName.setText(clickedBarcode_onTable);
+            dialog_inventory.Inventory_ProductOrder.txt_ArticleName.setText(idprod+"");
             for(int i=0;i<dialog_inventory.Inventory_ProductOrder.tbl_PMovementList.getRowCount();i++)
             {
-                if(dialog_inventory.Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 0).equals(clickedBarcode_onTable)) found = true;
+                if(dialog_inventory.Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 0).equals(idprod)) found = true;
             }
             if(!found)
             {
                 createDB();
                 Vector inRow = new Vector();
                 try {
-                    rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.barcode='"+clickedBarcode_onTable+"'");
+                    rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
                     while(rs.next())
                     {
                         inRow.add(dialog_inventory.Inventory_ProductOrder.tbl_PMovementList.getRowCount()+1);
@@ -506,17 +520,17 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         else if(SalesOrder_ButtonFunctions.inventoryView==3)
         {
             boolean found = false;
-            dialog_inventory.Inventory_ProductMovement.txt_ArticleName.setText(clickedBarcode_onTable);
+            dialog_inventory.Inventory_ProductMovement.txt_ArticleName.setText(idprod+"");
             for(int i=0;i<dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getRowCount();i++)
             {
-                if(dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getValueAt(i, 0).equals(clickedBarcode_onTable)) found = true;
+                if(dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getValueAt(i, 0).equals(idprod)) found = true;
             }
             if(!found)
             {
                 createDB();
                 Vector inRow = new Vector();
                 try {
-                    rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.barcode='"+clickedBarcode_onTable+"'");
+                    rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
                     while(rs.next())
                     {
                         inRow.add(dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getRowCount()+1);
@@ -554,7 +568,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_InventorySearchMouseExited
 
     private void btn_InventorySearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InventorySearchActionPerformed
-        button.productSearchViewInventory();
+        dialogSalesButton.productSearchViewInventory();
     }//GEN-LAST:event_btn_InventorySearchActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -569,14 +583,14 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         logo.setVisible(false);
 
     }//GEN-LAST:event_formWindowLostFocus
-    public static String clickedBarcode_onTable = "";
+    public static int idprod;
     public void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
     {
         if(evt.getClickCount() >= 1 )
         {
             int row = tbl_data.getSelectedRow();
-            clickedBarcode_onTable = tbl_data.getModel().getValueAt(row, 0).toString();
-            button.dialogSalesBarcode = clickedBarcode_onTable; //pass the clicked barcode inside view inventory(sales order 0)
+            idprod = Integer.parseInt(tbl_data.getModel().getValueAt(row, 0).toString());
+           //dialogSalesButton.dialogSalesBarcode = clickedBarcode_onTable; //pass the clicked barcode inside view inventory(sales order 0)
         }
     }
     private void txt_ProductNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ProductNameKeyReleased
