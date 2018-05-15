@@ -130,6 +130,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_SalesDealerActionPerformed"/>
       </Events>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_SalesDealer.getInputMap(btn_SalesDealer.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), &quot;btn_SalesDealer&quot;);&#xa;         btn_SalesDealer.getActionMap().put(&quot;btn_SalesDealer&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                btn_SalesDealerActionPerformed(e);&#xa;            }&#xa;       });"/>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_SalesDealer.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F3&lt;/font&gt;&lt;br/&gt;View&lt;br/&gt;Dealers&lt;/center&gt;&lt;/html&gt;&quot;);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
       </AuxValues>

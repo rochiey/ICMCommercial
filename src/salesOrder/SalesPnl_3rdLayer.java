@@ -1,9 +1,6 @@
 
 package salesOrder;
 
-import account_login.Account_Login;
-import dialog_salesOrder.SalesOrder_Tender;
-import icm.ICMMainSystem;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -323,6 +320,12 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
                 //else JOptionPane.showMessageDialog(null,"Please select an item again.");
             }
         });
+        btn_SalesDealer.getInputMap(btn_SalesDealer.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0), "btn_SalesDealer");
+        btn_SalesDealer.getActionMap().put("btn_SalesDealer", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                btn_SalesDealerActionPerformed(e);
+            }
+        });
         btn_SalesView.getInputMap(btn_SalesView.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0), "btn_SalesView");
         btn_SalesView.getActionMap().put("btn_SalesView", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
@@ -404,22 +407,6 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     private void btn_SalesEditMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesEditMouseExited
         btn_SalesEdit.setBackground(UIManager.getColor("control"));
     }//GEN-LAST:event_btn_SalesEditMouseExited
-
-    private void btn_SalesDealerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesDealerFocusGained
-        btn_SalesDealer.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_SalesDealerFocusGained
-
-    private void btn_SalesDealerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesDealerFocusLost
-        btn_SalesDealer.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_SalesDealerFocusLost
-
-    private void btn_SalesDealerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesDealerMouseEntered
-        btn_SalesDealer.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_SalesDealerMouseEntered
-
-    private void btn_SalesDealerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesDealerMouseExited
-        btn_SalesDealer.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_SalesDealerMouseExited
 
     private void btn_SalesViewFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesViewFocusGained
         btn_SalesView.setBackground(Color.decode("#8fc6f8"));
@@ -516,10 +503,6 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
         button.SalesOrderTender();
     }//GEN-LAST:event_btn_SalesTenderActionPerformed
 
-    private void btn_SalesDealerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesDealerActionPerformed
-        button.viewDealers();
-    }//GEN-LAST:event_btn_SalesDealerActionPerformed
-
     private void btn_SalesViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesViewActionPerformed
         button.SalesOrderView();
     }//GEN-LAST:event_btn_SalesViewActionPerformed
@@ -566,9 +549,29 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
         button.SalesOrderReturn();
     }//GEN-LAST:event_btn_SalesReturnActionPerformed
 
+    private void btn_SalesDealerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesDealerActionPerformed
+        button.viewDealers();
+    }//GEN-LAST:event_btn_SalesDealerActionPerformed
+
+    private void btn_SalesDealerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesDealerMouseExited
+        btn_SalesDealer.setBackground(UIManager.getColor("control"));
+    }//GEN-LAST:event_btn_SalesDealerMouseExited
+
+    private void btn_SalesDealerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesDealerMouseEntered
+        btn_SalesDealer.setBackground(Color.decode("#8fc6f8"));
+    }//GEN-LAST:event_btn_SalesDealerMouseEntered
+
+    private void btn_SalesDealerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesDealerFocusLost
+        btn_SalesDealer.setBackground(UIManager.getColor("control"));
+    }//GEN-LAST:event_btn_SalesDealerFocusLost
+
+    private void btn_SalesDealerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SalesDealerFocusGained
+        btn_SalesDealer.setBackground(Color.decode("#8fc6f8"));
+    }//GEN-LAST:event_btn_SalesDealerFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    protected static javax.swing.JButton btn_SalesDealer;
+    private javax.swing.JButton btn_SalesDealer;
     protected static javax.swing.JButton btn_SalesDiscount;
     protected static javax.swing.JButton btn_SalesEdit;
     private javax.swing.JButton btn_SalesLogout;

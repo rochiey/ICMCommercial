@@ -373,9 +373,8 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowLostFocus
 
     private void tbl_ViewDealerListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ViewDealerListMousePressed
-        dialog_dealer.Dealer_ButtonFunctions.tableclicked(evt, tbl_ViewDealerList);
         int row = tbl_ViewDealerList.getSelectedRow();
-        txt_ViewDealerID.setText((String) tbl_ViewDealerList.getValueAt(row, 1)); //populating  name in the search textfield
+        //txt_ViewDealerID.setText((String) tbl_ViewDealerList.getValueAt(row, 1)); //populating  name in the search textfield
         switch (flag) {
             case 1: //flag of picking sponspor upline
                 dialog_dealer.Dealer_NewAccount.txt_NewDealerSponsor.setText((String) tbl_ViewDealerList.getValueAt(row, 1));
@@ -445,12 +444,6 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Dealer_ViewAccount dialog = new Dealer_ViewAccount(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
                 dialog.setVisible(true);
             }
         });
