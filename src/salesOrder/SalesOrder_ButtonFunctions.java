@@ -368,13 +368,15 @@ public class SalesOrder_ButtonFunctions {
             sales.pack();
             sales.setLocationRelativeTo(null);
             sales.setVisible(true);
+            sales.dispose();
         }
         else if(customerInfo[0][1]=="Dealer")
         {
+            DecimalFormat df = new DecimalFormat("#,###.00");
             int discount = Integer.parseInt(JOptionPane.showInputDialog("Enter new discount"));
             salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(discount, SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7);
-            SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString()), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8);
-            salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString()), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 9);
+            SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString())), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8);
+            salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString())), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 9);
             salesOrder.SalesPnl_2ndLayer.getTotalNet();
         }
         else

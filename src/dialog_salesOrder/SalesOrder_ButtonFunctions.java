@@ -144,9 +144,8 @@ public class SalesOrder_ButtonFunctions {
                         try{
                             DecimalFormat df = new DecimalFormat("#,###.00");
                             salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(discount, SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7);
-                           // salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString());
-                            SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(String.format("%.2f", getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), clickedBarcode))), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8);
-                            salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(String.format("%.2f", salesOrder.SalesOrder_ButtonFunctions.getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5).toString(), clickedBarcode))), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 9);
+                            SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), clickedBarcode)), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8);
+                            salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(salesOrder.SalesOrder_ButtonFunctions.getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5).toString(), clickedBarcode)), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 9);
                             salesOrder.SalesPnl_2ndLayer.getTotalNet();
                         }catch(NumberFormatException e)
                         {

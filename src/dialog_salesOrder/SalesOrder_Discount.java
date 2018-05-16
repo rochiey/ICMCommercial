@@ -118,6 +118,11 @@ public class SalesOrder_Discount extends javax.swing.JDialog {
         txt_Discount.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         txt_Discount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_Discount.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_Discount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_DiscountActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -254,6 +259,10 @@ public class SalesOrder_Discount extends javax.swing.JDialog {
         text.setVisible(false);
         logo.setVisible(false);
     }//GEN-LAST:event_formWindowLostFocus
+
+    private void txt_DiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DiscountActionPerformed
+        btn_DiscountConfirmActionPerformed(evt);
+    }//GEN-LAST:event_txt_DiscountActionPerformed
 
     /**
      * @param args the command line arguments
