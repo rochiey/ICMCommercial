@@ -278,7 +278,7 @@ public class SalesOrder_ButtonFunctions {
         tbl_SalesCustomerDetails.setRowHeight(27);
         tbl_SalesCustomerDetails.setTableHeader(null);
     }
-    public static void generateCustomerInfo(int ID)
+    public static void generateDealerInfo(int ID)
     {
         createDB();
         customerInfo[0][1]="Dealer";
@@ -295,70 +295,14 @@ public class SalesOrder_ButtonFunctions {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
         invoiceID = countIncrementedID();
-        dbHandlerUpdates("INSERT INTO invoice(customerDealer,date_of_transaction) VALUES("+ID+",(SELECT CURDATE()))");
+        //dbHandlerUpdates("INSERT INTO invoice(customerDealer,date_of_transaction) VALUES("+ID+",(SELECT CURDATE()))");
         updateCustomerInfo();
     }
     public static int iddealer =0;
-    public static void getCustomerName()
-    {
-      //  dbHandlerUpdates(" DELETE FROM invoice WHERE total_net IS NULL");
-        try{
-            int ID = Integer.parseInt(txt_SalesInput.getText());
-            createDB();
-            boolean found = false;
-            try {
-                rs = stmt.executeQuery("SELECT iddealer FROM dealer");
-                while(rs.next())
-                {
-                    if(rs.getInt("iddealer") == ID) found = true;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if(found)
-            {
-                if(customerInfo[0][1]=="Dealer")
-                {
-                    cleanCustomerInfo();
-                    generateCustomerInfo(ID); //for dealers man
-                    iddealer = ID;
-                }
-            }
-            else if(!found)
-            {
-               cleanCustomerInfo();
-                Object idwalkin =0;
-                customerInfo[0][1] = "Walk-in";
-                customerInfo[1][1] = " ";
-                customerInfo[2][1]="₱0.00";
-                customerInfo[3][1]="₱0.00";
-                customerInfo[4][1]="₱0.00";
-                iddealer=0;
-                createDB();
-                invoiceID = countIncrementedID();
-                dbHandlerUpdates("INSERT INTO invoice(date_of_transaction) VALUES((SELECT CURDATE()))");
-            updateCustomerInfo();
-            }
-        }catch(NumberFormatException e) //walk in here
-        {
-            cleanCustomerInfo();
-            Object idwalkin =0;
-                customerInfo[0][1] = "Walk-in";
-                customerInfo[1][1] = txt_SalesInput.getText();
-                customerInfo[2][1]="₱0.00";
-                customerInfo[3][1]="₱0.00";
-                customerInfo[4][1]="₱0.00";
-            iddealer=0;
-            createDB();
-            invoiceID = countIncrementedID();
-            dbHandlerUpdates("INSERT INTO invoice(date_of_transaction) VALUES((SELECT CURDATE()))");
-            updateCustomerInfo();
-        }
-    }
     public static void getDealerDetails(int ID)
     {
         cleanCustomerInfo();
-        generateCustomerInfo(ID);
+        generateDealerInfo(ID);
     }
     public static int clickedID_onTable = 0;
 //    public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data) 
@@ -518,7 +462,6 @@ public class SalesOrder_ButtonFunctions {
                             customerInfo[3][1]="₱0.00";
                             customerInfo[4][1]="₱0.00";
                             updateCustomerInfo();
-                            getCustomerName();
                             SalesPnl_2ndLayer.getTotalNet();
                             txt_SalesInput.setText("");
                             }
