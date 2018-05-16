@@ -146,24 +146,7 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_SalesInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_SalesInputActionPerformed
-        //SalesOrder_ButtonFunctions.trigger -> is the object that holds the value of F3 changing
-        //if customer input else product input
-        if(SalesOrder_ButtonFunctions.trigger.equals("customer")){
-            if(SalesPnl_2ndLayer.tbl_SalesCart.getRowCount() == 0){
-                try
-                {
-                    int dealer = Integer.parseInt(txt_SalesInput.getText());
-                    SalesOrder_ButtonFunctions.customerInfo[0][1]="Dealer";
-                    SalesOrder_ButtonFunctions.getCustomerName();
-                }catch(NumberFormatException e)
-                {
-                    SalesOrder_ButtonFunctions.customerInfo[0][1]="Walk-in";
-                    SalesOrder_ButtonFunctions.getCustomerName();
-                }
-            }
-            else JOptionPane.showMessageDialog(null, "There is ongoing transaction. Cannot modify customer.");
-        }
-       
+        
     }//GEN-LAST:event_txt_SalesInputActionPerformed
 
     private void txt_SalesInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SalesInputKeyReleased

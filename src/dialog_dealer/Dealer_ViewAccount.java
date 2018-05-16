@@ -316,7 +316,9 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
 
     private void btn_ViewDealerSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ViewDealerSelectActionPerformed
         int row = tbl_ViewDealerList.getSelectedRow();
-        salesOrder.SalesOrder_ButtonFunctions.getDealerDetails((int)tbl_ViewDealerList.getValueAt(row,0));
+        int iddealer = (int)tbl_ViewDealerList.getValueAt(row,0);
+        salesOrder.SalesOrder_ButtonFunctions.getDealerDetails(iddealer);
+        salesOrder.SalesOrder_ButtonFunctions.iddealer = iddealer;
         //this.dispose();
     }//GEN-LAST:event_btn_ViewDealerSelectActionPerformed
 

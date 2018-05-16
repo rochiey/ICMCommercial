@@ -48,7 +48,7 @@ public class SalesPnl_2ndLayer extends javax.swing.JPanel {
         if(evt.getClickCount() >= 1 )
         {
             int row = tbl_data.getSelectedRow();
-            clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
+            clickedID_onTable = Integer.parseInt(tbl_data.getModel().getValueAt(row, 0).toString());
             dialog_salesOrder.SalesOrder_ButtonFunctions.clickedBarcode = tbl_SalesCart.getValueAt(row, 1).toString();
         }
         
