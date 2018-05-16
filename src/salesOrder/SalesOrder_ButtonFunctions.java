@@ -373,7 +373,6 @@ public class SalesOrder_ButtonFunctions {
         {
             int discount = Integer.parseInt(JOptionPane.showInputDialog("Enter new discount"));
             salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(discount, SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7);
-            salesOrder.SalesPnl_1stLayer.txt_SalesInput.setText(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(0, 1).toString());
             SalesPnl_2ndLayer.tbl_SalesCart.setValueAt(getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString()), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8);
             salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString()), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 9);
             salesOrder.SalesPnl_2ndLayer.getTotalNet();

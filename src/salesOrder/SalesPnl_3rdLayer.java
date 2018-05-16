@@ -508,9 +508,10 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_SalesViewActionPerformed
 
     private void btn_SalesDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesDiscountActionPerformed
-        if(SalesPnl_2ndLayer.clickedID_onTable > 0)button.SalesOrderDiscount();
-        else JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please select an item."
+        if(SalesPnl_2ndLayer.clickedID_onTable == 0)JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please select an item."
                    + "</font></center></html>", "Information Message", 1);
+        else button.SalesOrderDiscount();
+        
     }//GEN-LAST:event_btn_SalesDiscountActionPerformed
 
     private void btn_SalesRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesRemoveActionPerformed
