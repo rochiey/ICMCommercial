@@ -550,7 +550,8 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_SalesReturnActionPerformed
 
     private void btn_SalesDealerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesDealerActionPerformed
-        button.viewDealers();
+        if(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getRowCount() > 0) JOptionPane.showMessageDialog(null, "Another transaction in process. Please try again.");
+        else button.viewDealers();
     }//GEN-LAST:event_btn_SalesDealerActionPerformed
 
     private void btn_SalesDealerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesDealerMouseExited

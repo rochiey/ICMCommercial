@@ -319,7 +319,7 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
         int iddealer = (int)tbl_ViewDealerList.getValueAt(row,0);
         salesOrder.SalesOrder_ButtonFunctions.getDealerDetails(iddealer);
         salesOrder.SalesOrder_ButtonFunctions.iddealer = iddealer;
-        //this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btn_ViewDealerSelectActionPerformed
 
     private void btn_ViewDealerCloseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ViewDealerCloseFocusGained
