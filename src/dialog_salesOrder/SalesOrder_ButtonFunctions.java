@@ -238,14 +238,26 @@ public class SalesOrder_ButtonFunctions {
             if(amountoPurchase<totalNet) JOptionPane.showMessageDialog(null, "You don't meet the required amount to purchase.");
             else
             {
-                dialog_salesOrder.SalesOrder_ButtonFunctions.toPurchaseOrder();
-                dbHandlerUpdates("INSERT INTO invoice(CustomerDealer,payment_type,date_of_transaction,amount_paid,total_net) VALUES("+salesOrder.SalesOrder_ButtonFunctions.iddealer+",234,(SELECT CURDATE()),"+amountoPurchase+","+totalNet+")");
-                dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
-                //SalesOrder_Tender.dbHandlerUpdates("DELETE FROM invoice WHERE total_net IS NULL");
-                salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
-                JOptionPane.showMessageDialog(null, "Transaction done.");
-                inventory.InventoryPnl_1stLayer.updateTable();
-                //this.dispose();
+                if(salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1] == "Walk-in")
+                {
+                    dbHandlerUpdates("INSERT INTO invoice(payment_type,date_of_transaction,amount_paid,total_net) VALUES(234,(SELECT CURDATE()),"+amountoPurchase+","+totalNet+")");
+                    dialog_salesOrder.SalesOrder_ButtonFunctions.toPurchaseOrder();
+                    dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
+                    salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
+                    JOptionPane.showMessageDialog(null, "Transaction done.");
+                    inventory.InventoryPnl_1stLayer.updateTable();
+                }
+                else // dealer
+                {
+                    dbHandlerUpdates("INSERT INTO invoice(CustomerDealer,payment_type,date_of_transaction,amount_paid,total_net) VALUES("+salesOrder.SalesOrder_ButtonFunctions.iddealer+",234,(SELECT CURDATE()),"+amountoPurchase+","+totalNet+")");
+                    dialog_salesOrder.SalesOrder_ButtonFunctions.toPurchaseOrder();
+                    dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
+                    //SalesOrder_Tender.dbHandlerUpdates("DELETE FROM invoice WHERE total_net IS NULL");
+                    salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
+                    JOptionPane.showMessageDialog(null, "Transaction done.");
+                    inventory.InventoryPnl_1stLayer.updateTable();
+                    //this.dispose();
+                }
             }
         }
         else JOptionPane.showMessageDialog(null, "No customers input. Please try again");
@@ -275,7 +287,6 @@ public class SalesOrder_ButtonFunctions {
             discountedPrice.deleteCharAt(0);
             totalNetPrice.deleteCharAt(0);
             dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE barcode='"+barcode+"'");
-            System.out.println(salesOrder.SalesOrder_ButtonFunctions.invoiceID);
             dbHandlerUpdates("INSERT INTO purchase_order_list(idinvoice,item_code,item_name,quantity,unit_price,discount_percent,discounted_price,total_price) VALUES("+salesOrder.SalesOrder_ButtonFunctions.invoiceID+","+getProductID(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString())+",'"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 2)+"',"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5)+","+getRealFloat(retailPrice.toString())+","+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7)+","+getRealFloat(discountedPrice.toString())+","+getRealFloat(totalNetPrice.toString())+")");
         }
     }

@@ -37,7 +37,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         { 
             initComponents();
             generateDueDate();
-            generateBalance();
+            generateBalance(); //plus penalty
             invoiceID = 0;
         }
     }
