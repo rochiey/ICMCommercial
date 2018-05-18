@@ -463,10 +463,11 @@ public class SalesOrder_ButtonFunctions {
                 } catch (SQLException ex) {
                     Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Float creditLineIncrease = (float)(amountoPurchase*.20)+creditLine;
-                Float availableCredit = (float)(amountoPurchase*.20)+creditLine;
-                balance-=totalNet;
                 //CREDIT LINE INCREASE IF WHOLE PAYMENT OR PER PARTIAL PAYMENT?
+                Float creditLineIncrease = (float)(amountoPurchase*.20)+creditLine;
+                Float availableCredit = creditLineIncrease - balance;
+                balance-=totalNet;
+                
                 dbHandlerUpdates("UPDATE dealer SET credit_limit="+creditLineIncrease+",available_credit="+availableCredit+", balance="+balance+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                 //salesOrderTender.invoiceID represents the id of credited invoices
                 if(SalesOrder_Tender.invoiceID == 0){
