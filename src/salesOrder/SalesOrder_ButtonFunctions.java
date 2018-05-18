@@ -323,14 +323,6 @@ public class SalesOrder_ButtonFunctions {
         generateDealerInfo(ID);
     }
     public static int clickedID_onTable = 0;
-//    public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data) 
-//    {
-//        if(evt.getClickCount() >= 1 )
-//        {
-//            int row = tbl_data.getSelectedRow();
-//            clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
-//        }
-//    }
     public static void SalesOrderNew(){
         salesOrder.SalesOrder_ButtonFunctions.cleanCustomerInfo();
         SalesPnl_2ndLayer.tblModel.setRowCount(0);

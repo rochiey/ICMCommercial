@@ -531,21 +531,32 @@ public class SalesOrder_ButtonFunctions {
          editQty.setVisible(true);
       }
     protected void ReturnEditQty(){
-         if (txt_ReturnEditQty.getText().equals("")){
+        if (txt_ReturnEditQty.getText().equals("")){
             JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please input quantity."
                     + "</font></center></html>", "Error Message", 0);
-         }
+        }
         else{
             //Edit Quantity
-            int newQuantity = Integer.parseInt(SalesOrder_ReturnEditQty.txt_ReturnEditQty.getText());
-            SalesOrder_ReturnForm.tbl_ReturnList.setValueAt(newQuantity, SalesOrder_ReturnForm.tbl_ReturnList.getSelectedRow(), 5); //5-quantity column
-            Integer quantity = Integer.parseInt(SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(SalesOrder_ReturnForm.tbl_ReturnList.getSelectedRow(), 5).toString());
-            Float discountedPrice = Float.parseFloat(SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(SalesOrder_ReturnForm.tbl_ReturnList.getSelectedRow(), 7).toString()); //totaldiscountedprice
-            Float totalprice =discountedPrice*quantity;
-            totalprice = Float.parseFloat(String.format("%.2f", totalprice));
-            SalesOrder_ReturnForm.tbl_ReturnList.setValueAt(totalprice, SalesOrder_ReturnForm.tbl_ReturnList.getSelectedRow(), 8);
-            SalesOrder_ViewSO.getTotalNet();
+            try{
+                int oldQuantity = (Integer) SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(SalesOrder_ReturnForm.row, 5);
+                int newQuantity = Integer.parseInt(SalesOrder_ReturnEditQty.txt_ReturnEditQty.getText());
+                if(newQuantity<oldQuantity && newQuantity>0)
+                {
+                    SalesOrder_ReturnForm.tbl_ReturnList.setValueAt(newQuantity, SalesOrder_ReturnForm.tbl_ReturnList.getSelectedRow(), 5); //5-quantity column
+                    Integer quantity = Integer.parseInt(SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(SalesOrder_ReturnForm.tbl_ReturnList.getSelectedRow(), 5).toString());
+                    Float discountedPrice = Float.parseFloat(SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(SalesOrder_ReturnForm.tbl_ReturnList.getSelectedRow(), 7).toString()); //totaldiscountedprice
+                    Float totalprice =discountedPrice*quantity;
+                    totalprice = Float.parseFloat(String.format("%.2f", totalprice));
+                    SalesOrder_ReturnForm.tbl_ReturnList.setValueAt(totalprice, SalesOrder_ReturnForm.tbl_ReturnList.getSelectedRow(), 8);
+                    SalesOrder_ViewSO.getTotalNet();
+                }
+                else JOptionPane.showMessageDialog(null, "Oops, something went wrong. Please enter correct quantity.");
+            }catch(NumberFormatException e)
+            {
+                JOptionPane.showMessageDialog(null, "Oops, something went wrong. Please enter correct quantity.");
+            }
         }
+        SalesOrder_ReturnForm.row = 0; //init after using
       }
      public static boolean detectProductExceed()
      {

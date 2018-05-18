@@ -118,6 +118,11 @@ public class SalesOrder_ReturnEditQty extends javax.swing.JDialog {
         txt_ReturnEditQty.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         txt_ReturnEditQty.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_ReturnEditQty.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_ReturnEditQty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_ReturnEditQtyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -249,6 +254,10 @@ public class SalesOrder_ReturnEditQty extends javax.swing.JDialog {
         text.setVisible(false);
         logo.setVisible(false);
     }//GEN-LAST:event_formWindowLostFocus
+
+    private void txt_ReturnEditQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ReturnEditQtyActionPerformed
+        btn_ReturnEditConfirmActionPerformed(evt);
+    }//GEN-LAST:event_txt_ReturnEditQtyActionPerformed
 
     /**
      * @param args the command line arguments

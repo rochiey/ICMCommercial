@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -45,7 +46,14 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
             clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
         }
     }
-    
+    public static int row = 0;
+    public static void clickedRow(java.awt.event.MouseEvent evt,JTable tbl_data) 
+    {
+        if(evt.getClickCount() >= 1 )
+        {
+            row = tbl_data.getSelectedRow();
+        }
+    }
     public static void setJTable()
     {
         setJTableColumnsWidth(tbl_ReturnList, 769, 6, 6, 13, 6, 6, 6, 10, 10, 10);
@@ -593,6 +601,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
 
     private void tbl_ReturnListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ReturnListMousePressed
         tableclicked(evt, tbl_ReturnList);
+        clickedRow(evt, tbl_ReturnList);
     }//GEN-LAST:event_tbl_ReturnListMousePressed
 
     private void txt_ReturnSONoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ReturnSONoActionPerformed
