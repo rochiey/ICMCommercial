@@ -1423,7 +1423,8 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_CashAcceptActionPerformed
 
     private void btn_CreditAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CreditAcceptActionPerformed
-        if(isCreditDue()) JOptionPane.showMessageDialog(null, "Dealer has 1 pending credit due. Can't transact anymore");
+        if( isCreditDue()) JOptionPane.showMessageDialog(null, "Dealer has 1 or more pending credit due. Can't transact anymore");
+        else if(lbl_CreditTotal.equals("₱0.00")) JOptionPane.showMessageDialog(null, "Please select product");
         else button.creditAccept();
         this.dispose();
     }//GEN-LAST:event_btn_CreditAcceptActionPerformed
