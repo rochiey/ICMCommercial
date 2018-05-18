@@ -252,14 +252,14 @@ public class SalesOrder_ButtonFunctions {
     }
     public static void toPurchaseOrder()
     {
-        int rowCount = SalesPnl_2ndLayer.tbl_SalesCart.getRowCount(); Object idprod = 0; Integer quantity = 0, oldquantity=0;
+        int rowCount = SalesPnl_2ndLayer.tbl_SalesCart.getRowCount(); Object barcode = ""; Integer quantity = 0, oldquantity=0;
         for(int i =0;i<rowCount ; i++)
         {
             createDB();
-            idprod = SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1);
+            barcode = SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1);
             quantity = Integer.parseInt(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString());
             try {
-                rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+idprod);
+                rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
                 while(rs.next())
                 {
                     oldquantity = Integer.parseInt(rs.getObject("quantity").toString());
@@ -274,10 +274,25 @@ public class SalesOrder_ButtonFunctions {
             retailPrice.deleteCharAt(0);
             discountedPrice.deleteCharAt(0);
             totalNetPrice.deleteCharAt(0);
-            dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE idproduct="+idprod);
+            dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE barcode='"+barcode+"'");
             System.out.println(salesOrder.SalesOrder_ButtonFunctions.invoiceID);
-            dbHandlerUpdates("INSERT INTO purchase_order_list(idinvoice,item_code,item_name,quantity,unit_price,discount_percent,discounted_price,total_price) VALUES("+salesOrder.SalesOrder_ButtonFunctions.invoiceID+","+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1)+",'"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 2)+"',"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5)+","+getRealFloat(retailPrice.toString())+","+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7)+","+getRealFloat(discountedPrice.toString())+","+getRealFloat(totalNetPrice.toString())+")");
+            dbHandlerUpdates("INSERT INTO purchase_order_list(idinvoice,item_code,item_name,quantity,unit_price,discount_percent,discounted_price,total_price) VALUES("+salesOrder.SalesOrder_ButtonFunctions.invoiceID+","+getProductID(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString())+",'"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 2)+"',"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5)+","+getRealFloat(retailPrice.toString())+","+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7)+","+getRealFloat(discountedPrice.toString())+","+getRealFloat(totalNetPrice.toString())+")");
         }
+    }
+    protected static int getProductID(String barcode)
+    {
+        int idproduct = -1;
+        try {
+            createDB();
+            rs = stmt.executeQuery("SELECT idproduct FROM product WHERE barcode='"+barcode+"'");
+            while(rs.next())
+            {
+                idproduct = rs.getInt("idproduct");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idproduct;
     }
     protected void creditAccept()
     {
@@ -303,7 +318,7 @@ public class SalesOrder_ButtonFunctions {
                 currentBal+=totalNetCredit;
                 String duedate = SalesOrder_Tender.date_CreditDue.getEditor().getText();
                 String format = "%Y-%m-%d";
-                dbHandlerUpdates("UPDATE invoice SET payment_type=243,amount_paid=0,total_net="+totalNetCredit+" WHERE idinvoice="+salesOrder.SalesOrder_ButtonFunctions.invoiceID);
+                dbHandlerUpdates("INSERT INTO invoice(CustomerDealer,payment_type,date_of_transaction,amount_paid,total_net) VALUES("+salesOrder.SalesOrder_ButtonFunctions.iddealer+",243,(SELECT CURDATE()),0,"+totalNetCredit+")");
                 dbHandlerUpdates("UPDATE dealer SET available_credit="+availableCredit+",balance="+currentBal+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                 dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Credit')");
                 dbHandlerUpdates("INSERT INTO credit_transaction(invoice_ID,transaction_date,dealer_ID,total_net,amount,paymentTypeID,due_date,penalty) VALUES("+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",(SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNetCredit+",0,243,STR_TO_DATE('"+duedate+"','"+format+"'),0)");
