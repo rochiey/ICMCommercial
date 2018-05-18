@@ -609,19 +609,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
     }//GEN-LAST:event_tbl_ReturnListMousePressed
 
     private void txt_ReturnSONoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ReturnSONoActionPerformed
-        try
-        {
-            int trap =Integer.parseInt(txt_ReturnSONo.getText());
-            DatabaseLinker.updateTable(tbl_ReturnList, "SELECT idinvoice AS 'SO No.',idproduct AS 'Code',item_name as 'Name'"
-                + ", product_color.color_code AS 'Color',REPLACE(product.product_size, 'NULL', '-') AS 'Size'"
-                + ",purchase_order_list.quantity AS 'Qty', unit_price AS 'Price'"
-                + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'Net' FROM purchase_order_list,product_color,product "
-                + "WHERE product.product_color=product_color.idproduct_color "
-                + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+trap);
-        }catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(null, "Please enter correct SO No.");
-        }
+        
     }//GEN-LAST:event_txt_ReturnSONoActionPerformed
 
     /**
