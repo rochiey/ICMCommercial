@@ -433,12 +433,6 @@ public class SalesOrder_ButtonFunctions {
     protected void creditSelect(){
         //txt_CPullCash.requestFocusInWindow();
     }
-    protected float getTotalPenalty()
-    {
-        float penalty;
-        
-        return penalty;
-    }
     protected void pullOutAccept()
     {
         if(salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1] != "")
@@ -476,7 +470,7 @@ public class SalesOrder_ButtonFunctions {
                 //salesOrderTender.invoiceID represents the id of credited invoices
                 if(SalesOrder_Tender.invoiceID == 0){
                     dbHandlerUpdates("INSERT INTO credit_transaction(transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES((SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
-                    dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL where dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                    dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL,penalty=0 where dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                 }
                 else{
                     dbHandlerUpdates("INSERT INTO credit_transaction(invoice_ID,transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES("+SalesOrder_Tender.invoiceID+",(SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");

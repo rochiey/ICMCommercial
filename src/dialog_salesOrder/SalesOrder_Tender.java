@@ -1,5 +1,7 @@
 package dialog_salesOrder;
 
+import static dialog_salesOrder.SalesOrder_ButtonFunctions.createDB;
+import static dialog_salesOrder.SalesOrder_ButtonFunctions.rs;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -59,6 +61,22 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         }
         return flag;
     }
+    protected static float getTotalPenalty()
+    {
+        float totalPenalty=0;
+        try {
+            createDB();
+            rs = stmt.executeQuery("SELECT penalty FROM credit_transaction WHERE dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+            while(rs.next())
+            {
+                totalPenalty+=rs.getFloat("penalty");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalPenalty;
+    }
     public static void generateBalance()
     {
         createDB();
@@ -66,7 +84,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
             rs = stmt.executeQuery("SELECT balance FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
             while(rs.next())
             {
-                lbl_CPullBalance.setText("₱"+rs.getObject("balance"));
+                lbl_CPullBalance.setText("₱"+(rs.getFloat("balance")+getTotalPenalty()));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);

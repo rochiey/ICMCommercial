@@ -1,9 +1,17 @@
 package dialog_salesOrder;
 
 import com.DatabaseLinker;
+import static dialog_salesOrder.SalesOrder_Tender.createDB;
+import static dialog_salesOrder.SalesOrder_Tender.rs;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -23,7 +31,9 @@ public class SalesOrder_CreditHistory extends javax.swing.JDialog {
         
         DatabaseLinker.updateTable(tbl_CreditHistory, query);
     }
-
+    static Connection conn = null;
+    static Statement stmt = null;
+    static ResultSet rs = null; 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -401,13 +411,29 @@ public class SalesOrder_CreditHistory extends javax.swing.JDialog {
         tableclicked(evt, tbl_CreditHistory);
     }//GEN-LAST:event_tbl_CreditHistoryMousePressed
     public static int clickedID_onTable = 0;
+    protected static float getTotalPenalty() //per invoice
+    {
+        float totalPenalty=0;
+        try {
+            createDB();
+            rs = stmt.executeQuery("SELECT penalty FROM credit_transaction WHERE invoice_ID="+SalesOrder_Tender.invoiceID);
+            while(rs.next())
+            {
+                totalPenalty=rs.getFloat("penalty");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalPenalty;
+    }
     public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
     {
         if(evt.getClickCount() >= 1 )
         {
             int row = tbl_data.getSelectedRow();
             clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
-            SalesOrder_Tender.lbl_CPullBalance.setText("₱"+SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 2));
+            SalesOrder_Tender.lbl_CPullBalance.setText("₱"+((Float)tbl_CreditHistory.getValueAt(row, 2)+getTotalPenalty()));
             SalesOrder_Tender.invoiceID=clickedID_onTable;
         }
     }
