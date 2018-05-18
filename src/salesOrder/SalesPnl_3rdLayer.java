@@ -501,21 +501,29 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
 
     private void btn_SalesTenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesTenderActionPerformed
         button.SalesOrderTender();
+        salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
     }//GEN-LAST:event_btn_SalesTenderActionPerformed
 
     private void btn_SalesViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesViewActionPerformed
         button.SalesOrderView();
+        salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
     }//GEN-LAST:event_btn_SalesViewActionPerformed
 
     private void btn_SalesDiscountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesDiscountActionPerformed
         if(SalesPnl_2ndLayer.clickedID_onTable == 0)JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please select an item."
                    + "</font></center></html>", "Information Message", 1);
-        else button.SalesOrderDiscount();
+        else {
+            button.SalesOrderDiscount();
+            salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
+        }
         
     }//GEN-LAST:event_btn_SalesDiscountActionPerformed
 
     private void btn_SalesRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesRemoveActionPerformed
-       if(SalesPnl_2ndLayer.clickedID_onTable > 0)button.SalesOrderRemove();
+       if(SalesPnl_2ndLayer.clickedID_onTable > 0){
+           button.SalesOrderRemove();
+           salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
+       }
        else JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please select an item."
                    + "</font></center></html>", "Information Message", 1);
     }//GEN-LAST:event_btn_SalesRemoveActionPerformed
@@ -525,7 +533,10 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_SalesNewActionPerformed
 
     private void btn_SalesEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesEditActionPerformed
-        if(SalesPnl_2ndLayer.clickedID_onTable > 0)button.SalesOrderEdit();
+        if(SalesPnl_2ndLayer.clickedID_onTable > 0){
+            button.SalesOrderEdit();
+            salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
+        }
         else JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please select an item."
                    + "</font></center></html>", "Information Message", 1);
     }//GEN-LAST:event_btn_SalesEditActionPerformed
@@ -548,11 +559,15 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
 
     private void btn_SalesReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesReturnActionPerformed
         button.SalesOrderReturn();
+        salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
     }//GEN-LAST:event_btn_SalesReturnActionPerformed
 
     private void btn_SalesDealerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesDealerActionPerformed
         if(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getRowCount() > 0) JOptionPane.showMessageDialog(null, "Another transaction in process. Please try again.");
-        else button.viewDealers();
+        else {
+            button.viewDealers();
+            salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
+        }
     }//GEN-LAST:event_btn_SalesDealerActionPerformed
 
     private void btn_SalesDealerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SalesDealerMouseExited
