@@ -1,15 +1,13 @@
 package dialog_salesOrder;
 
 import com.DatabaseLinker;
+import dialog_dealer.Dealer_ViewAccount;
 import static dialog_salesOrder.SalesOrder_ReturnForm.setJTable;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -23,7 +21,9 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
     public SalesOrder_ViewSO(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        if(SalesOrder_ReturnForm.cbo_ReturnCType.getSelectedItem().equals("Dealer")) DatabaseLinker.updateTable(tbl_ViewSOList,         queryForDealer = "SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND total_net != 0 AND invoice.customerDealer="+SalesOrder_ReturnForm.iddealer);
+        if(SalesOrder_ReturnForm.cbo_ReturnCType.getSelectedItem().toString().equals("Dealer")) {
+            DatabaseLinker.updateTable(tbl_ViewSOList,"SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND invoice.customerDealer="+SalesOrder_ReturnForm.iddealer);
+        }
         else DatabaseLinker.updateTable(tbl_ViewSOList, "SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND total_net != 0 AND invoice.customerDealer IS NULL");
     }
     public static int clickedID_onTable = 0;
@@ -59,7 +59,6 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
         tbl_ViewSOList = new javax.swing.JTable();
         txt_ViewSO = new javax.swing.JTextField();
         jLabel152 = new javax.swing.JLabel();
-        btn_SOSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dealer's Credit Amount");
@@ -174,30 +173,6 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
         jLabel152.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         jLabel152.setText("SO No.:");
 
-        btn_SOSearch.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
-        btn_SOSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/All Search.png"))); // NOI18N
-        btn_SOSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                btn_SOSearchFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                btn_SOSearchFocusLost(evt);
-            }
-        });
-        btn_SOSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_SOSearchMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_SOSearchMouseExited(evt);
-            }
-        });
-        btn_SOSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SOSearchActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -207,8 +182,6 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
                 .addComponent(jLabel152)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_ViewSO, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btn_SOSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -224,11 +197,9 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_SOSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel152)
-                        .addComponent(txt_ViewSO, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel152)
+                    .addComponent(txt_ViewSO, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -236,31 +207,21 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
                 .addGap(6, 6, 6))
         );
 
-        btn_SOSearch.registerKeyboardAction(btn_SOSearch.getActionForKeyStroke(
-            KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
-        KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
-        JComponent.WHEN_FOCUSED);
+        background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 38, -1, -1));
 
-    btn_SOSearch.registerKeyboardAction(btn_SOSearch.getActionForKeyStroke(
-        KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
-    KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
-    JComponent.WHEN_FOCUSED);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
-    background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 38, -1, -1));
-
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-    );
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-    );
-
-    pack();
-    setLocationRelativeTo(null);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     public static void getTotalNet()
     {
@@ -306,28 +267,9 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_ViewSOCloseMouseExited
 
     private void btn_ViewSOCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ViewSOCloseActionPerformed
+        SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
         this.dispose();
     }//GEN-LAST:event_btn_ViewSOCloseActionPerformed
-
-    private void btn_SOSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SOSearchFocusGained
-        btn_SOSearch.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_SOSearchFocusGained
-
-    private void btn_SOSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_SOSearchFocusLost
-        btn_SOSearch.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_SOSearchFocusLost
-
-    private void btn_SOSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SOSearchMouseEntered
-        btn_SOSearch.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_SOSearchMouseEntered
-
-    private void btn_SOSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SOSearchMouseExited
-        btn_SOSearch.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_SOSearchMouseExited
-
-    private void btn_SOSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SOSearchActionPerformed
-        button.SOSearch();
-    }//GEN-LAST:event_btn_SOSearchActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         background.setBackground(new Color(65, 105, 225));
@@ -343,6 +285,7 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
 
     private void tbl_ViewSOListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ViewSOListMousePressed
         tableclicked(evt, tbl_ViewSOList);
+        SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
     }//GEN-LAST:event_tbl_ViewSOListMousePressed
 
     private void txt_ViewSOKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ViewSOKeyReleased
@@ -401,7 +344,6 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    protected static javax.swing.JButton btn_SOSearch;
     protected javax.swing.JButton btn_ViewSOClose;
     private javax.swing.JLabel frameGrabber;
     protected static javax.swing.JLabel jLabel152;

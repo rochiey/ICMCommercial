@@ -195,6 +195,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
 
         txt_ReturnCustName.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         txt_ReturnCustName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_ReturnCustName.setEnabled(false);
 
         btn_ReturnAccept.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         btn_ReturnAccept.setText("Accept Return");
@@ -576,6 +577,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
 
     private void btn_ReturnSONoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReturnSONoActionPerformed
         button.SOHistory();
+        SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
     }//GEN-LAST:event_btn_ReturnSONoActionPerformed
 
     private void btn_ReturnEditQtyFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ReturnEditQtyFocusGained

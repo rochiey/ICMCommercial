@@ -560,10 +560,10 @@ public class SalesOrder_ButtonFunctions {
       }
      public static boolean detectProductExceed()
      {
-         boolean flag=false;
-         createDB(); int maxrdays =0;
+        boolean flag=false;
+        createDB(); int maxrdays =0;
         try {
-            if(SalesOrder_ReturnForm.iddealer != 0){
+            if(SalesOrder_ReturnForm.iddealer != 0){ //dealer
                 rs = stmt.executeQuery("SELECT max_return_days FROM dealer WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
                 while(rs.next())
                 {
@@ -579,7 +579,7 @@ public class SalesOrder_ButtonFunctions {
                     flag = datenow.after(returndate);
                 }
             }
-            else
+            else // walk in (7 days return)
             {
                 rs = stmt.executeQuery("SELECT CURDATE() as currentdate,DATE_ADD(date_of_transaction,INTERVAL 7 DAY) AS 'newdate' FROM invoice LIMIT 1");
                 while(rs.next())

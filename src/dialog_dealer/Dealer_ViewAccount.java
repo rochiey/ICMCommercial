@@ -316,9 +316,34 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
 
     private void btn_ViewDealerSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ViewDealerSelectActionPerformed
         int row = tbl_ViewDealerList.getSelectedRow();
-        int iddealer = (int)tbl_ViewDealerList.getValueAt(row,0);
-        salesOrder.SalesOrder_ButtonFunctions.getDealerDetails(iddealer);
-        salesOrder.SalesOrder_ButtonFunctions.iddealer = iddealer;
+        //txt_ViewDealerID.setText((String) tbl_ViewDealerList.getValueAt(row, 1)); //populating  name in the search textfield
+        switch (flag) {
+            case 1: //flag of picking sponspor upline
+                dialog_dealer.Dealer_NewAccount.txt_NewDealerSponsor.setText((String) tbl_ViewDealerList.getValueAt(row, 1));
+                setJTable();
+                break;
+            case 2: //flag of populating dealer in the dealer information
+                salesOrder.SalesOrder_ButtonFunctions.iddealer=dialog_dealer.Dealer_ButtonFunctions.clickedID_onTable;
+                setJTable();
+                break;
+            case 3:
+                dialog_salesOrder.SalesOrder_ReturnForm.txt_ReturnCustName.setText(tbl_ViewDealerList.getValueAt(row, 1).toString());
+                dialog_salesOrder.SalesOrder_ReturnForm.iddealer=(Integer)tbl_ViewDealerList.getValueAt(row, 0);
+                setJTable();
+                break;
+            case 4:
+                report.DealerAccount.CLTransact_Generate.txt_CLDealID.setText(tbl_ViewDealerList.getValueAt(row, 0).toString());
+                setJTable();
+                break;
+            case 5:
+                report.ReturnHistory.Return_CustomDate.txt_ReturnCustName.setText(tbl_ViewDealerList.getValueAt(row, 1).toString());
+                setJTable();
+                break;
+            default:
+                setJTable();
+                break;
+        }
+        setJTable();
         this.dispose();
     }//GEN-LAST:event_btn_ViewDealerSelectActionPerformed
 
@@ -388,7 +413,7 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
                 break;
             case 3:
                 dialog_salesOrder.SalesOrder_ReturnForm.txt_ReturnCustName.setText(tbl_ViewDealerList.getValueAt(row, 1).toString());
-                dialog_salesOrder.SalesOrder_ReturnForm.iddealer=dialog_dealer.Dealer_ButtonFunctions.clickedID_onTable;
+                dialog_salesOrder.SalesOrder_ReturnForm.iddealer=(Integer)tbl_ViewDealerList.getValueAt(row, 0);
                 setJTable();
                 break;
             case 4:
