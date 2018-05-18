@@ -233,7 +233,7 @@ public class SalesOrder_ButtonFunctions {
                 amountoPurchase = Float.parseFloat(SalesOrder_Tender.txt_CashAmount.getText());
             }catch(NumberFormatException e)
             {
-                JOptionPane.showMessageDialog(null,"Please enter correct account");
+                JOptionPane.showMessageDialog(null,"Please enter correct amount");
             }
             if(amountoPurchase<totalNet) JOptionPane.showMessageDialog(null, "You don't meet the required amount to purchase.");
             else
@@ -433,7 +433,12 @@ public class SalesOrder_ButtonFunctions {
     protected void creditSelect(){
         //txt_CPullCash.requestFocusInWindow();
     }
-    
+    protected float getTotalPenalty()
+    {
+        float penalty;
+        
+        return penalty;
+    }
     protected void pullOutAccept()
     {
         if(salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1] != "")

@@ -1443,51 +1443,8 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     }//GEN-LAST:event_txt_CashAmountActionPerformed
 
     private void txt_CPullCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CPullCashActionPerformed
-        if(salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1] != "")
-        {
-            StringBuilder sb = new StringBuilder(SalesOrder_Tender.lbl_CPullBalance.getText());
-            sb.deleteCharAt(0);
-            float change=0,amountoPurchase = 0,totalNet = Float.parseFloat(sb.toString());
-            try{
-                amountoPurchase = Float.parseFloat(SalesOrder_Tender.txt_CPullCash.getText());
-            }catch(NumberFormatException e)
-            {
-                JOptionPane.showMessageDialog(null,"Please enter correct account");
-            }
-            if(amountoPurchase<totalNet) JOptionPane.showMessageDialog(null, "You don't meet the required amount to pay.");
-            else
-            {
-                Float creditLine = null,balance=null;
-                createDB();
-                try {
-                    rs = stmt.executeQuery("SELECT credit_limit,balance FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                    while(rs.next())
-                    {
-                        creditLine = rs.getFloat("credit_limit");
-                        balance = rs.getFloat("balance");
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Float creditLineIncrease = (float)(amountoPurchase*.20)+creditLine;
-                Float availableCredit = (float)(amountoPurchase*.20)+creditLine;
-                balance-=totalNet;
-                dbHandlerUpdates("UPDATE dealer SET credit_limit="+creditLineIncrease+",available_credit="+availableCredit+", balance="+balance+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                dbHandlerUpdates("UPDATE dealer SET credit_limit="+creditLineIncrease+",available_credit="+availableCredit+", balance="+balance+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                if(SalesOrder_Tender.invoiceID == 0){
-                    dbHandlerUpdates("INSERT INTO credit_transaction(transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES((SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
-                    dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL where dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                }
-                else{
-                    dbHandlerUpdates("INSERT INTO credit_transaction(invoice_ID,transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES("+SalesOrder_Tender.invoiceID+",(SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
-                    dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL where invoice_ID="+SalesOrder_Tender.invoiceID);
-                }
-                salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
-                JOptionPane.showMessageDialog(null, "Transaction done.");
-                this.dispose();
-            }
-        }
-        else JOptionPane.showMessageDialog(null, "No customers input. Please try again");
+        button.pullOutAccept();
+        this.dispose();
     }//GEN-LAST:event_txt_CPullCashActionPerformed
     public static int invoiceID = 0;
     private void txt_CPullCashKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_CPullCashKeyReleased
