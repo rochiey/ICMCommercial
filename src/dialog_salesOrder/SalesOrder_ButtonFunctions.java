@@ -239,9 +239,9 @@ public class SalesOrder_ButtonFunctions {
             else
             {
                 dialog_salesOrder.SalesOrder_ButtonFunctions.toPurchaseOrder();
-                dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("UPDATE invoice SET payment_type=234,amount_paid="+amountoPurchase+",total_net="+totalNet+" WHERE idinvoice="+salesOrder.SalesOrder_ButtonFunctions.invoiceID);
+                dbHandlerUpdates("INSERT INTO invoice(CustomerDealer,payment_type,date_of_transaction,amount_paid,total_net) VALUES("+salesOrder.SalesOrder_ButtonFunctions.iddealer+",234,(SELECT CURDATE()),"+amountoPurchase+","+totalNet+")");
                 dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
-                SalesOrder_Tender.dbHandlerUpdates("DELETE FROM invoice WHERE total_net IS NULL");
+                //SalesOrder_Tender.dbHandlerUpdates("DELETE FROM invoice WHERE total_net IS NULL");
                 salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
                 JOptionPane.showMessageDialog(null, "Transaction done.");
                 inventory.InventoryPnl_1stLayer.updateTable();
