@@ -252,11 +252,11 @@ public class SalesOrder_ButtonFunctions {
     }
     public static void toPurchaseOrder()
     {
-        int rowCount = SalesPnl_2ndLayer.tbl_SalesCart.getRowCount(); Object barcode = ""; Integer quantity = 0, oldquantity=0;
+        int rowCount = SalesPnl_2ndLayer.tbl_SalesCart.getRowCount(); String barcode = ""; Integer quantity = 0, oldquantity=0;
         for(int i =0;i<rowCount ; i++)
         {
             createDB();
-            barcode = SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1);
+            barcode = SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString();
             quantity = Integer.parseInt(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString());
             try {
                 rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
@@ -331,7 +331,6 @@ public class SalesOrder_ButtonFunctions {
         }
         else JOptionPane.showConfirmDialog(null, "Dealer has no available credits left.");
     }
-    
     public static boolean isCreditDue(int id){
         boolean flag=false;
         createDB();

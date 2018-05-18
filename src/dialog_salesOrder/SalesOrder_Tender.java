@@ -1438,30 +1438,8 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         return result;
     }
     private void txt_CashAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CashAmountActionPerformed
-        if(salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1] != "")
-        {
-            StringBuilder sb = new StringBuilder(SalesOrder_Tender.lbl_CashTotal.getText());
-            sb.deleteCharAt(0);
-            float change=0,amountoPurchase = 0,totalNet = getRealFloat(sb.toString());
-            try{
-                amountoPurchase = Float.parseFloat(SalesOrder_Tender.txt_CashAmount.getText());
-            }catch(NumberFormatException e)
-            {
-                JOptionPane.showMessageDialog(null,"Please enter correct account");
-            }
-            if(amountoPurchase<totalNet) JOptionPane.showMessageDialog(null, "You don't meet the required amount to purchase.");
-            else
-            {
-                dialog_salesOrder.SalesOrder_ButtonFunctions.toPurchaseOrder();
-                dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("UPDATE invoice SET payment_type=234,amount_paid="+amountoPurchase+",total_net="+totalNet+" WHERE idinvoice="+salesOrder.SalesOrder_ButtonFunctions.invoiceID);
-                dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
-                salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
-                JOptionPane.showMessageDialog(null, "Transaction done.");
-                inventory.InventoryPnl_1stLayer.updateTable();
-                this.dispose();
-            }
-        }
-        else JOptionPane.showMessageDialog(null, "No customers input. Please try again");
+        button.cashTenderAccept();
+        this.dispose();
     }//GEN-LAST:event_txt_CashAmountActionPerformed
 
     private void txt_CPullCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CPullCashActionPerformed
