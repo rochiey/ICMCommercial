@@ -466,7 +466,9 @@ public class SalesOrder_ButtonFunctions {
                 Float creditLineIncrease = (float)(amountoPurchase*.20)+creditLine;
                 Float availableCredit = (float)(amountoPurchase*.20)+creditLine;
                 balance-=totalNet;
+                //CREDIT LINE INCREASE IF WHOLE PAYMENT OR PER PARTIAL PAYMENT?
                 dbHandlerUpdates("UPDATE dealer SET credit_limit="+creditLineIncrease+",available_credit="+availableCredit+", balance="+balance+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                //salesOrderTender.invoiceID represents the id of credited invoices
                 if(SalesOrder_Tender.invoiceID == 0){
                     dbHandlerUpdates("INSERT INTO credit_transaction(transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES((SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
                     dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL where dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
@@ -476,6 +478,7 @@ public class SalesOrder_ButtonFunctions {
                     dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL where invoice_ID="+SalesOrder_Tender.invoiceID);
                 }
                 salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
+                SalesOrder_Tender.invoiceID = 0;
                 JOptionPane.showMessageDialog(null, "Transaction done.");
             }
         }

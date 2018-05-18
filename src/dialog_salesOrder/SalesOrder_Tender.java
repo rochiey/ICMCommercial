@@ -1364,6 +1364,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
 
     private void btn_CPullAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CPullAcceptActionPerformed
         button.pullOutAccept();
+        this.dispose();
     }//GEN-LAST:event_btn_CPullAcceptActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
