@@ -146,7 +146,9 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_SalesInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_SalesInputActionPerformed
-        
+        button.salesBarcode = txt_SalesInput.getText();
+        button.addSalesCart();
+        txt_SalesInput.setText("");
     }//GEN-LAST:event_txt_SalesInputActionPerformed
 
     private void txt_SalesInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SalesInputKeyReleased

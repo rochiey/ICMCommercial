@@ -138,9 +138,26 @@ public class SalesOrder_ButtonFunctions {
         SalesPnl_2ndLayer.tbl_SalesCart.setShowVerticalLines(true);
     }
     static Vector<Vector<Object>> poListRows = new Vector<Vector<Object>>();
+    private static boolean isQuantityZero(String barcode)
+    {
+        boolean flag = false;
+        createDB();
+        try {
+            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode="+barcode+"'");
+            while(rs.next())
+            {
+                if(rs.getInt("quantity") == 0) flag = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
+    }
     public static void setProduct_toCart(String barcode)
     {
-         DecimalFormat formatter = new DecimalFormat ("#, ###.00");
+        if(!isQuantityZero(barcode))
+        {
+            DecimalFormat formatter = new DecimalFormat ("#, ###.00");
             Vector<Object>newRow = new Vector<Object>();
             newRow.add(SalesPnl_2ndLayer.tbl_SalesCart.getRowCount()+1);
             newRow.add(barcode);
@@ -154,7 +171,8 @@ public class SalesOrder_ButtonFunctions {
             newRow.add("₱"+formatter.format(Float.parseFloat(String.format("%.2f", getTotalPrice(1+"", barcode)))));
             poListRows.add(newRow);
             SalesPnl_2ndLayer.tbl_SalesCart.setModel(SalesPnl_2ndLayer.tblModel = new DefaultTableModel(poListRows,SalesPnl_2ndLayer.colNames));
-        
+        }
+        else JOptionPane.showMessageDialog(null, "Quantity is zero. Please try again later.");
     }
     private static Object getSize(String barcode)
     {
