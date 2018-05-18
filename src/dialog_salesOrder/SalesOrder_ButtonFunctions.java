@@ -520,6 +520,7 @@ public class SalesOrder_ButtonFunctions {
            lbl_ReturnCustomer.setText("Customer Name:");
            btn_ReturnCName.setEnabled(false);
            SalesOrder_ReturnForm.txt_ReturnCustName.setText("");
+           SalesOrder_ReturnForm.iddealer=0;
            SalesOrder_ReturnForm.txt_ReturnCustName.setEnabled(false);
         }
     }

@@ -252,6 +252,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         txt_ReturnSONo.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         txt_ReturnSONo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_ReturnSONo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txt_ReturnSONo.setEnabled(false);
         txt_ReturnSONo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_ReturnSONoActionPerformed(evt);
@@ -576,8 +577,9 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_ReturnSONoMouseExited
 
     private void btn_ReturnSONoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReturnSONoActionPerformed
-        button.SOHistory();
-        SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
+        if(txt_ReturnCustName.getText().equals("") && cbo_ReturnCType.getSelectedItem().equals("Dealer"))
+            JOptionPane.showMessageDialog(null, "Please choose dealer");
+        else button.SOHistory();
     }//GEN-LAST:event_btn_ReturnSONoActionPerformed
 
     private void btn_ReturnEditQtyFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ReturnEditQtyFocusGained
@@ -611,11 +613,11 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         {
             int trap =Integer.parseInt(txt_ReturnSONo.getText());
             DatabaseLinker.updateTable(tbl_ReturnList, "SELECT idinvoice AS 'SO No.',idproduct AS 'Code',item_name as 'Name'"
-            + ", product_color.color_code AS 'Color',REPLACE(product.product_size, 'NULL', '-') AS 'Size'"
-            + ",purchase_order_list.quantity AS 'Qty', unit_price AS 'Price'"
-            + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'Net' FROM purchase_order_list,product_color,product "
-            + "WHERE product.product_color=product_color.idproduct_color "
-            + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+trap);
+                + ", product_color.color_code AS 'Color',REPLACE(product.product_size, 'NULL', '-') AS 'Size'"
+                + ",purchase_order_list.quantity AS 'Qty', unit_price AS 'Price'"
+                + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'Net' FROM purchase_order_list,product_color,product "
+                + "WHERE product.product_color=product_color.idproduct_color "
+                + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+trap);
         }catch(NumberFormatException e)
         {
             JOptionPane.showMessageDialog(null, "Please enter correct SO No.");
@@ -689,7 +691,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
     protected static javax.swing.JTable tbl_ReturnList;
     private javax.swing.JLabel text;
     public static javax.swing.JTextField txt_ReturnCustName;
-    protected static javax.swing.JTextField txt_ReturnSONo;
+    public static javax.swing.JTextField txt_ReturnSONo;
     private javax.swing.JLabel txt_SalesTotalNetAmount;
     // End of variables declaration//GEN-END:variables
 }

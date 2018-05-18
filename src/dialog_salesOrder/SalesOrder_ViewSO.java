@@ -16,15 +16,15 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
     SalesOrder_ButtonFunctions button = new SalesOrder_ButtonFunctions();
     int xMouse, yMouse;
     static DatabaseLinker invoice;
-    static String query = "SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND total_net != 0";
-    static String queryForDealer,queryForWalkin;
+    static String query = "SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND total_net != 0 AND invoice.customerDealer IS NULL";
+    static String queryForDealer= "SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND total_net != 0 AND invoice.customerDealer IS NOT NULL AND invoice.customerDealer="+SalesOrder_ReturnForm.iddealer;
     public SalesOrder_ViewSO(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         if(SalesOrder_ReturnForm.cbo_ReturnCType.getSelectedItem().toString().equals("Dealer")) {
-            DatabaseLinker.updateTable(tbl_ViewSOList,"SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND invoice.customerDealer="+SalesOrder_ReturnForm.iddealer);
+            DatabaseLinker.updateTable(tbl_ViewSOList,queryForDealer);
         }
-        else DatabaseLinker.updateTable(tbl_ViewSOList, "SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND total_net != 0 AND invoice.customerDealer IS NULL");
+        else DatabaseLinker.updateTable(tbl_ViewSOList,"SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type WHERE invoice.payment_type=payment_type.idpayment_type AND total_net != 0 AND invoice.customerDealer IS NULL");
     }
     public static int clickedID_onTable = 0;
     public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
@@ -267,7 +267,6 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_ViewSOCloseMouseExited
 
     private void btn_ViewSOCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ViewSOCloseActionPerformed
-        SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
         this.dispose();
     }//GEN-LAST:event_btn_ViewSOCloseActionPerformed
 
@@ -285,18 +284,12 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
 
     private void tbl_ViewSOListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ViewSOListMousePressed
         tableclicked(evt, tbl_ViewSOList);
-        SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
     }//GEN-LAST:event_tbl_ViewSOListMousePressed
 
     private void txt_ViewSOKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ViewSOKeyReleased
-        if(SalesOrder_ReturnForm.iddealer == 0)
-        {
-            DatabaseLinker.updateTable(tbl_ViewSOList, query+" AND idinvoice LIKE '%"+txt_ViewSO.getText()+"%'");
-        }
-        else
-        {
+        if(SalesOrder_ReturnForm.cbo_ReturnCType.getSelectedItem().toString().equals("Dealer"))
             DatabaseLinker.updateTable(tbl_ViewSOList, queryForDealer+" AND idinvoice LIKE '%"+txt_ViewSO.getText()+"%'");
-        }
+        else DatabaseLinker.updateTable(tbl_ViewSOList, query+" AND idinvoice LIKE '%"+txt_ViewSO.getText()+"%'");
     }//GEN-LAST:event_txt_ViewSOKeyReleased
 
     /**
