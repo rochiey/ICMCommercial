@@ -584,7 +584,7 @@ public class SalesOrder_ButtonFunctions {
             }
             else // walk in (7 days return)
             {
-                rs = stmt.executeQuery("SELECT CURDATE() as currentdate,DATE_ADD(date_of_transaction,INTERVAL 7 DAY) AS 'newdate' FROM invoice LIMIT 1");
+                rs = stmt.executeQuery("SELECT CURDATE() as currentdate,DATE_ADD((SELECT date_of_transaction FROM invoice WHERE idinvoice="+txt_ReturnSONo.getText()+"),INTERVAL 7 DAY) AS 'newdate' FROM invoice LIMIT 1");
                 while(rs.next())
                 {
                     Date datenow = rs.getDate("currentdate");
