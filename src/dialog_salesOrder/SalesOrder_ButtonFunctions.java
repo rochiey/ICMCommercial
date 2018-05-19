@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import static salesOrder.SalesOrder_ButtonFunctions.*;
 import salesOrder.SalesPnl_1stLayer;
 import static salesOrder.SalesPnl_1stLayer.txt_SalesInput;
@@ -512,11 +513,12 @@ public class SalesOrder_ButtonFunctions {
     public static int inventoryView = 0;
     
     protected void customerType(){
+        DefaultTableModel dm = (DefaultTableModel) SalesOrder_ReturnForm.tbl_ReturnList.getModel();
         if(cbo_ReturnCType.getSelectedItem().equals("Dealer")){
             lbl_ReturnCustomer.setText("Dealer ID/Name:");
             btn_ReturnCName.setEnabled(true);
             SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
-            SalesOrder_ReturnForm.updateTable();
+            dm.setRowCount(0); //clears the table
         }
         else{
            lbl_ReturnCustomer.setText("Customer Name:");
@@ -525,6 +527,7 @@ public class SalesOrder_ButtonFunctions {
            SalesOrder_ReturnForm.iddealer=0;
            SalesOrder_ReturnForm.txt_ReturnCustName.setEnabled(false);
            SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
+           dm.setRowCount(0); //clears the table
         }
     }
     
