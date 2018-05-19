@@ -515,6 +515,7 @@ public class SalesOrder_ButtonFunctions {
         if(cbo_ReturnCType.getSelectedItem().equals("Dealer")){
             lbl_ReturnCustomer.setText("Dealer ID/Name:");
             btn_ReturnCName.setEnabled(true);
+            SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
             SalesOrder_ReturnForm.updateTable();
         }
         else{
@@ -523,7 +524,7 @@ public class SalesOrder_ButtonFunctions {
            SalesOrder_ReturnForm.txt_ReturnCustName.setText("");
            SalesOrder_ReturnForm.iddealer=0;
            SalesOrder_ReturnForm.txt_ReturnCustName.setEnabled(false);
-           SalesOrder_ReturnForm.updateTable();
+           SalesOrder_ReturnForm.txt_ReturnSONo.setText("");
         }
     }
     

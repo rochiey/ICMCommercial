@@ -16,13 +16,13 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
     SalesOrder_ButtonFunctions button = new SalesOrder_ButtonFunctions();
     int xMouse, yMouse;
     static DatabaseLinker invoice;
-    static String query = "SELECT idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type,purchase_order_list WHERE invoice.payment_type=payment_type.idpayment_type AND purchase_order_list.idinvoice=invoice.idinvoice AND total_net != 0 AND purchase_order_list.Quantity != 0 AND invoice.customerDealer IS NULL";
-    static String queryForDealer= "SELECT invoice.idinvoice AS 'SO No.', date_of_transaction AS 'Date', total_net AS 'Net Amount', payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type,purchase_order_list WHERE invoice.payment_type=payment_type.idpayment_type AND purchase_order_list.idinvoice=invoice.idinvoice AND total_net != 0 AND purchase_order_list.Quantity != 0 AND invoice.customerDealer IS NOT NULL AND invoice.customerDealer="+SalesOrder_ReturnForm.iddealer;
+    static String query = "SELECT invoice.idinvoice AS 'SO No.',date_of_transaction AS 'Date',total_net AS 'Net Amount',payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type,purchase_order_list WHERE invoice.payment_type=payment_type.idpayment_type AND purchase_order_list.idinvoice=invoice.idinvoice AND total_net != 0 AND purchase_order_list.Quantity != 0 AND invoice.customerDealer IS NULL";
+    static String queryForDealer;
     public SalesOrder_ViewSO(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         if(SalesOrder_ReturnForm.cbo_ReturnCType.getSelectedItem().toString().equals("Dealer")) {
-            DatabaseLinker.updateTable(tbl_ViewSOList,queryForDealer);
+            DatabaseLinker.updateTable(tbl_ViewSOList,queryForDealer= "SELECT invoice.idinvoice AS 'SO No.', date_of_transaction AS 'Date', total_net AS 'Net Amount', payment_type.payment_type_name AS 'SO Type' FROM invoice,payment_type,purchase_order_list WHERE invoice.payment_type=payment_type.idpayment_type AND invoice.idinvoice=purchase_order_list.idinvoice AND total_net != 0 AND purchase_order_list.Quantity != 0 AND invoice.customerDealer IS NOT NULL AND invoice.customerDealer="+dialog_salesOrder.SalesOrder_ReturnForm.iddealer);
         }
         else DatabaseLinker.updateTable(tbl_ViewSOList,query);
     }
@@ -288,8 +288,8 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
 
     private void txt_ViewSOKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ViewSOKeyReleased
         if(SalesOrder_ReturnForm.cbo_ReturnCType.getSelectedItem().toString().equals("Dealer"))
-            DatabaseLinker.updateTable(tbl_ViewSOList, queryForDealer+" AND idinvoice LIKE '%"+txt_ViewSO.getText()+"%'");
-        else DatabaseLinker.updateTable(tbl_ViewSOList, query+" AND idinvoice LIKE '%"+txt_ViewSO.getText()+"%'");
+            DatabaseLinker.updateTable(tbl_ViewSOList, queryForDealer+" AND invoice.idinvoice LIKE '%"+txt_ViewSO.getText()+"%'");
+        else DatabaseLinker.updateTable(tbl_ViewSOList, query+" AND invoice.idinvoice LIKE '%"+txt_ViewSO.getText()+"%'");
     }//GEN-LAST:event_txt_ViewSOKeyReleased
 
     /**

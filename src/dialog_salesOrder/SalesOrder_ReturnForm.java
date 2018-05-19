@@ -253,11 +253,6 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         txt_ReturnSONo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_ReturnSONo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_ReturnSONo.setEnabled(false);
-        txt_ReturnSONo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_ReturnSONoActionPerformed(evt);
-            }
-        });
 
         btn_ReturnSONo.setFont(new java.awt.Font("Century", 1, 16)); // NOI18N
         btn_ReturnSONo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Dealer New View.png"))); // NOI18N
@@ -607,10 +602,6 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         tableclicked(evt, tbl_ReturnList);
         clickedRow(evt, tbl_ReturnList);
     }//GEN-LAST:event_tbl_ReturnListMousePressed
-
-    private void txt_ReturnSONoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ReturnSONoActionPerformed
-        
-    }//GEN-LAST:event_txt_ReturnSONoActionPerformed
 
     /**
      * @param args the command line arguments
