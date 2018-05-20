@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class SalesOrder_ReturnForm extends javax.swing.JDialog {
 
@@ -86,6 +87,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         lbl_ReturnSalesTotal = new javax.swing.JLabel();
         btn_ReturnEditQty = new javax.swing.JButton();
         cbo_ReturnReason = new javax.swing.JComboBox();
+        btn_ReturnRemoveItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dealer's Credit Amount");
@@ -341,6 +343,30 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         cbo_ReturnReason.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         cbo_ReturnReason.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Damaged", "Change Size", "Expired", "Other.." }));
 
+        btn_ReturnRemoveItem.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btn_ReturnRemoveItem.setText("<html><center><font color=blue>Remove</font><br/>Selected<br/>Item</center></html>");
+        btn_ReturnRemoveItem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                btn_ReturnRemoveItemFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                btn_ReturnRemoveItemFocusLost(evt);
+            }
+        });
+        btn_ReturnRemoveItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_ReturnRemoveItemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_ReturnRemoveItemMouseExited(evt);
+            }
+        });
+        btn_ReturnRemoveItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ReturnRemoveItemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -375,14 +401,16 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn_ReturnRemoveItem, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_ReturnAccept)
                         .addGap(0, 0, 0)
                         .addComponent(btn_ReturnEditQty)
                         .addGap(0, 0, 0)
-                        .addComponent(btn_ReturnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btn_ReturnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -419,7 +447,8 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ReturnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_ReturnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ReturnEditQty, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_ReturnEditQty, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ReturnRemoveItem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
@@ -603,6 +632,28 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         clickedRow(evt, tbl_ReturnList);
     }//GEN-LAST:event_tbl_ReturnListMousePressed
 
+    private void btn_ReturnRemoveItemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ReturnRemoveItemFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReturnRemoveItemFocusGained
+
+    private void btn_ReturnRemoveItemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ReturnRemoveItemFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReturnRemoveItemFocusLost
+
+    private void btn_ReturnRemoveItemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ReturnRemoveItemMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReturnRemoveItemMouseEntered
+
+    private void btn_ReturnRemoveItemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ReturnRemoveItemMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReturnRemoveItemMouseExited
+
+    private void btn_ReturnRemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReturnRemoveItemActionPerformed
+        DefaultTableModel dm = (DefaultTableModel) tbl_ReturnList.getModel();
+        dm.removeRow(tbl_ReturnList.getSelectedRow());
+        SalesOrder_ViewSO.getTotalNet();
+    }//GEN-LAST:event_btn_ReturnRemoveItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -654,6 +705,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
     protected static javax.swing.JButton btn_ReturnCName;
     protected static javax.swing.JButton btn_ReturnClose;
     protected static javax.swing.JButton btn_ReturnEditQty;
+    protected static javax.swing.JButton btn_ReturnRemoveItem;
     protected static javax.swing.JButton btn_ReturnSONo;
     public static javax.swing.JComboBox<String> cbo_ReturnCType;
     public static javax.swing.JComboBox cbo_ReturnReason;

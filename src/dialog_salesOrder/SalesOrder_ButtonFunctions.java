@@ -666,6 +666,7 @@ public class SalesOrder_ButtonFunctions {
                 JOptionPane.showMessageDialog(null, "Return transaction done.");
             }
         }
+         txt_ReturnSONo.setText("");
     }
      
       protected void SOSelect(){
