@@ -318,8 +318,8 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
                 setJTable();
                 break;
             case 2: //flag of populating dealer in the dealer information
-                salesOrder.SalesOrder_ButtonFunctions.iddealer=dialog_dealer.Dealer_ButtonFunctions.clickedID_onTable;
-                salesOrder.SalesOrder_ButtonFunctions.getDealerDetails(dialog_dealer.Dealer_ButtonFunctions.clickedID_onTable);
+                salesOrder.SalesOrder_ButtonFunctions.iddealer=(int)tbl_ViewDealerList.getValueAt(row,0);
+                salesOrder.SalesOrder_ButtonFunctions.getDealerDetails((int)tbl_ViewDealerList.getValueAt(row,0));
                 setJTable();
                 break;
             case 3:
