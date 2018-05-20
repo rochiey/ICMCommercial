@@ -344,7 +344,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         cbo_ReturnReason.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Damaged", "Change Size", "Expired", "Other.." }));
 
         btn_ReturnRemoveItem.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        btn_ReturnRemoveItem.setText("<html><center><font color=blue>Remove</font><br/>Selected<br/>Item</center></html>");
+        btn_ReturnRemoveItem.setText("Remove Selected Item");
         btn_ReturnRemoveItem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 btn_ReturnRemoveItemFocusGained(evt);
@@ -404,7 +404,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_ReturnRemoveItem, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_ReturnRemoveItem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_ReturnAccept)
                         .addGap(0, 0, 0)
@@ -448,7 +448,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
                     .addComponent(btn_ReturnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_ReturnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_ReturnEditQty, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ReturnRemoveItem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_ReturnRemoveItem, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
@@ -652,6 +652,7 @@ public class SalesOrder_ReturnForm extends javax.swing.JDialog {
         DefaultTableModel dm = (DefaultTableModel) tbl_ReturnList.getModel();
         dm.removeRow(tbl_ReturnList.getSelectedRow());
         SalesOrder_ViewSO.getTotalNet();
+        if(tbl_ReturnList.getRowCount() == 0) txt_ReturnSONo.setText("");
     }//GEN-LAST:event_btn_ReturnRemoveItemActionPerformed
 
     /**
