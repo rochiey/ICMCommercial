@@ -166,11 +166,6 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
         });
         tbl_ViewDealerList.setGridColor(new java.awt.Color(204, 204, 204));
         tbl_ViewDealerList.getTableHeader().setReorderingAllowed(false);
-        tbl_ViewDealerList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tbl_ViewDealerListMousePressed(evt);
-            }
-        });
         jScrollPane18.setViewportView(tbl_ViewDealerList);
         tbl_ViewDealerList.setBackground(Color.WHITE);
         tbl_ViewDealerList.setRowHeight(27);
@@ -324,6 +319,7 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
                 break;
             case 2: //flag of populating dealer in the dealer information
                 salesOrder.SalesOrder_ButtonFunctions.iddealer=dialog_dealer.Dealer_ButtonFunctions.clickedID_onTable;
+                salesOrder.SalesOrder_ButtonFunctions.getDealerDetails(dialog_dealer.Dealer_ButtonFunctions.clickedID_onTable);
                 setJTable();
                 break;
             case 3:
@@ -398,38 +394,6 @@ public class Dealer_ViewAccount extends javax.swing.JDialog {
         text.setVisible(false);
         logo.setVisible(false);
     }//GEN-LAST:event_formWindowLostFocus
-
-    private void tbl_ViewDealerListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ViewDealerListMousePressed
-        int row = tbl_ViewDealerList.getSelectedRow();
-        //txt_ViewDealerID.setText((String) tbl_ViewDealerList.getValueAt(row, 1)); //populating  name in the search textfield
-        switch (flag) {
-            case 1: //flag of picking sponspor upline
-                dialog_dealer.Dealer_NewAccount.txt_NewDealerSponsor.setText((String) tbl_ViewDealerList.getValueAt(row, 1));
-                setJTable();
-                break;
-            case 2: //flag of populating dealer in the dealer information
-                salesOrder.SalesOrder_ButtonFunctions.iddealer=dialog_dealer.Dealer_ButtonFunctions.clickedID_onTable;
-                setJTable();
-                break;
-            case 3:
-                dialog_salesOrder.SalesOrder_ReturnForm.txt_ReturnCustName.setText(tbl_ViewDealerList.getValueAt(row, 1).toString());
-                dialog_salesOrder.SalesOrder_ReturnForm.iddealer=(Integer)tbl_ViewDealerList.getValueAt(row, 0);
-                setJTable();
-                break;
-            case 4:
-                report.DealerAccount.CLTransact_Generate.txt_CLDealID.setText(tbl_ViewDealerList.getValueAt(row, 0).toString());
-                setJTable();
-                break;
-            case 5:
-                report.ReturnHistory.Return_CustomDate.txt_ReturnCustName.setText(tbl_ViewDealerList.getValueAt(row, 1).toString());
-                setJTable();
-                break;
-            default:
-                setJTable();
-                break;
-        }
-        setJTable();
-    }//GEN-LAST:event_tbl_ViewDealerListMousePressed
 
     private void txt_ViewDealerIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ViewDealerIDKeyReleased
         try{

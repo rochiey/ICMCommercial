@@ -231,9 +231,6 @@
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_ViewDealerListMousePressed"/>
-                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="tbl_ViewDealerList.setBackground(Color.WHITE);&#xa;        tbl_ViewDealerList.setRowHeight(27);&#xa;        tbl_ViewDealerList.getTableHeader().setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 15));&#xa;        ((DefaultTableCellRenderer)tbl_ViewDealerList.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);&#xa;        tbl_ViewDealerList.setShowGrid(true);&#xa;tbl_ViewDealerList.getTableHeader().setResizingAllowed(false);"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>

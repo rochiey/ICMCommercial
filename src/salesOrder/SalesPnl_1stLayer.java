@@ -112,11 +112,6 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
                 txt_SalesInputActionPerformed(evt);
             }
         });
-        txt_SalesInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_SalesInputKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -150,16 +145,6 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
         button.addSalesCart();
         txt_SalesInput.setText("");
     }//GEN-LAST:event_txt_SalesInputActionPerformed
-
-    private void txt_SalesInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SalesInputKeyReleased
-        if(evt.getKeyCode() == evt.VK_ENTER) {
-            button.salesBarcode = txt_SalesInput.getText();
-            button.addSalesCart();
-            txt_SalesInput.setText("");
-        } else {
-            // if barcode scanner's default input is not enter
-        }
-    }//GEN-LAST:event_txt_SalesInputKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

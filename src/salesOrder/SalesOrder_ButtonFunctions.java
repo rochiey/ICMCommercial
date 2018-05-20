@@ -143,7 +143,7 @@ public class SalesOrder_ButtonFunctions {
         boolean flag = false;
         createDB();
         try {
-            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode="+barcode+"'");
+            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
             while(rs.next())
             {
                 if(rs.getInt("quantity") == 0) flag = true;
