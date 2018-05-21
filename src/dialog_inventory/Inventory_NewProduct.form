@@ -146,28 +146,31 @@
                                                   <Component id="jLabel138" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel134" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="cbo_NewProdCategory" min="-2" pref="180" max="-2" attributes="0"/>
-                                                          <Group type="102" alignment="0" attributes="0">
-                                                              <Component id="cbo_NewProdColor" min="-2" pref="78" max="-2" attributes="0"/>
-                                                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                                              <Component id="btn_NewAddColor" min="-2" pref="35" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                                      <Component id="btn_NewAddCategory" min="-2" pref="35" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Component id="txt_NewProdPrice" min="-2" pref="113" max="-2" attributes="0"/>
-                                              </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="cbo_NewProdCompany" min="-2" pref="185" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                               <Component id="btn_NewAddCompany" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="jLabel135" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txt_NewBarcode" min="-2" pref="185" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="cbo_NewProdCategory" min="-2" pref="180" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="cbo_NewProdColor" min="-2" pref="78" max="-2" attributes="0"/>
+                                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                                      <Component id="btn_NewAddColor" min="-2" pref="35" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                              <Component id="btn_NewAddCategory" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="txt_NewProdPrice" min="-2" pref="113" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -180,13 +183,24 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jLabel128" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbo_NewProdCompany" linkSize="3" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel128" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbo_NewProdCompany" linkSize="3" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="btn_NewAddCompany" linkSize="3" min="-2" pref="38" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="btn_NewAddCompany" linkSize="3" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel135" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_NewBarcode" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -645,6 +659,31 @@
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jLabel139.setText(&quot;&lt;html&gt;Retail Price: &lt;font color=red&gt;*&lt;/font&gt;&lt;/html&gt;&quot;);"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel135">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="17" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Barcode:"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jLabel135.setText(&quot;&lt;html&gt;Barcode: &lt;font color=red&gt;*&lt;/font&gt;&lt;/html&gt;&quot;);"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txt_NewBarcode">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="17" style="0"/>
+                </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Text Cursor"/>
+                </Property>
+              </Properties>
+              <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
               </AuxValues>
             </Component>

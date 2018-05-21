@@ -238,8 +238,8 @@ public class Inventory_ButtonFunctions {
         }
     }
     protected void addNewProduct(){
-        if (date_NewProdExpiration.isEnabled()){
-            if (txt_NewProdName.getText().equals("") || txt_NewProdQSupply.getText().equals("") || date_NewProdExpiration.getDate() == null){
+        if (date_NewProdExpiration.isEnabled()){ // if product is expirable
+            if (txt_NewProdName.getText().equals("") || txt_NewProdQSupply.getText().equals("") || date_NewProdExpiration.getDate() == null || txt_NewBarcode.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please fill-out the form before you "
                 + "<br/>can add new product information.</font></center></html>", "Complete the form", 0);
             }
@@ -248,11 +248,12 @@ public class Inventory_ButtonFunctions {
                 sizes = getAllSizes();
                 String expDate = date_NewProdExpiration.getEditor().getText();
                 String dateFormat = "%Y-%m-%d";
+                String barcode = txt_NewBarcode.getText();
                 if(!sizes.isEmpty())
                 {
                     for(int i=0;i<sizes.size();i++)
                     {
-                        dbHandlerUpdates("INSERT INTO product(supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity,quantity_supply) VALUES("+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
+                        dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity,quantity_supply) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
                     }
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
@@ -260,7 +261,7 @@ public class Inventory_ButtonFunctions {
                 }
                 else 
                 {
-                    dbHandlerUpdates("INSERT INTO product(supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity,quantity_supply) VALUES("+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
+                    dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity,quantity_supply) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
                         + "</font></center></html>", "Information Message", 1);
@@ -278,11 +279,12 @@ public class Inventory_ButtonFunctions {
                 sizes = getAllSizes();
                 String expDate = date_NewProdExpiration.getEditor().getText();
                 String dateFormat = "%Y-%m-%d";
+                String barcode = txt_NewBarcode.getText();
                 if(!sizes.isEmpty())
                 {
                     for(int i=0;i<sizes.size();i++)
                     {
-                        dbHandlerUpdates("INSERT INTO product(supplier,product_name,category,product_size,product_color,selling_price,quantity,quantity_supply) VALUES("+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
+                        dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity,quantity_supply) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
                     }
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
@@ -290,7 +292,7 @@ public class Inventory_ButtonFunctions {
                 }
                 else 
                 {
-                    dbHandlerUpdates("INSERT INTO product(supplier,product_name,category,product_size,product_color,selling_price,quantity,quantity_supply) VALUES("+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
+                    dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity,quantity_supply) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
                         + "</font></center></html>", "Information Message", 1);
@@ -334,7 +336,7 @@ public class Inventory_ButtonFunctions {
         cbo_NewProdCompany.setSelectedIndex(0);
         cbo_NewProdCategory.setSelectedIndex(0);
         cbo_NewProdColor.setSelectedIndex(0);
-        
+        txt_NewBarcode.setText("");
         date_NewProdExpiration.setFormats("yyyy-MM-dd");
         Date newDealerRegDate = new Date();
         date_NewProdExpiration.setDate(newDealerRegDate);
