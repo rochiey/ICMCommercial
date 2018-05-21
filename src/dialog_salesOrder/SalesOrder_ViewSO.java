@@ -36,8 +36,8 @@ public class SalesOrder_ViewSO extends javax.swing.JDialog {
             SalesOrder_ReturnForm.query="SELECT idinvoice AS 'SO No.',idproduct AS 'Code',item_name as 'Name'"
             + ", product_color.color_code AS 'Color',REPLACE(product.product_size, 'NULL', '-') AS 'Size'"
             + ",purchase_order_list.quantity AS 'Qty', unit_price AS 'Price'"
-            + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'Net' FROM purchase_order_list,product_color,product "
-            + "WHERE product.product_color=product_color.idproduct_color "
+            + ", discounted_price AS '% Price',(purchase_order_list.discounted_price*purchase_order_list.quantity) AS 'Net' FROM purchase_order_list,product_color,product "
+            + "WHERE product.product_color=product_color.idproduct_color AND purchase_order_list.Quantity != 0 "
             + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+clickedID_onTable;
             SalesOrder_ReturnForm.txt_ReturnSONo.setText(clickedID_onTable+"");
             DatabaseLinker.updateTable(SalesOrder_ReturnForm.tbl_ReturnList, SalesOrder_ReturnForm.query);
