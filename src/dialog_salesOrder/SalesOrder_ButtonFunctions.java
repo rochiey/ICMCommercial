@@ -631,7 +631,7 @@ public class SalesOrder_ButtonFunctions {
                     idprod = SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(i, 1);
                     quantity = Integer.parseInt(SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(i, 5).toString());
                     try {
-                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct='"+idprod+"'");
+                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+idprod);
                         while(rs.next())
                         {
                             oldquantity = Integer.parseInt(rs.getObject("quantity").toString());
@@ -642,7 +642,7 @@ public class SalesOrder_ButtonFunctions {
                     oldquantity+=quantity; int poQuantity = 0;
                     createDB();
                     try {
-                        rs=stmt.executeQuery("SELECT quantity FROM purchase_order_list WHERE item_code="+idprod);
+                        rs=stmt.executeQuery("SELECT quantity FROM purchase_order_list WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
                         while(rs.next())
                         {
                             poQuantity = rs.getInt("quantity");
@@ -650,19 +650,36 @@ public class SalesOrder_ButtonFunctions {
                     } catch (SQLException ex) {
                         Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    
                     poQuantity-=quantity;
 //                    String reason = SalesOrder_ReturnForm.txt_ReturnReason.getText();
-                    Object deductedAmount = SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(i, 8);
                     if(SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().equals("Change Size") || SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().equals("Other..")){
                         dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE idproduct="+idprod);
                     }
-                    dbHandlerUpdates("UPDATE purchase_order_list SET quantity="+poQuantity+",refund="+totalnet+" WHERE item_code="+idprod);
+                    dbHandlerUpdates("UPDATE purchase_order_list SET quantity="+poQuantity+",refund="+totalnet+" WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
                     dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',"+idinvoice+",'"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"')");
-                    dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+deductedAmount+","+idinvoice+")");
+                    dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+totalnet+","+idinvoice+")");
+                    
                 }
                 StringBuilder sb = new StringBuilder(SalesOrder_ReturnForm.lbl_ReturnSalesTotal.getText());
                 sb.deleteCharAt(0);
                 dbHandlerUpdates("UPDATE invoice SET total_refund="+sb.toString()+" WHERE idinvoice="+idinvoice);//stock in logs
+                if(cbo_ReturnCType.getSelectedItem().equals("Dealer")) //refund to dealer's available credit
+                {
+                    float old_availableCredit=0;
+                    createDB();
+                    try {
+                        rs = stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
+                        while(rs.next())
+                        {
+                            old_availableCredit = rs.getFloat("available_credit");
+                        }
+                        rs.close();
+                        dbHandlerUpdates("UPDATE dealer SET available_credit="+(old_availableCredit+Float.parseFloat(sb.toString()))+" WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                 JOptionPane.showMessageDialog(null, "Return transaction done.");
             }
         }
