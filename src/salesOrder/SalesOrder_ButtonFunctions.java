@@ -388,10 +388,11 @@ public class SalesOrder_ButtonFunctions {
             SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(getTotalDiscountedPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString())), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 8);
             salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.setValueAt("₱"+df.format(getTotalPrice(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 7).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 5).toString(), SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 1).toString())), SalesPnl_2ndLayer.tbl_SalesCart.getSelectedRow(), 9);
             salesOrder.SalesPnl_2ndLayer.getTotalNet();
+            
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Press F1 to renew transaction. You forgot to input customer");
+            JOptionPane.showMessageDialog(null, "No transaction on going.");
         }
     }
     
