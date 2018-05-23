@@ -491,7 +491,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
                 createDB();
                 Vector inRow = new Vector();
                 try {
-                    rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
+                    rs=stmt.executeQuery("SELECT barcode,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
                     while(rs.next())
                     {
                         inRow.add(dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getRowCount()+1);
