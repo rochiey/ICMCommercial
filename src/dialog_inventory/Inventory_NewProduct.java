@@ -2,6 +2,8 @@ package dialog_inventory;
 
 import com.DbUtils;
 import static dialog_inventory.Inventory_NewProduct.cbo_NewProdCategory;
+import static dialog_inventory.Inventory_ProductOrder.createDB;
+import static dialog_inventory.Inventory_ProductOrder.rs;
 import inventory.InventoryPnl_1stLayer;
 import java.awt.Color;
 import java.awt.Font;
@@ -38,7 +40,23 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         
         populateCBO();
         initComponents();
-        
+        if(!isCategoryExpirable(cbo_NewProdCategory)) Inventory_ButtonFunctions.disableNewRegDate(cbo_NewProdCategory);
+        repaint();
+    }
+    private boolean isCategoryExpirable(javax.swing.JComboBox cboCategory)
+    {
+        boolean flag = false;
+        createDB();
+        try {
+            rs = stmt.executeQuery("SELECT category_type FROM category WHERE category_name='"+cboCategory.getSelectedItem()+"'");
+            while(rs.next())
+            {
+                if(rs.getInt("category_type") == 15) flag = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventory_ProductOrder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return flag;
     }
     public static void updateColorCBO()
     {

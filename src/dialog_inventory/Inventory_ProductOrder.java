@@ -51,7 +51,7 @@ public class Inventory_ProductOrder extends javax.swing.JDialog {
             colNames.add("Color");
             colNames.add("Size");
             colNames.add("Current Qty");
-            colNames.add("Danger Level");
+            colNames.add("Qty Danger Lvl");
         createDB();
         try {
             rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_dangerLevel FROM product,product_color WHERE product_color=product_color.idproduct_color AND quantity <= quantity_dangerLevel AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+cbo_Company.getSelectedItem().toString()+"')");
@@ -78,7 +78,6 @@ public class Inventory_ProductOrder extends javax.swing.JDialog {
             }
         });
     }
-    
     public static void setJTable(){
         setJTableColumnsWidth(tbl_PMovementList, 625, 4, 5, 16, 7, 7, 9, 9);
         JTableFixer.setPOTableField(tbl_PMovementList);
