@@ -457,7 +457,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
                 createDB();
                 Vector inRow = new Vector();
                 try {
-                    rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
+                    rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_dangerLevel FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
                     while(rs.next())
                     {
                         inRow.add(dialog_inventory.Inventory_ProductOrder.tbl_PMovementList.getRowCount()+1);
@@ -466,7 +466,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
                         inRow.add(rs.getObject("color_code"));
                         inRow.add(rs.getObject("product_size"));
                         inRow.add(rs.getObject("quantity"));
-                        inRow.add(rs.getObject("quantity_supply"));
+                        inRow.add(rs.getObject("quantity_dangerLevel"));
                         Inventory_ProductOrder.txt_ArticleName.setText(tbl_InventoryList.getValueAt(tbl_InventoryList.getSelectedRow(), 0).toString());
                         
                     }
@@ -491,7 +491,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
                 createDB();
                 Vector inRow = new Vector();
                 try {
-                    rs=stmt.executeQuery("SELECT barcode,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
+                    rs=stmt.executeQuery("SELECT barcode,product_name,product_color.color_code,product_size,quantity,quantity_dangerLevel FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
                     while(rs.next())
                     {
                         inRow.add(dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getRowCount()+1);
@@ -500,7 +500,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
                         inRow.add(rs.getObject("color_code"));
                         inRow.add(rs.getObject("product_size"));
                         inRow.add(rs.getObject("quantity"));
-                        inRow.add(rs.getObject("quantity_supply"));
+                        inRow.add(rs.getObject("quantity_dangerLevel"));
                         dialog_inventory.Inventory_ProductMovement.txt_ArticleName.setText(tbl_InventoryList.getValueAt(tbl_InventoryList.getSelectedRow(), 0).toString());
                     }
                 } catch (SQLException ex) {

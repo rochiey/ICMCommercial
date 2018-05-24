@@ -597,7 +597,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                     colNames.add("Qty Supply");
                     createDB();
                     try {
-                        rs=stmt.executeQuery("SELECT idproduct AS 'ID',product_name AS 'Product Name',product_color.color_code As 'Color Code',product_size AS 'Size',product.quantity AS 'Current Qty',quantity_supply AS 'Qty Supply' FROM product,product_color WHERE idproduct="+prodID+" AND product_color=product_color.idproduct_color AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+cbo_Company.getSelectedItem().toString()+"')");
+                        rs=stmt.executeQuery("SELECT idproduct AS 'ID',product_name AS 'Product Name',product_color.color_code As 'Color Code',product_size AS 'Size',product.quantity AS 'Current Qty',quantity_dangerLevel AS 'Qty Supply' FROM product,product_color WHERE idproduct="+prodID+" AND product_color=product_color.idproduct_color AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+cbo_Company.getSelectedItem().toString()+"')");
                         while(rs.next())
                         {
                             Vector inRow = new Vector();

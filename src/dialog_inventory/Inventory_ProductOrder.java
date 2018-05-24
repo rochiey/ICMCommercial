@@ -51,10 +51,10 @@ public class Inventory_ProductOrder extends javax.swing.JDialog {
             colNames.add("Color");
             colNames.add("Size");
             colNames.add("Current Qty");
-            colNames.add("Qty Supply");
+            colNames.add("Danger Level");
         createDB();
         try {
-            rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND quantity <= 15 AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+cbo_Company.getSelectedItem().toString()+"')");
+            rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_dangerLevel FROM product,product_color WHERE product_color=product_color.idproduct_color AND quantity <= quantity_dangerLevel AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+cbo_Company.getSelectedItem().toString()+"')");
             while(rs.next())
             {
                 Vector inRow = new Vector();
@@ -63,8 +63,8 @@ public class Inventory_ProductOrder extends javax.swing.JDialog {
                 inRow.add(rs.getObject("product_name"));
                 inRow.add(rs.getObject("color_code"));
                 inRow.add(rs.getObject("product_size"));
-                inRow.add(rs.getObject("quantity"));
-                inRow.add(rs.getObject("quantity_supply")); 
+                inRow.add(rs.getObject("quantity")); 
+                inRow.add(rs.getObject("quantity_dangerLevel"));
                 num++;
                 rowData.add(inRow);
             }
@@ -579,7 +579,7 @@ public class Inventory_ProductOrder extends javax.swing.JDialog {
                 {
                     createDB();
                     try {
-                        rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_supply FROM product,product_color WHERE product_color=product_color.idproduct_color AND idproduct="+prodID+" AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+cbo_Company.getSelectedItem().toString()+"')");
+                        rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_dangerLevel FROM product,product_color WHERE product_color=product_color.idproduct_color AND idproduct="+prodID+" AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+cbo_Company.getSelectedItem().toString()+"')");
                         while(rs.next())
                         {
                             Vector inRow = new Vector();
@@ -589,7 +589,7 @@ public class Inventory_ProductOrder extends javax.swing.JDialog {
                             inRow.add(rs.getObject("color_code"));
                             inRow.add(rs.getObject("product_size"));
                             inRow.add(rs.getObject("quantity"));
-                            inRow.add(rs.getObject("quantity_supply"));
+                            inRow.add(rs.getObject("quantity_dangerLevel"));
                             rowData.add(inRow);
                         }
                     } catch (SQLException ex) {

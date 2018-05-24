@@ -333,7 +333,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         jLabel133.setText("Size:");
 
         jLabel131.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        jLabel131.setText("Qty Supply:");
+        jLabel131.setText("Danger Level:");
         jLabel131.setText("<html>Qty Supply: <font color=red>*</font></html>");
 
         jLabel137.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
