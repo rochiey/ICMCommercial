@@ -5,10 +5,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
-import static report.DealerAccount.DealerAccount_1stLayer.tbl_Outstanding;
 
 public class DealerAccount_2ndLayer extends javax.swing.JPanel {
 

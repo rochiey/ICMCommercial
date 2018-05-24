@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;

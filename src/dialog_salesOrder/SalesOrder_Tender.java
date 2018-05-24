@@ -1,7 +1,5 @@
 package dialog_salesOrder;
 
-import static dialog_salesOrder.SalesOrder_ButtonFunctions.createDB;
-import static dialog_salesOrder.SalesOrder_ButtonFunctions.rs;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;

@@ -1,6 +1,5 @@
 package dialog_inventory;
 
-import com.DatabaseLinker;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.Date;

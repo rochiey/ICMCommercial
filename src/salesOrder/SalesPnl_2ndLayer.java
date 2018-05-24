@@ -3,7 +3,6 @@ package salesOrder;
 
 import com.JTableFixer;
 import static com.JTableFixer.setJTableColumnsWidth;
-import static dialog_salesOrder.SalesOrder_ButtonFunctions.clickedBarcode;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;

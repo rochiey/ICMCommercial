@@ -1,7 +1,6 @@
 package report.SalesReport;
 
 import com.DatabaseLinker;
-import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.logging.Level;

@@ -269,7 +269,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         txt_ArticleName.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         txt_ArticleName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_ArticleName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txt_ArticleName.setEnabled(false);
         jPanel3.add(txt_ArticleName, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 13, 100, 38));
 
         txt_Qty.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
@@ -279,7 +278,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
 
         cbo_Company.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         cbo_Company.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Forever Living" }));
-        cbo_Company.setEnabled(false);
         jPanel3.add(cbo_Company, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 13, 140, 38));
 
         lbl_NewContactPerson1.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
@@ -323,7 +321,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
 
     btn_ViewArticle.setFont(new java.awt.Font("Century", 1, 12)); // NOI18N
     btn_ViewArticle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Dealer New View.png"))); // NOI18N
-    btn_ViewArticle.setEnabled(false);
     btn_ViewArticle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     btn_ViewArticle.addFocusListener(new java.awt.event.FocusAdapter() {
         public void focusGained(java.awt.event.FocusEvent evt) {

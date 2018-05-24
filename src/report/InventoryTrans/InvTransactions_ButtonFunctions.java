@@ -1,7 +1,6 @@
 package report.InventoryTrans;
 
 import com.DatabaseLinker;
-import java.awt.Color;
 
 public class InvTransactions_ButtonFunctions {
    //In table, Transaction type is either Sales Order, Credit, Pullout, Inv IN, Inv OUT

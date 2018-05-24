@@ -5,7 +5,6 @@ import com.JTableFixer;
 import static com.JTableFixer.setJTableColumnsWidth;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,15 +15,12 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import org.jdesktop.xswingx.PromptSupport;
-import salesOrder.SalesPnl_1stLayer;
 
 public class SalesOrder_ViewInventory extends javax.swing.JDialog {
 

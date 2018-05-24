@@ -1,8 +1,6 @@
 package dialog_salesOrder;
 
 import account_login.Account_Login;
-import static account_login.Account_Login.createDB;
-import icm.ICMMainSystem;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;

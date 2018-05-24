@@ -1,7 +1,6 @@
 package dialog_salesOrder;
 
 import com.DatabaseLinker;
-import dialog_dealer.Dealer_ViewAccount;
 import static dialog_salesOrder.SalesOrder_ReturnForm.setJTable;
 import java.awt.Color;
 import java.awt.Font;

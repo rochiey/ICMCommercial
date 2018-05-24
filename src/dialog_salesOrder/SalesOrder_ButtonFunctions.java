@@ -8,7 +8,6 @@ import static dialog_salesOrder.SalesOrder_ReturnForm.btn_ReturnCName;
 import static dialog_salesOrder.SalesOrder_ReturnForm.cbo_ReturnCType;
 import static dialog_salesOrder.SalesOrder_ReturnForm.lbl_ReturnCustomer;
 import static dialog_salesOrder.SalesOrder_ReturnForm.txt_ReturnSONo;
-import static dialog_salesOrder.SalesOrder_ViewInventory.txt_ProductName;
 import static dialog_salesOrder.SalesOrder_ViewSO.txt_ViewSO;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,11 +21,8 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static salesOrder.SalesOrder_ButtonFunctions.*;
-import salesOrder.SalesPnl_1stLayer;
-import static salesOrder.SalesPnl_1stLayer.txt_SalesInput;
 import salesOrder.SalesPnl_2ndLayer;
 
 

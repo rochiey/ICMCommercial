@@ -1,18 +1,11 @@
 package salesOrder;
 
-import icm.ICMMainSystem;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 public class SalesPnl_1stLayer extends javax.swing.JPanel {
 

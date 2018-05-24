@@ -1,8 +1,6 @@
 package report.InventoryStatus;
 
 import com.DatabaseLinker;
-import dialog_inventory.Inventory_ExpirationDate;
-import dialog_inventory.Inventory_Stocks;
 import static report.InventoryStatus.Generate_InvStatus.*;
 import static report.InventoryStatus.InvStatus_1stLayer.*;
 

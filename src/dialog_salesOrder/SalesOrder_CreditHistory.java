@@ -2,7 +2,6 @@ package dialog_salesOrder;
 
 import com.DatabaseLinker;
 import static dialog_salesOrder.SalesOrder_Tender.createDB;
-import static dialog_salesOrder.SalesOrder_Tender.rs;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;

@@ -1,8 +1,6 @@
 package report.InventoryTrans;
 
 import com.DatabaseLinker;
-import com.JTableFixer;
-import static com.JTableFixer.setJTableColumnsWidth;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;

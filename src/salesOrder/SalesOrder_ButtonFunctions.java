@@ -18,11 +18,9 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import static salesOrder.SalesPnl_1stLayer.*;
-import static salesOrder.SalesPnl_3rdLayer.*;
 
 public class SalesOrder_ButtonFunctions {
     
