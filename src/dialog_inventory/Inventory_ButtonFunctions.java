@@ -417,7 +417,6 @@ public class Inventory_ButtonFunctions {
                     if(dialogclassification == 1) Inventory_NewProduct.updateSupplierCBO();
                     else Inventory_UpdateProduct.updateSupplierCBO();
                     Inventory_Company.updateTable();
-                    purchaseOrderToSupplier();
                 }
                 else{
                     //insert SQL query here for EDITING SUPPLIER
@@ -429,7 +428,6 @@ public class Inventory_ButtonFunctions {
                         if(dialogclassification == 1) Inventory_NewProduct.updateSupplierCBO();
                         else Inventory_UpdateProduct.updateSupplierCBO();
                         Inventory_Company.updateTable();
-                        purchaseOrderToSupplier();
                     }
                 }
             }
@@ -477,19 +475,19 @@ public class Inventory_ButtonFunctions {
         
     }
     
-   protected void purchaseOrderToSupplier(){
-        if(Inventory_ProductOrder.tbl_PMovementList.getRowCount() != 0)
-        {
-            dbHandlerUpdates("INSERT INTO invoice_supplier( date_of_order) VALUES((SELECT CURDATE()))");    
-            int rowCount = Inventory_ProductOrder.tbl_PMovementList.getRowCount();
-            for(int i=0;i<rowCount;i++)
-            {
-                dbHandlerUpdates("INSERT INTO purchase_order_supplier(productID,productName,quantity,salesOrderNo) VALUES("+Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 1)+",'"+Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 2)+"',"+Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 6)+","+Inventory_ProductMovement.getLastID("invoice_supplier")+")");
-            }
-            JOptionPane.showMessageDialog(null, "Transaction done");
-        }
-        else JOptionPane.showMessageDialog(null, "You need to make an order first.");
-    }
+//   protected void purchaseOrderToSupplier(){
+//        if(Inventory_ProductOrder.tbl_PMovementList.getRowCount() != 0)
+//        {
+//            dbHandlerUpdates("INSERT INTO invoice_supplier( date_of_order) VALUES((SELECT CURDATE()))");    
+//            int rowCount = Inventory_ProductOrder.tbl_PMovementList.getRowCount();
+//            for(int i=0;i<rowCount;i++)
+//            {
+//                dbHandlerUpdates("INSERT INTO purchase_order_supplier(productID,productName,quantity,salesOrderNo) VALUES("+Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 1)+",'"+Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 2)+"',"+Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 6)+","+Inventory_ProductMovement.getLastID("invoice_supplier")+")");
+//            }
+//            JOptionPane.showMessageDialog(null, "Transaction done");
+//        }
+//        else JOptionPane.showMessageDialog(null, "You need to make an order first.");
+//    }
     private boolean isDuplicateColor(JTextField colorCode)
     {
         boolean flag = false;

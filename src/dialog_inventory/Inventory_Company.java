@@ -422,7 +422,7 @@ public class Inventory_Company extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_ClearInventoryMouseExited
 
     private void btn_ClearInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearInventoryActionPerformed
-        button.purchaseOrderToSupplier();
+        
     }//GEN-LAST:event_btn_ClearInventoryActionPerformed
 
     private void btn_CloseInventoryFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_CloseInventoryFocusGained
