@@ -24,15 +24,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Component id="btn_InventoryNew" min="-2" pref="148" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btn_InventoryUpdate" min="-2" pref="148" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="btn_InventoryPO" min="-2" pref="148" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btn_InventoryStock" min="-2" pref="148" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btn_InventoryLogout" min="-2" pref="148" max="-2" attributes="0"/>
-              <EmptySpace pref="608" max="32767" attributes="0"/>
+              <EmptySpace pref="738" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,7 +39,6 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btn_InventoryPO" min="-2" pref="89" max="-2" attributes="0"/>
                   <Component id="btn_InventoryLogout" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
                   <Component id="btn_InventoryStock" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
                   <Component id="btn_InventoryUpdate" alignment="1" min="-2" pref="89" max="-2" attributes="0"/>
@@ -138,28 +135,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_InventoryLogout.getInputMap(btn_InventoryLogout.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0), &quot;btn_InventoryLogout&quot;);&#xa;         btn_InventoryLogout.getActionMap().put(&quot;btn_InventoryLogout&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                System.exit(0);&#xa;            }&#xa;       });"/>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_InventoryLogout.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F11&lt;/font&gt;&lt;br/&gt;Logout&lt;br/&gt;Account&lt;/center&gt;&lt;/html&gt;&quot;);"/>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_InventoryPO">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century" size="12" style="1"/>
-        </Property>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/zIcons/Product Order.png"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryPOFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btn_InventoryPOFocusLost"/>
-        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryPOMouseEntered"/>
-        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_InventoryPOMouseExited"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_InventoryPOActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_InventoryPO.getInputMap(btn_InventoryPO.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), &quot;btn_InventoryPO&quot;);&#xa;         btn_InventoryPO.getActionMap().put(&quot;btn_InventoryPO&quot;, new AbstractAction() {&#xa;            public void actionPerformed(ActionEvent e) {&#xa;                button.inventoryProductOrder();&#xa;            }&#xa;       });"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btn_InventoryPO.setText(&quot;&lt;html&gt;&lt;center&gt;&lt;font color=blue&gt;F5&lt;/font&gt;&lt;br/&gt;Product&lt;br/&gt;Order&lt;/center&gt;&lt;/html&gt;&quot;);"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
       </AuxValues>
     </Component>

@@ -2,8 +2,6 @@ package dialog_inventory;
 
 import com.DbUtils;
 import static dialog_inventory.Inventory_NewProduct.cbo_NewProdCategory;
-import static dialog_inventory.Inventory_ProductOrder.createDB;
-import static dialog_inventory.Inventory_ProductOrder.rs;
 import inventory.InventoryPnl_1stLayer;
 import java.awt.Color;
 import java.awt.Font;
@@ -54,7 +52,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
                 if(rs.getInt("category_type") == 15) flag = true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Inventory_ProductOrder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Inventory_NewProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
         return flag;
     }

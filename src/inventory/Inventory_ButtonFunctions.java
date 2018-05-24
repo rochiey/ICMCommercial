@@ -3,7 +3,6 @@ package inventory;
 import com.DatabaseLinker;
 import dialog_inventory.Inventory_NewProduct;
 import dialog_inventory.Inventory_ProductMovement;
-import dialog_inventory.Inventory_ProductOrder;
 import dialog_inventory.Inventory_UpdateProduct;
 import static inventory.InventoryPnl_1stLayer.txt_InventoryCode;
 import java.sql.SQLException;
@@ -86,13 +85,6 @@ public class Inventory_ButtonFunctions {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
         return theID;
-    }
-    protected void inventoryProductOrder(){
-        dialog_inventory.Inventory_ProductOrder inventory = new Inventory_ProductOrder(null, true);
-        inventory.pack();
-        inventory.setLocationRelativeTo(null);
-        dialog_inventory.Inventory_ProductOrder.txt_POReceipt.setText(countIncrementedID()+"");
-        inventory.setVisible(true);
     }
     
     protected void searchInventory(){

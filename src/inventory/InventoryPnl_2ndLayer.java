@@ -25,7 +25,6 @@ public class InventoryPnl_2ndLayer extends javax.swing.JPanel {
         btn_InventoryUpdate = new javax.swing.JButton();
         btn_InventoryStock = new javax.swing.JButton();
         btn_InventoryLogout = new javax.swing.JButton();
-        btn_InventoryPO = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(51, 51, 51));
 
@@ -129,31 +128,6 @@ public class InventoryPnl_2ndLayer extends javax.swing.JPanel {
             }
         });
 
-        btn_InventoryPO.setFont(new java.awt.Font("Century", 1, 12)); // NOI18N
-        btn_InventoryPO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Product Order.png"))); // NOI18N
-        btn_InventoryPO.setText("<html><center><font color=blue>F5</font><br/>Product<br/>Order</center></html>");
-        btn_InventoryPO.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                btn_InventoryPOFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                btn_InventoryPOFocusLost(evt);
-            }
-        });
-        btn_InventoryPO.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_InventoryPOMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_InventoryPOMouseExited(evt);
-            }
-        });
-        btn_InventoryPO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_InventoryPOActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,22 +135,19 @@ public class InventoryPnl_2ndLayer extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addComponent(btn_InventoryNew, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_InventoryUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btn_InventoryPO, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_InventoryStock, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_InventoryLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(608, Short.MAX_VALUE))
+                .addContainerGap(738, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_InventoryPO, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_InventoryLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_InventoryStock, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_InventoryUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,12 +177,6 @@ public class InventoryPnl_2ndLayer extends javax.swing.JPanel {
         btn_InventoryLogout.getActionMap().put("btn_InventoryLogout", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
-            }
-        });
-        btn_InventoryPO.getInputMap(btn_InventoryPO.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), "btn_InventoryPO");
-        btn_InventoryPO.getActionMap().put("btn_InventoryPO", new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                button.inventoryProductOrder();
             }
         });
     }// </editor-fold>//GEN-END:initComponents
@@ -296,31 +261,10 @@ public class InventoryPnl_2ndLayer extends javax.swing.JPanel {
         button.inventoryStockMovement();
     }//GEN-LAST:event_btn_InventoryStockActionPerformed
 
-    private void btn_InventoryPOFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_InventoryPOFocusGained
-        btn_InventoryPO.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_InventoryPOFocusGained
-
-    private void btn_InventoryPOFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_InventoryPOFocusLost
-        btn_InventoryPO.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_InventoryPOFocusLost
-
-    private void btn_InventoryPOMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_InventoryPOMouseEntered
-        btn_InventoryPO.setBackground(Color.decode("#8fc6f8"));
-    }//GEN-LAST:event_btn_InventoryPOMouseEntered
-
-    private void btn_InventoryPOMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_InventoryPOMouseExited
-        btn_InventoryPO.setBackground(UIManager.getColor("control"));
-    }//GEN-LAST:event_btn_InventoryPOMouseExited
-
-    private void btn_InventoryPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InventoryPOActionPerformed
-        button.inventoryProductOrder();
-    }//GEN-LAST:event_btn_InventoryPOActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected static javax.swing.JButton btn_InventoryLogout;
     protected static javax.swing.JButton btn_InventoryNew;
-    protected static javax.swing.JButton btn_InventoryPO;
     protected static javax.swing.JButton btn_InventoryStock;
     protected static javax.swing.JButton btn_InventoryUpdate;
     // End of variables declaration//GEN-END:variables

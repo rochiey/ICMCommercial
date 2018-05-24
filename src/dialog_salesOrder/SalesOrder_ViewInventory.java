@@ -3,7 +3,6 @@ package dialog_salesOrder;
 import com.DatabaseLinker;
 import com.JTableFixer;
 import static com.JTableFixer.setJTableColumnsWidth;
-import dialog_inventory.Inventory_ProductOrder;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -427,7 +426,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
 
     private void btn_AddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCartActionPerformed
         
-        if(SalesOrder_ButtonFunctions.inventoryView==0){
+        if(SalesOrder_ButtonFunctions.inventoryView==0){ //sales order
             String barcode="";
             createDB();
             try {
@@ -443,40 +442,6 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
             salesOrderButton.salesBarcode = barcode;
             salesOrderButton.addSalesCart();
 //            this.dispose();
-        }
-        else if(SalesOrder_ButtonFunctions.inventoryView==2)
-        {
-            boolean found = false;
-            dialog_inventory.Inventory_ProductOrder.txt_ArticleName.setText(idprod+"");
-            for(int i=0;i<dialog_inventory.Inventory_ProductOrder.tbl_PMovementList.getRowCount();i++)
-            {
-                if(dialog_inventory.Inventory_ProductOrder.tbl_PMovementList.getValueAt(i, 0).equals(idprod)) found = true;
-            }
-            if(!found)
-            {
-                createDB();
-                Vector inRow = new Vector();
-                try {
-                    rs=stmt.executeQuery("SELECT idproduct,product_name,product_color.color_code,product_size,quantity,quantity_dangerLevel FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
-                    while(rs.next())
-                    {
-                        inRow.add(dialog_inventory.Inventory_ProductOrder.tbl_PMovementList.getRowCount()+1);
-                        inRow.add(rs.getObject("idproduct"));
-                        inRow.add(rs.getObject("product_name"));
-                        inRow.add(rs.getObject("color_code"));
-                        inRow.add(rs.getObject("product_size"));
-                        inRow.add(rs.getObject("quantity"));
-                        inRow.add(rs.getObject("quantity_dangerLevel"));
-                        Inventory_ProductOrder.txt_ArticleName.setText(tbl_InventoryList.getValueAt(tbl_InventoryList.getSelectedRow(), 0).toString());
-                        
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                dialog_inventory.Inventory_ProductOrder.tblModel.addRow(inRow);
-            }
-            this.dispose();
         }
         else if(SalesOrder_ButtonFunctions.inventoryView==3)
         {
