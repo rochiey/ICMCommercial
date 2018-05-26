@@ -60,10 +60,8 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         lbl_NewDiscount = new javax.swing.JLabel();
         date_Purchase = new org.jdesktop.swingx.JXDatePicker();
         lbl_NewCompanyName3 = new javax.swing.JLabel();
-        txt_POReceipt = new javax.swing.JTextField();
         lbl_NewCompanyName2 = new javax.swing.JLabel();
         lbl_NewCompanyName1 = new javax.swing.JLabel();
-        lbl_NewCompanyName = new javax.swing.JLabel();
         cbo_Remarks = new javax.swing.JComboBox<>();
         cbo_InventoryType = new javax.swing.JComboBox<>();
         txt_POReceipt1 = new javax.swing.JTextField();
@@ -209,16 +207,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         lbl_NewCompanyName3.setText("Remarks:");
         jPanel2.add(lbl_NewCompanyName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 117, -1, -1));
 
-        txt_POReceipt.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        txt_POReceipt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_POReceipt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txt_POReceipt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_POReceiptActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txt_POReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 13, 90, 38));
-
         lbl_NewCompanyName2.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         lbl_NewCompanyName2.setText("Inventory Type:");
         jPanel2.add(lbl_NewCompanyName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 69, -1, -1));
@@ -226,10 +214,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         lbl_NewCompanyName1.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         lbl_NewCompanyName1.setText("Date Purchased:");
         jPanel2.add(lbl_NewCompanyName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 69, -1, -1));
-
-        lbl_NewCompanyName.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        lbl_NewCompanyName.setText("PO No.:");
-        jPanel2.add(lbl_NewCompanyName, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 21, -1, -1));
 
         cbo_Remarks.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         cbo_Remarks.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Good Condition" }));
@@ -464,7 +448,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                                 Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
-                        dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+txt_POReceipt.getText()+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
+                        dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("invoice_supplier")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
                         dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_POReceipt1.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
                         JOptionPane.showMessageDialog(null, "Transaction done.");
                     }
@@ -729,13 +713,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
         }
         return theID-1;
-    }
-    private void txt_POReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_POReceiptActionPerformed
-        createDB();
-        DatabaseLinker.updateTable(tbl_PMovementList,"SELECT productID AS 'ID',productName AS 'Article Name',product_color.color_code As 'Color',product_size AS 'Size',product.quantity AS 'Current Qty',purchase_order_supplier.quantity AS 'Qty Supply' FROM purchase_order_supplier, product,product_color WHERE productID = idproduct AND product_color=product_color.idproduct_color AND salesOrderNo="+txt_POReceipt.getText());
-        setJTable();
-    }//GEN-LAST:event_txt_POReceiptActionPerformed
-    
+    }    
     /**
      * @param args the command line arguments
      */
@@ -796,7 +774,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane4;
-    protected static javax.swing.JLabel lbl_NewCompanyName;
     protected static javax.swing.JLabel lbl_NewCompanyName1;
     protected static javax.swing.JLabel lbl_NewCompanyName2;
     protected static javax.swing.JLabel lbl_NewCompanyName3;
@@ -808,7 +785,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     public static javax.swing.JTable tbl_PMovementList;
     private javax.swing.JLabel text;
     public static javax.swing.JTextField txt_ArticleName;
-    protected static javax.swing.JTextField txt_POReceipt;
     protected static javax.swing.JTextField txt_POReceipt1;
     public static javax.swing.JTextField txt_Qty;
     // End of variables declaration//GEN-END:variables
