@@ -253,7 +253,7 @@ public class Inventory_ButtonFunctions {
                 {
                     for(int i=0;i<sizes.size();i++)
                     {
-                        dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity,quantity_dangerLevel) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
+                        dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0)");
                     }
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
@@ -261,7 +261,7 @@ public class Inventory_ButtonFunctions {
                 }
                 else 
                 {
-                    dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity,quantity_dangerLevel) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
+                    dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0)");
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
                         + "</font></center></html>", "Information Message", 1);
@@ -284,7 +284,7 @@ public class Inventory_ButtonFunctions {
                 {
                     for(int i=0;i<sizes.size();i++)
                     {
-                        dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity,quantity_dangerLevel) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
+                        dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0)");
                     }
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
@@ -292,7 +292,7 @@ public class Inventory_ButtonFunctions {
                 }
                 else 
                 {
-                    dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity,quantity_dangerLevel) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0,"+txt_NewProdQSupply.getText()+")");
+                    dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0)");
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
                         + "</font></center></html>", "Information Message", 1);
@@ -305,7 +305,7 @@ public class Inventory_ButtonFunctions {
     {
         createDB();
         try {
-        rs = stmt.executeQuery("SELECT supplier.supplier_name,product.product_name,category.category_name,product.product_size,product_color.color_code,product.expiration,product.selling_price,product.quantity_dangerLevel FROM product,supplier,category,product_color WHERE product.supplier=supplier.idsupplier AND product.category=category.idcategory AND product.product_color = product_color.idproduct_color AND idproduct ="+clickedID_onTable);
+        rs = stmt.executeQuery("SELECT supplier.supplier_name,product.product_name,category.category_name,product.product_size,product_color.color_code,product.expiration,product.selling_price FROM product,supplier,category,product_color WHERE product.supplier=supplier.idsupplier AND product.category=category.idcategory AND product.product_color = product_color.idproduct_color AND idproduct ="+clickedID_onTable);
         Vector row = new Vector();
             while(rs.next())
             {
@@ -353,7 +353,7 @@ public class Inventory_ButtonFunctions {
             else{
                 String expDate = date_UpdateProdExpiration.getEditor().getText();
                 String dateFormat = "%Y-%m-%d";
-                dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",expiration = STR_TO_DATE('"+expDate+"','"+dateFormat+"'),selling_price = "+txt_UpdateProdPrice.getText()+", quantity_dangerLevel = "+txt_UpdateQtySupply.getText()+" WHERE idproduct = "+clickedID_onTable);
+                dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",expiration = STR_TO_DATE('"+expDate+"','"+dateFormat+"'),selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product information successfully updated!"
                         + "</font></center></html>", "Information Message", 1);
             }
@@ -366,7 +366,7 @@ public class Inventory_ButtonFunctions {
             }
             else{
                 //INSERT SQL QUERY FOR UPDATING PRODUCT
-                dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",selling_price = "+txt_UpdateProdPrice.getText()+", quantity_dangerLevel = "+txt_UpdateQtySupply.getText()+" WHERE idproduct = "+clickedID_onTable);
+                dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product information successfully updated!"
                         + "</font></center></html>", "Information Message", 1);
             }
