@@ -175,8 +175,6 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
         cbo_UpdateProdCompany = new javax.swing.JComboBox<>();
         txt_UpdateProdName = new javax.swing.JTextField();
         jLabel140 = new javax.swing.JLabel();
-        jLabel144 = new javax.swing.JLabel();
-        txt_UpdateQtySupply = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dealer's Credit Amount");
@@ -425,14 +423,6 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
         jLabel140.setText("Category:");
         jLabel140.setText("<html>Category: <font color=red>*</font></html>");
 
-        jLabel144.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        jLabel144.setText("Danger Level:");
-        jLabel144.setText("<html>Qty Supply: <font color=red>*</font></html>");
-
-        txt_UpdateQtySupply.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        txt_UpdateQtySupply.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_UpdateQtySupply.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -440,7 +430,6 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel144)
                     .addComponent(jLabel139)
                     .addComponent(jLabel130)
                     .addComponent(jLabel132))
@@ -452,8 +441,7 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
                             .addComponent(txt_UpdateProdName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                             .addComponent(cbo_UpdateProdCompany, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, 0)
-                        .addComponent(btn_UpdateAddCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txt_UpdateQtySupply, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_UpdateAddCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel135)
@@ -505,9 +493,7 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel135)
-                            .addComponent(txt_UpdateProdPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel144)
-                            .addComponent(txt_UpdateQtySupply, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_UpdateProdPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(cbo_UpdateProdColor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_UpdateAddColor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -850,7 +836,6 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel140;
     private javax.swing.JLabel jLabel141;
     private javax.swing.JLabel jLabel143;
-    private javax.swing.JLabel jLabel144;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_note2;
@@ -859,6 +844,5 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
     protected static javax.swing.JTextField txt_UpdateProdName;
     protected static javax.swing.JTextField txt_UpdateProdPrice;
     protected static javax.swing.JTextField txt_UpdateProdSize;
-    protected static javax.swing.JTextField txt_UpdateQtySupply;
     // End of variables declaration//GEN-END:variables
 }

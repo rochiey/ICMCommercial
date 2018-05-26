@@ -236,7 +236,6 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel144" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel139" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel130" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel132" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -252,7 +251,6 @@
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Component id="btn_UpdateAddCompany" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="txt_UpdateQtySupply" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -313,8 +311,6 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel135" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txt_UpdateProdPrice" linkSize="3" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Component id="jLabel144" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txt_UpdateQtySupply" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="cbo_UpdateProdColor" linkSize="2" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
@@ -566,31 +562,6 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jLabel140.setText(&quot;&lt;html&gt;Category: &lt;font color=red&gt;*&lt;/font&gt;&lt;/html&gt;&quot;);"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel144">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="17" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Danger Level:"/>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jLabel144.setText(&quot;&lt;html&gt;Qty Supply: &lt;font color=red&gt;*&lt;/font&gt;&lt;/html&gt;&quot;);"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txt_UpdateQtySupply">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="17" style="0"/>
-                    </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Text Cursor"/>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

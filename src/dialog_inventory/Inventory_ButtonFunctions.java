@@ -239,7 +239,7 @@ public class Inventory_ButtonFunctions {
     }
     protected void addNewProduct(){
         if (date_NewProdExpiration.isEnabled()){ // if product is expirable
-            if (txt_NewProdName.getText().equals("") || txt_NewProdQSupply.getText().equals("") || date_NewProdExpiration.getDate() == null || txt_NewBarcode.getText().equals("")){
+            if (txt_NewProdName.getText().equals("") || date_NewProdExpiration.getDate() == null || txt_NewBarcode.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please fill-out the form before you "
                 + "<br/>can add new product information.</font></center></html>", "Complete the form", 0);
             }
@@ -269,7 +269,7 @@ public class Inventory_ButtonFunctions {
             }
         }
         else{
-            if (txt_NewProdName.getText().equals("") || txt_NewProdQSupply.getText().equals("") ){
+            if (txt_NewProdName.getText().equals("") || txt_NewBarcode.getText().equals("") || txt_NewProdPrice.getText().equals("") ){
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please fill-out the form before you "
                     + "<br/>can add new product information.</font></center></html>", "Complete the form", 0);
             }
@@ -320,7 +320,6 @@ public class Inventory_ButtonFunctions {
                 cbo_UpdateProdColor.setSelectedItem(row.get(4));
                 if(row.get(5) != null) date_UpdateProdExpiration.getEditor().setText(row.get(5).toString());
                 txt_UpdateProdPrice.setText(row.get(6).toString());
-                txt_UpdateQtySupply.setText(row.get(7).toString());
             }
             
         } catch (SQLException ex) {
@@ -332,7 +331,6 @@ public class Inventory_ButtonFunctions {
     }
     protected void clearNewProduct(){
         txt_NewProdName.setText("");
-        txt_NewProdQSupply.setText("");
         cbo_NewProdCompany.setSelectedIndex(0);
         cbo_NewProdCategory.setSelectedIndex(0);
         cbo_NewProdColor.setSelectedIndex(0);

@@ -180,14 +180,12 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         jScrollPane7 = new javax.swing.JScrollPane();
         tbl_NewProdSize = new javax.swing.JTable();
         jLabel133 = new javax.swing.JLabel();
-        jLabel131 = new javax.swing.JLabel();
         jLabel137 = new javax.swing.JLabel();
         jLabel127 = new javax.swing.JLabel();
         jLabel128 = new javax.swing.JLabel();
         cbo_NewProdCompany = new javax.swing.JComboBox<>();
         txt_NewProdName = new javax.swing.JTextField();
         date_NewProdExpiration = new org.jdesktop.swingx.JXDatePicker();
-        txt_NewProdQSupply = new javax.swing.JTextField();
         jLabel134 = new javax.swing.JLabel();
         jLabel138 = new javax.swing.JLabel();
         cbo_NewProdColor = new javax.swing.JComboBox<>();
@@ -348,10 +346,6 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         jLabel133.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         jLabel133.setText("Size:");
 
-        jLabel131.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        jLabel131.setText("Danger Level:");
-        jLabel131.setText("<html>Qty Supply: <font color=red>*</font></html>");
-
         jLabel137.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         jLabel137.setText("Expiration Date:");
         jLabel137.setText("<html>Expiration Date: <font color=red>*</font></html>");
@@ -376,10 +370,6 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         txt_NewProdName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         date_NewProdExpiration.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-
-        txt_NewProdQSupply.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        txt_NewProdQSupply.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_NewProdQSupply.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jLabel134.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         jLabel134.setText("Category:");
@@ -515,7 +505,6 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel133)
-                                    .addComponent(jLabel131)
                                     .addComponent(jLabel137)
                                     .addComponent(jLabel127)
                                     .addComponent(jLabel128))
@@ -524,7 +513,6 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(date_NewProdExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txt_NewProdQSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txt_NewProdName, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(51, 51, 51)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -581,11 +569,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel137)
                             .addComponent(date_NewProdExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel131)
-                            .addComponent(txt_NewProdQSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(50, 50, 50)
                         .addComponent(jLabel133))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -617,7 +601,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_NewProdAdd, btn_NewProdClear, btn_NewProdClose});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_NewAddCategory, btn_NewAddColor, btn_NewAddCompany, cbo_NewProdCategory, cbo_NewProdColor, cbo_NewProdCompany, date_NewProdExpiration, txt_NewProdName, txt_NewProdQSupply});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_NewAddCategory, btn_NewAddColor, btn_NewAddCompany, cbo_NewProdCategory, cbo_NewProdColor, cbo_NewProdCompany, date_NewProdExpiration, txt_NewProdName});
 
         date_NewProdExpiration.setFormats("yyyy-MM-dd");
         Date newDealerRegDate = new Date();
@@ -893,7 +877,6 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
     private javax.swing.JLabel frameGrabber;
     protected static javax.swing.JLabel jLabel127;
     protected static javax.swing.JLabel jLabel128;
-    protected static javax.swing.JLabel jLabel131;
     protected static javax.swing.JLabel jLabel133;
     protected static javax.swing.JLabel jLabel134;
     protected static javax.swing.JLabel jLabel135;
@@ -909,6 +892,5 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
     protected static javax.swing.JTextField txt_NewBarcode;
     protected static javax.swing.JTextField txt_NewProdName;
     protected static javax.swing.JTextField txt_NewProdPrice;
-    protected static javax.swing.JTextField txt_NewProdQSupply;
     // End of variables declaration//GEN-END:variables
 }
