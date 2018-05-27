@@ -218,7 +218,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         jPanel2.add(lbl_NewCompanyName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 69, -1, -1));
 
         lbl_NewCompanyName1.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        lbl_NewCompanyName1.setText("Date Purchased:");
+        lbl_NewCompanyName1.setText("Date :");
         jPanel2.add(lbl_NewCompanyName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 69, -1, -1));
 
         cbo_Remarks.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
