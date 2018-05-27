@@ -579,8 +579,11 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 } catch (SQLException ex) {
                     Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                dialog_inventory.Inventory_ProductMovement.tblModel.addRow(inRow);
-                dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.setModel(dialog_inventory.Inventory_ProductMovement.tblModel);
+                if(inRow.size() != 0)
+                {
+                    dialog_inventory.Inventory_ProductMovement.tblModel.addRow(inRow);
+                    dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.setModel(dialog_inventory.Inventory_ProductMovement.tblModel);
+                }else JOptionPane.showMessageDialog(null, "Product not found");
                 dialog_inventory.Inventory_ProductMovement.setJTable();
             }
         }catch(NumberFormatException e)
