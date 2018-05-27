@@ -443,7 +443,19 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         }
         else if(SalesOrder_ButtonFunctions.inventoryView==3) // product movement
         {
-            dialog_inventory.Inventory_ProductMovement.txt_ArticleName.setText(idprod+"");
+            String barcode="";
+            createDB();
+            try {
+                //fetch barcode thru product id
+                rs = stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);
+                while(rs.next())
+                {
+                    barcode = rs.getObject("barcode").toString();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dialog_inventory.Inventory_ProductMovement.txt_ArticleName.setText(barcode);
             this.dispose();
         }
     }//GEN-LAST:event_btn_AddCartActionPerformed

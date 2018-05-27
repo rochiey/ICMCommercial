@@ -37,8 +37,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         initComponents();
         populateCBO();
         
-       tblModel=new DefaultTableModel(populateTableColumn(), 0);
-       setJTable();
+        Vector initial = new Vector();
+        tblModel=new DefaultTableModel(initial,populateTableColumn());
+        setJTable();
     }
    
     public static void setJTable(){
@@ -133,14 +134,14 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         });
         tbl_PMovementList.setGridColor(new java.awt.Color(204, 204, 204));
         tbl_PMovementList.setIntercellSpacing(new java.awt.Dimension(2, 2));
-        tbl_PMovementList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tbl_PMovementListMousePressed(evt);
-            }
-        });
         jScrollPane4.setViewportView(tbl_PMovementList);
         if (tbl_PMovementList.getColumnModel().getColumnCount() > 0) {
-            tbl_PMovementList.getColumnModel().getColumn(5).setHeaderValue("Qty Supply");
+            tbl_PMovementList.getColumnModel().getColumn(0).setResizable(false);
+            tbl_PMovementList.getColumnModel().getColumn(1).setResizable(false);
+            tbl_PMovementList.getColumnModel().getColumn(2).setResizable(false);
+            tbl_PMovementList.getColumnModel().getColumn(3).setResizable(false);
+            tbl_PMovementList.getColumnModel().getColumn(4).setResizable(false);
+            tbl_PMovementList.getColumnModel().getColumn(5).setResizable(false);
         }
         tbl_PMovementList.setBackground(Color.WHITE);
         tbl_PMovementList.setRowHeight(27);
@@ -500,16 +501,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         if(evt.getClickCount() >= 2 )
         {
             int row = tbl_data.getSelectedRow();
-            clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
-            txt_ArticleName.setText(clickedID_onTable+"");
-            txt_Qty.setText(tbl_data.getModel().getValueAt(row, 5).toString());
         }
         setJTable();
     }
-    private void tbl_PMovementListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_PMovementListMousePressed
-        tableclicked(evt, tbl_PMovementList);
-    }//GEN-LAST:event_tbl_PMovementListMousePressed
-
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         background.setBackground(new Color(65, 105, 225));
         text.setVisible(true);
@@ -574,18 +568,27 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                         inRow.add(rs.getObject("color_code"));
                         inRow.add(rs.getObject("product_size"));
                         inRow.add(rs.getObject("quantity"));
-                        inRow.add(txt_Qty.getText());
+                        inRow.add((Object)txt_Qty.getText());
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if(inRow.size() != 0)
                 {
-                    dialog_inventory.Inventory_ProductMovement.tblModel.addRow(inRow);
-                    dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.setModel(dialog_inventory.Inventory_ProductMovement.tblModel);
+                    rowData.add(inRow);
+                    tblModel = new DefaultTableModel(rowData, populateTableColumn()){
+                        @Override
+                        public boolean isCellEditable(int row,int column){
+                            return false;
+                        }
+                    };
+                    tbl_PMovementList.setModel(tblModel);
                 }else JOptionPane.showMessageDialog(null, "Product not found");
-                dialog_inventory.Inventory_ProductMovement.setJTable();
+                txt_ArticleName.setText("");
+                txt_Qty.setText("");
+                setJTable();
             }
+            else tbl_PMovementList.setValueAt(txt_Qty.getText(), tbl_PMovementList.getSelectedRow(), 5);
         }catch(NumberFormatException e)
         {
             JOptionPane.showMessageDialog(null,"Please enter correct quantity/article ID");
