@@ -65,10 +65,10 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         lbl_NewCompanyName2 = new javax.swing.JLabel();
         cbo_Remarks = new javax.swing.JComboBox<>();
         cbo_InventoryType = new javax.swing.JComboBox<>();
-        txt_POReceipt1 = new javax.swing.JTextField();
+        txt_PMBalance = new javax.swing.JTextField();
         lbl_NewCompanyName4 = new javax.swing.JLabel();
         lbl_NewCompanyName5 = new javax.swing.JLabel();
-        txt_POReceipt2 = new javax.swing.JTextField();
+        txt_POReceipt = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         lbl_NewContactNumber = new javax.swing.JLabel();
         lbl_NewContactPerson = new javax.swing.JLabel();
@@ -237,9 +237,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         });
         jPanel2.add(cbo_InventoryType, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 60, 140, 38));
 
-        txt_POReceipt1.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        txt_POReceipt1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(txt_POReceipt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 140, 38));
+        txt_PMBalance.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
+        txt_PMBalance.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel2.add(txt_PMBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 140, 38));
 
         lbl_NewCompanyName4.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         lbl_NewCompanyName4.setText("Balance :");
@@ -249,9 +249,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         lbl_NewCompanyName5.setText("Date :");
         jPanel2.add(lbl_NewCompanyName5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        txt_POReceipt2.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        txt_POReceipt2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(txt_POReceipt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 13, 140, 38));
+        txt_POReceipt.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
+        txt_POReceipt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel2.add(txt_POReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 13, 140, 38));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -434,8 +434,8 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private void btn_ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ConfirmActionPerformed
         try
         {
-            int receipt = Integer.parseInt(txt_POReceipt1.getText());
-            if(date_Purchase.getEditor().getText() == "" || txt_POReceipt1.getText().equals("")) JOptionPane.showMessageDialog(null, "Please fill in the fields completely.");
+            int receipt = Integer.parseInt(txt_PMBalance.getText());
+            if(date_Purchase.getEditor().getText() == "" || txt_PMBalance.getText().equals("")) JOptionPane.showMessageDialog(null, "Please fill in the fields completely.");
             else
             {
                 if(tbl_PMovementList.getRowCount()==0)
@@ -464,13 +464,13 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                             }
                         }
                         dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("invoice_supplier")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
-                        dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_POReceipt1.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
+                        dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_PMBalance.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
                         JOptionPane.showMessageDialog(null, "Transaction done.");
                     }
                     else
                     {
                         dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
-                        dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_POReceipt1.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
+                        dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_PMBalance.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
                         JOptionPane.showMessageDialog(null, "Transaction done.");
                     }
                 }
@@ -528,11 +528,12 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private void cbo_InventoryTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_InventoryTypeActionPerformed
         if(cbo_InventoryType.getSelectedItem().equals("Inventory IN")){
             cbo_Remarks.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Good Condition"}));
+            txt_PMBalance.setEnabled(true);
+            txt_POReceipt.setEnabled(true);
         }
         else{
-            cbo_Company.setEnabled(true);
-            txt_ArticleName.setEnabled(true);
-            btn_ViewArticle.setEnabled(true);
+            txt_PMBalance.setEnabled(false);
+            txt_POReceipt.setEnabled(false);
             cbo_Remarks.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bad Condition", "Expired Product", 
                 "Return to Company (Lacking)", 
                 "Return to Company (Bad Condition)" , "Return to Company (Good Condition)" }));
@@ -691,7 +692,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         columnNames.add("Color");
         columnNames.add("Size");
         columnNames.add("Current Qty");
-        columnNames.add("Qty Supply");
+        columnNames.add("Qty Supply/Remove");
         return columnNames;
     }
     private static void populateCBO()
@@ -810,8 +811,8 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     public static javax.swing.JTable tbl_PMovementList;
     private javax.swing.JLabel text;
     public static javax.swing.JTextField txt_ArticleName;
-    protected static javax.swing.JTextField txt_POReceipt1;
-    protected static javax.swing.JTextField txt_POReceipt2;
+    protected static javax.swing.JTextField txt_PMBalance;
+    protected static javax.swing.JTextField txt_POReceipt;
     public static javax.swing.JTextField txt_Qty;
     // End of variables declaration//GEN-END:variables
 }

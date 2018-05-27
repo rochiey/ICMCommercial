@@ -378,7 +378,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_POReceipt1">
+                <Component class="javax.swing.JTextField" name="txt_PMBalance">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="17" style="0"/>
@@ -428,7 +428,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_POReceipt2">
+                <Component class="javax.swing.JTextField" name="txt_POReceipt">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Arial" size="17" style="0"/>
