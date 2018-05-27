@@ -4,7 +4,6 @@ import com.DatabaseLinker;
 import com.JTableFixer;
 import static com.JTableFixer.setJTableColumnsWidth;
 import dialog_salesOrder.SalesOrder_ViewInventory;
-import static dialog_salesOrder.SalesOrder_ViewInventory.createDB;
 import static dialog_salesOrder.SalesOrder_ViewInventory.idprod;
 import java.awt.Color;
 import java.awt.Font;
