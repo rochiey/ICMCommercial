@@ -64,10 +64,12 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         date_Purchase = new org.jdesktop.swingx.JXDatePicker();
         lbl_NewCompanyName3 = new javax.swing.JLabel();
         lbl_NewCompanyName2 = new javax.swing.JLabel();
-        lbl_NewCompanyName1 = new javax.swing.JLabel();
         cbo_Remarks = new javax.swing.JComboBox<>();
         cbo_InventoryType = new javax.swing.JComboBox<>();
         txt_POReceipt1 = new javax.swing.JTextField();
+        lbl_NewCompanyName4 = new javax.swing.JLabel();
+        lbl_NewCompanyName5 = new javax.swing.JLabel();
+        txt_POReceipt2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         lbl_NewContactNumber = new javax.swing.JLabel();
         lbl_NewContactPerson = new javax.swing.JLabel();
@@ -211,15 +213,11 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
 
         lbl_NewCompanyName3.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         lbl_NewCompanyName3.setText("Remarks:");
-        jPanel2.add(lbl_NewCompanyName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 117, -1, -1));
+        jPanel2.add(lbl_NewCompanyName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
         lbl_NewCompanyName2.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         lbl_NewCompanyName2.setText("Inventory Type:");
         jPanel2.add(lbl_NewCompanyName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 69, -1, -1));
-
-        lbl_NewCompanyName1.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        lbl_NewCompanyName1.setText("Date :");
-        jPanel2.add(lbl_NewCompanyName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 69, -1, -1));
 
         cbo_Remarks.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         cbo_Remarks.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Good Condition" }));
@@ -242,7 +240,19 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
 
         txt_POReceipt1.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         txt_POReceipt1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jPanel2.add(txt_POReceipt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 13, 140, 38));
+        jPanel2.add(txt_POReceipt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 140, 38));
+
+        lbl_NewCompanyName4.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
+        lbl_NewCompanyName4.setText("Balance :");
+        jPanel2.add(lbl_NewCompanyName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 80, -1));
+
+        lbl_NewCompanyName5.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
+        lbl_NewCompanyName5.setText("Date :");
+        jPanel2.add(lbl_NewCompanyName5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+
+        txt_POReceipt2.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
+        txt_POReceipt2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jPanel2.add(txt_POReceipt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 13, 140, 38));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -588,11 +598,20 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 txt_Qty.setText("");
                 setJTable();
             }
-            else tbl_PMovementList.setValueAt(txt_Qty.getText(), tbl_PMovementList.getSelectedRow(), 5);
+            else {
+                //find the duplicate before modifying the quantity
+                int row = 0;
+                for(int i=0;i<tbl_PMovementList.getRowCount();i++)
+                {
+                    if(tbl_PMovementList.getValueAt(i, 0).equals(txt_ArticleName.getText())) row = i;
+                }
+                tbl_PMovementList.setValueAt(txt_Qty.getText(), row, 5);
+            }
         }catch(NumberFormatException e)
         {
             JOptionPane.showMessageDialog(null,"Please enter correct quantity/article ID");
         }
+        rowData = null;
     }//GEN-LAST:event_btn_AddToTableActionPerformed
 
     private void btn_ViewArticleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ViewArticleFocusGained
@@ -780,9 +799,10 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane4;
-    protected static javax.swing.JLabel lbl_NewCompanyName1;
     protected static javax.swing.JLabel lbl_NewCompanyName2;
     protected static javax.swing.JLabel lbl_NewCompanyName3;
+    protected static javax.swing.JLabel lbl_NewCompanyName4;
+    protected static javax.swing.JLabel lbl_NewCompanyName5;
     protected static javax.swing.JLabel lbl_NewContactNumber;
     protected static javax.swing.JLabel lbl_NewContactPerson;
     protected static javax.swing.JLabel lbl_NewContactPerson1;
@@ -792,6 +812,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private javax.swing.JLabel text;
     public static javax.swing.JTextField txt_ArticleName;
     protected static javax.swing.JTextField txt_POReceipt1;
+    protected static javax.swing.JTextField txt_POReceipt2;
     public static javax.swing.JTextField txt_Qty;
     // End of variables declaration//GEN-END:variables
 }
