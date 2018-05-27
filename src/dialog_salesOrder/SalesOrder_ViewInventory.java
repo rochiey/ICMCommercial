@@ -421,21 +421,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
     private void btn_AddCartMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AddCartMouseExited
         btn_AddCart.setBackground(UIManager.getColor("control"));
     }//GEN-LAST:event_btn_AddCartMouseExited
-    private static Object barcode()
-    {
-        Object b = null;
-        createDB();
-        try {
-            rs=stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);
-            while(rs.next())
-            {
-                b = rs.getObject("barcode");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return b;
-    }
+    
     private void btn_AddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCartActionPerformed
         
         if(SalesOrder_ButtonFunctions.inventoryView==0){ //sales order
@@ -457,33 +443,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         }
         else if(SalesOrder_ButtonFunctions.inventoryView==3) // product movement
         {
-            boolean found = false;
-            for(int i=0;i<dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getRowCount();i++) // duplication
-            {   
-                if(dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getValueAt(i, 0).equals(barcode())) found = true; //if duplicate then true
-            }
-            if(!found)
-            {
-                createDB();
-                Vector<Object> inRow = new Vector<Object>();
-                try {
-                    rs=stmt.executeQuery("SELECT barcode,product_name,product_color.color_code,product_size,quantity FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
-                    while(rs.next())
-                    {
-                        inRow.add(rs.getObject("barcode"));
-                        inRow.add(rs.getObject("product_name"));
-                        inRow.add(rs.getObject("color_code"));
-                        inRow.add(rs.getObject("product_size"));
-                        inRow.add(rs.getObject("quantity"));
-                        inRow.add("");
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                dialog_inventory.Inventory_ProductMovement.tblModel.addRow(inRow);
-                dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.setModel(dialog_inventory.Inventory_ProductMovement.tblModel);
-                dialog_inventory.Inventory_ProductMovement.setJTable();
-            }
+            dialog_inventory.Inventory_ProductMovement.txt_ArticleName.setText(idprod+"");
             this.dispose();
         }
     }//GEN-LAST:event_btn_AddCartActionPerformed
@@ -511,11 +471,10 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         }
     }
     private void txt_ProductNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ProductNameKeyReleased
-        if(dialog_salesOrder.SalesOrder_ButtonFunctions.inventoryView==2){
+        if(dialog_salesOrder.SalesOrder_ButtonFunctions.inventoryView==3){
             DatabaseLinker.updateTable(tbl_InventoryList, "SELECT idproduct AS 'Code', product_name AS 'Product Name',product_color.color_code AS 'Color', product_size as 'Size', quantity AS 'Quantity', selling_price AS 'Price' FROM product,product_color WHERE product.product_color=product_color.idproduct_color AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+supplierName+"') AND product_name LIKE '%"+txt_ProductName.getText()+"%'");
             setJTable();
-        }
-                
+        }      
         else{
             DatabaseLinker.updateTable(tbl_InventoryList, query+" AND product_name LIKE '%"+txt_ProductName.getText()+"%'");
             setJTable();

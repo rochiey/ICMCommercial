@@ -4,6 +4,8 @@ import com.DatabaseLinker;
 import com.JTableFixer;
 import static com.JTableFixer.setJTableColumnsWidth;
 import dialog_salesOrder.SalesOrder_ViewInventory;
+import static dialog_salesOrder.SalesOrder_ViewInventory.createDB;
+import static dialog_salesOrder.SalesOrder_ViewInventory.idprod;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -137,6 +139,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
             }
         });
         jScrollPane4.setViewportView(tbl_PMovementList);
+        if (tbl_PMovementList.getColumnModel().getColumnCount() > 0) {
+            tbl_PMovementList.getColumnModel().getColumn(5).setHeaderValue("Qty Supply");
+        }
         tbl_PMovementList.setBackground(Color.WHITE);
         tbl_PMovementList.setRowHeight(27);
         tbl_PMovementList.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 15));
@@ -547,52 +552,36 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         btn_AddToTable.setBackground(UIManager.getColor("control"));
     }//GEN-LAST:event_btn_AddToTableMouseExited
     public static DefaultTableModel tblModel;
-    
     public static Vector <Vector<Object>> rowData = new Vector<Vector<Object>>();
     private void btn_AddToTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddToTableActionPerformed
         try
         {
-            
-            int qty = Integer.parseInt(txt_Qty.getText());
-            int prodID = Integer.parseInt(txt_ArticleName.getText());
-            if(txt_ArticleName.getText().equals("")) JOptionPane.showMessageDialog(null, "Please click an item.");
-            else
+            boolean found = false;
+            for(int i=0;i<dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getRowCount();i++) // duplication
+            {   
+                if(dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getValueAt(i, 0).equals(txt_ArticleName.getText())) found = true; //if duplicate then true
+            }
+            if(!found)
             {
-                boolean putNew = true;
-                for(int i=0;i<tbl_PMovementList.getRowCount();i++)
-                {
-                    if(tbl_PMovementList.getValueAt(i, 0).equals(prodID)){
-                        tbl_PMovementList.setValueAt(qty, i, 5);
-                        putNew = false;
+                createDB();
+                Vector<Object> inRow = new Vector<Object>();
+                try {
+                    rs=stmt.executeQuery("SELECT barcode,product_name,product_color.color_code,product_size,quantity FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
+                    while(rs.next())
+                    {
+                        inRow.add(rs.getObject("barcode"));
+                        inRow.add(rs.getObject("product_name"));
+                        inRow.add(rs.getObject("color_code"));
+                        inRow.add(rs.getObject("product_size"));
+                        inRow.add(rs.getObject("quantity"));
+                        inRow.add(txt_Qty.getText());
                     }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if(putNew)
-                {
-                     Vector colNames = new Vector();
-                    int num =1;
-                    colNames.add("ID");
-                    colNames.add("Article Name");
-                    colNames.add("Color");
-                    colNames.add("Size");
-                    colNames.add("Current Qty");
-                    createDB();
-                    try {
-                        rs=stmt.executeQuery("SELECT idproduct AS 'ID',product_name AS 'Product Name',product_color.color_code As 'Color Code',product_size AS 'Size',product.quantity AS 'Current Qty' FROM product,product_color WHERE idproduct="+prodID+" AND product_color=product_color.idproduct_color AND supplier=(SELECT idsupplier FROM supplier WHERE supplier_name='"+cbo_Company.getSelectedItem().toString()+"')");
-                        while(rs.next())
-                        {
-                            Vector inRow = new Vector();
-                            inRow.add(rs.getObject("ID"));
-                            inRow.add(rs.getObject("Product Name"));
-                            inRow.add(rs.getObject("Color Code"));
-                            inRow.add(rs.getObject("Size"));
-                            inRow.add(rs.getObject("Current Qty"));
-                            inRow.add(rs.getObject("Qty Supply"));
-                            tblModel.addRow(inRow);
-                        } //DILI PA KA ADD UG TRANSFER SUPPLY NA FUNCTION
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+                dialog_inventory.Inventory_ProductMovement.tblModel.addRow(inRow);
+                dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.setModel(dialog_inventory.Inventory_ProductMovement.tblModel);
+                dialog_inventory.Inventory_ProductMovement.setJTable();
             }
         }catch(NumberFormatException e)
         {
