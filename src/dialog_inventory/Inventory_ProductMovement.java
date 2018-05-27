@@ -35,7 +35,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         initComponents();
         populateCBO();
         
-       tblModel=new DefaultTableModel();
+       tblModel=new DefaultTableModel(populateTableColumn(), 0);
        setJTable();
     }
    
@@ -118,7 +118,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Article Name", "Color", "Size", "Current Qty", "Qty Supply"
+                "Barcode", "Article Name", "Color", "Size", "Current Qty", "Qty Supply"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -669,6 +669,17 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
             Logger.getLogger(Inventory_NewProduct.class.getName()).log(Level.SEVERE, null, ex);
             javax.swing.JOptionPane.showMessageDialog(null, "Oops. Something went wrong. (Error:populatingCbo section:newInventory)");
         }
+    }
+    public static Vector populateTableColumn()
+    {
+        Vector columnNames = new Vector();
+        columnNames.add("Barcode");
+        columnNames.add("Article Name");
+        columnNames.add("Color");
+        columnNames.add("Size");
+        columnNames.add("Current Qty");
+        columnNames.add("Qty Supply");
+        return columnNames;
     }
     private static void populateCBO()
     {
