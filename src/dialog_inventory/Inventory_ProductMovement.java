@@ -533,7 +533,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         }
         else{
             txt_PMBalance.setEnabled(false);
+            txt_PMBalance.setText("");
             txt_POReceipt.setEnabled(false);
+            txt_POReceipt.setText("");
             cbo_Remarks.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bad Condition", "Expired Product", 
                 "Return to Company (Lacking)", 
                 "Return to Company (Bad Condition)" , "Return to Company (Good Condition)" }));
@@ -606,6 +608,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                     if(tbl_PMovementList.getValueAt(i, 0).equals(txt_ArticleName.getText())) row = i;
                 }
                 tbl_PMovementList.setValueAt(txt_Qty.getText(), row, 5);
+                txt_ArticleName.setText("");
+                txt_Qty.setText("");
+                setJTable();
             }
         }catch(NumberFormatException e)
         {
