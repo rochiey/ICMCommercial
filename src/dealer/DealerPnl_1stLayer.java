@@ -260,7 +260,7 @@ public class DealerPnl_1stLayer extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     protected static javax.swing.JLabel lbl_DealerCode;
     protected static javax.swing.JLabel lbl_DealerTemp;
-    protected static javax.swing.JTable tbl_DealerAccounts;
+    public static javax.swing.JTable tbl_DealerAccounts;
     protected static javax.swing.JTextField txt_DealerCode;
     // End of variables declaration//GEN-END:variables
 }

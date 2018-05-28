@@ -198,6 +198,7 @@ public class UserPnl_2ndLayer extends javax.swing.JPanel {
 
     private void btn_UserUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UserUpdateActionPerformed
        button.userUpdateAccount();
+       UserPnl_1stLayer.tbl_UserAccounts.setCellSelectionEnabled(false);
     }//GEN-LAST:event_btn_UserUpdateActionPerformed
 
     private void btn_UserLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UserLogoutActionPerformed
