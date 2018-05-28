@@ -43,6 +43,8 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
             + "WHERE product.product_color=product_color.idproduct_color "
             + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+clickedID_onTable);
         }
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        lbl_SalesReportTotal.setText("₱"+df.format(tbl_ReportSales.getValueAt(tbl_data.getSelectedRow(), 3)));
         setJTable();
     }
     public static void getAllTotal()
