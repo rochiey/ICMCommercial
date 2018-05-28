@@ -309,7 +309,7 @@ public class Inventory_ButtonFunctions {
         Vector row = new Vector();
             while(rs.next())
             {
-                for(int i=0;i<8;i++)
+                for(int i=0;i<7;i++)
                 {
                     row.addElement(rs.getObject(i+1));
                 }
