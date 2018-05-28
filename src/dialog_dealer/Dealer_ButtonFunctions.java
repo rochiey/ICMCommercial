@@ -308,7 +308,6 @@ public class Dealer_ButtonFunctions {
                 Logger.getLogger(Dealer_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        System.out.println(supplierDiscount);
         for(int k=0;k<rowCount;k++)
         {
             dbHandlerUpdates("UPDATE dealer_supplier_bridge SET discount = "+supplierDiscount.get(k)+" WHERE dealerID ="+txt_UpdateDealerID.getText()+" AND supplierID ="+supplierID.get(k));
@@ -376,7 +375,7 @@ public class Dealer_ButtonFunctions {
                     + ", Civil_Status = "+getC_StatusID(cbo_UpdateDealerCivil)+""
                     + ", Nationality = '"+txt_UpdateDealerNationality.getText()+"'"
                     + ",Address = '"+txt_UpdateDealerAddress.getText()+"'"
-                    + ",Email_Address = '"+txt_UpdateDealerAddress.getText()+"'"
+                    + ",Email_Address = '"+txt_UpdateDealerEmail.getText()+"'"
                     + ",contact_number = '"+txt_UpdateDealerContact.getText()+"'"
                     + ",occupation = '"+txt_UpdateDealerOccupation.getText()+"'"
                     + ",credit_limit = "+txt_UpdateDealerCredit.getText()+""
