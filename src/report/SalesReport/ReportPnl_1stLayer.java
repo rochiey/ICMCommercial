@@ -271,6 +271,11 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
 
         txt_SONo.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         txt_SONo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_SONo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_SONoActionPerformed(evt);
+            }
+        });
         txt_SONo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_SONoKeyReleased(evt);
@@ -351,9 +356,19 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_tbl_ReportSalesDetailsMousePressed
 
     private void txt_SONoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SONoKeyReleased
-        if(!txt_SONo.getText().equals(""))DatabaseLinker.updateTable(tbl_ReportSales,"SELECT idinvoice AS 'SO No.',DATE_FORMAT(date_of_transaction, '%b. %d, %Y') AS 'Transaction Date',(SELECT CONCAT(dealer.first_name,' ',dealer.last_name) FROM dealer WHERE dealer.iddealer=invoice.customerDealer) AS 'Customer Name',total_net AS 'Total Net', amount_paid AS 'Amount Paid',payment_type.payment_type_name AS 'Payment Type',total_refund AS 'Refund Amount' FROM payment_type,invoice WHERE payment_type=payment_type.idpayment_type AND idinvoice="+txt_SONo.getText());
-        else DatabaseLinker.updateTable(tbl_ReportSales,"SELECT idinvoice AS 'SO No.',DATE_FORMAT(date_of_transaction, '%b. %d, %Y') AS 'Transaction Date',(SELECT CONCAT(dealer.first_name,' ',dealer.last_name) FROM dealer WHERE dealer.iddealer=invoice.customerDealer) AS 'Customer Name',total_net AS 'Total Net', amount_paid AS 'Amount Paid',payment_type.payment_type_name AS 'Payment Type',total_refund AS 'Refund Amount' FROM payment_type,invoice WHERE payment_type=payment_type.idpayment_type");
+        if(!txt_SONo.getText().equals("")){
+            DatabaseLinker.updateTable(tbl_ReportSales,"SELECT idinvoice AS 'SO No.',DATE_FORMAT(date_of_transaction, '%b. %d, %Y') AS 'Transaction Date',(SELECT CONCAT(dealer.first_name,' ',dealer.last_name) FROM dealer WHERE dealer.iddealer=invoice.customerDealer) AS 'Customer Name',total_net AS 'Total Net', amount_paid AS 'Amount Paid',payment_type.payment_type_name AS 'Payment Type',total_refund AS 'Refund Amount' FROM payment_type,invoice WHERE payment_type=payment_type.idpayment_type AND idinvoice="+txt_SONo.getText());
+            setJTable();
+        }
+        else {
+            DatabaseLinker.updateTable(tbl_ReportSales,"SELECT idinvoice AS 'SO No.',DATE_FORMAT(date_of_transaction, '%b. %d, %Y') AS 'Transaction Date',(SELECT CONCAT(dealer.first_name,' ',dealer.last_name) FROM dealer WHERE dealer.iddealer=invoice.customerDealer) AS 'Customer Name',total_net AS 'Total Net', amount_paid AS 'Amount Paid',payment_type.payment_type_name AS 'Payment Type',total_refund AS 'Refund Amount' FROM payment_type,invoice WHERE payment_type=payment_type.idpayment_type");
+            setJTable();
+        }
     }//GEN-LAST:event_txt_SONoKeyReleased
+
+    private void txt_SONoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_SONoActionPerformed
+        setJTable();
+    }//GEN-LAST:event_txt_SONoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
