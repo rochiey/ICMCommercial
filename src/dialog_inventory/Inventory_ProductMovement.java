@@ -451,7 +451,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                     {
                         createDB(); int currentQty=0;
                         try {
-                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+tbl_PMovementList.getValueAt(i, 0));
+                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
                             while(rs.next())
                             {
                                 currentQty=rs.getInt("quantity");
@@ -474,7 +474,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 {
                     createDB(); int currentQty=0;
                     try {
-                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+tbl_PMovementList.getValueAt(i, 0));
+                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
                         while(rs.next())
                         {
                             currentQty=rs.getInt("quantity");

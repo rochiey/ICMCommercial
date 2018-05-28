@@ -33,7 +33,7 @@ public class InvStatus_1stLayer extends javax.swing.JPanel {
     }
     static Connection conn = null;
     static Statement stmt = null;
-    static ResultSet rs = null;
+    static ResultSet rs = null; 
     
     static int successExUpdate = 0 ;
     public static void createDB()
@@ -304,7 +304,7 @@ public class InvStatus_1stLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_tbl_InvStatusMousePressed
 
     private void txt_articleCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_articleCodeActionPerformed
-        // TODO add your handling code here:
+        setJTable();
     }//GEN-LAST:event_txt_articleCodeActionPerformed
 
     private void txt_articleCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_articleCodeKeyReleased
@@ -320,6 +320,7 @@ public class InvStatus_1stLayer extends javax.swing.JPanel {
                 + "product_color.color_code AS 'Color Code',product.quantity AS 'Quantity',"
                 + "product.selling_price AS 'Retail Price',IFNULL(DATE_FORMAT(product.expiration, '%b. %d, %Y'),'-') AS 'Expiration Date',DATEDIFF(expiration,CURDATE()) AS 'Remain. Days' "
                 + "FROM product,supplier,product_color,category WHERE product.supplier = supplier.idsupplier and product.category = category.idcategory and product.product_color = product_color.idproduct_color");
+        setJTable();
     }//GEN-LAST:event_txt_articleCodeKeyReleased
 
 
