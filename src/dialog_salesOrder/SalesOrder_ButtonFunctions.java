@@ -603,13 +603,6 @@ public class SalesOrder_ButtonFunctions {
                     + "</font></center></html>", "Error Message", 0);
         }
         else{
-            /*IF NO NAME WILL SPECIFY, THE RETURN WILL BE BASE ON THE SO NUMBER. IF THE USER WILL CLICK THE OPEN BUTTON
-             IN SO, ALL THE SO TRANSACTION HISTORY WILL SHOW UP. IF THE USER SPECIFY THE NAME OF DEALER OR WALK IN, 
-             THE SO HISTORY OF THAT CUSTOMER WILL BE THE ONLY ONE THAT WILL SHOW UP WHEN THE USER WILL CLICK THE OPEN
-             BUTTON. THEN, UPON ACCEPTING, THIS FORM WILL ALSO DETECT IF THAT PRODUCT EXCEEDS THE NUMBER OF DAYS OF
-             RETURN OR IF THAT PRODUCT CAN STILL BE RETURN IN THAT SPAN OF TIME :) 
-             
-             ROCH: THIS IS EZ AS 1 2 3*/
             if(detectProductExceed())
             {
                  JOptionPane.showMessageDialog(null, "Sorry, maximum days of returning item exceeded.");
@@ -630,7 +623,7 @@ public class SalesOrder_ButtonFunctions {
                         rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+idprod);
                         while(rs.next())
                         {
-                            oldquantity = Integer.parseInt(rs.getObject("quantity").toString());
+                            oldquantity = (Integer) rs.getObject("quantity");
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -654,7 +647,7 @@ public class SalesOrder_ButtonFunctions {
                     }
                     dbHandlerUpdates("UPDATE purchase_order_list SET quantity="+poQuantity+",refund="+totalnet+" WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
                     dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',"+idinvoice+",'"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"')");
-                    dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+totalnet+","+idinvoice+")");
+                    dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID,return_quantity) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+totalnet+","+idinvoice+","+quantity+")");
                     
                 }
                 StringBuilder sb = new StringBuilder(SalesOrder_ReturnForm.lbl_ReturnSalesTotal.getText());
