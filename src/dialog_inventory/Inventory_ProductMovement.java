@@ -37,12 +37,21 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         populateCBO();
         
         Vector initial = new Vector();
-        tblModel=new DefaultTableModel(initial,populateTableColumn());
+        tblModel=new DefaultTableModel(initial,populateTableColumn()){
+            @Override
+            public boolean isCellEditable(int row, int col)
+            {
+                return false;
+            }
+        };
+        
+        tbl_PMovementList.setModel(tblModel);
+        tbl_PMovementList.getTableHeader().setReorderingAllowed(false);
         setJTable();
     }
    
     public static void setJTable(){
-        setJTableColumnsWidth(tbl_PMovementList, 625, 5, 16, 8, 8, 9, 9);
+        setJTableColumnsWidth(tbl_PMovementList, 625, 5, 16, 6, 6, 9, 13);
         JTableFixer.setPMTableField(tbl_PMovementList);
     }
     @SuppressWarnings("unchecked")
@@ -60,7 +69,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         btn_Close = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lbl_NewDiscount = new javax.swing.JLabel();
-        date_Purchase = new org.jdesktop.swingx.JXDatePicker();
+        date_PMTransaction = new org.jdesktop.swingx.JXDatePicker();
         lbl_NewCompanyName3 = new javax.swing.JLabel();
         lbl_NewCompanyName2 = new javax.swing.JLabel();
         cbo_Remarks = new javax.swing.JComboBox<>();
@@ -206,9 +215,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         lbl_NewDiscount.setText("Company Receipt No.:");
         jPanel2.add(lbl_NewDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(308, 21, -1, -1));
 
-        date_Purchase.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        jPanel2.add(date_Purchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 60, 150, 38));
-        date_Purchase.setFormats("yyyy-MM-dd");
+        date_PMTransaction.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
+        jPanel2.add(date_PMTransaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 60, 150, 38));
+        date_PMTransaction.setFormats("yyyy-MM-dd");
 
         lbl_NewCompanyName3.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         lbl_NewCompanyName3.setText("Remarks:");
@@ -432,55 +441,48 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_ConfirmMouseExited
 
     private void btn_ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ConfirmActionPerformed
-        try
+        if(tbl_PMovementList.getRowCount()==0)
         {
-            int receipt = Integer.parseInt(txt_PMBalance.getText());
-            if(date_Purchase.getEditor().getText() == "" || txt_PMBalance.getText().equals("")) JOptionPane.showMessageDialog(null, "Please fill in the fields completely.");
-            else
+            JOptionPane.showMessageDialog(null, "Please put an item in the movement");
+        } 
+        else
+        {
+            String format="%Y-%m-%d";
+            String datePurchase = date_PMTransaction.getEditor().getText();
+            if(cbo_InventoryType.getSelectedItem().equals("Inventory IN"))
             {
-                if(tbl_PMovementList.getRowCount()==0)
-                {
-                    JOptionPane.showMessageDialog(null, "Please put an item in the movement");
-                } 
+                if(date_PMTransaction.getEditor().getText() == "" || txt_PMBalance.getText().equals("") || txt_POReceipt.getText().equals("")) JOptionPane.showMessageDialog(null, "Please fill in the fields completely.");
                 else
                 {
-                    String format="%Y-%m-%d";
-                    String datePurchase = date_Purchase.getEditor().getText();
-                    if(cbo_InventoryType.getSelectedItem().equals("Inventory IN"))
+                    for(int i=0;i<tbl_PMovementList.getRowCount();i++)
                     {
-                        for(int i=0;i<tbl_PMovementList.getRowCount();i++)
-                        {
-                            createDB(); int currentQty=0;
-                            try {
-                                rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+tbl_PMovementList.getValueAt(i, 0));
-                                while(rs.next())
-                                {
-                                    currentQty=rs.getInt("quantity");
-                                }
-                             currentQty+=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
-                             dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE idproduct="+tbl_PMovementList.getValueAt(i, 0));
-                            } catch (SQLException ex) {
-                                Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
+                        createDB(); int currentQty=0;
+                        try {
+                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+tbl_PMovementList.getValueAt(i, 0));
+                            while(rs.next())
+                            {
+                                currentQty=rs.getInt("quantity");
                             }
+                         currentQty+=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
+                         dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE idproduct="+tbl_PMovementList.getValueAt(i, 0));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("invoice_supplier")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
-                        dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_PMBalance.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
-                        JOptionPane.showMessageDialog(null, "Transaction done.");
                     }
-                    else
-                    {
-                        dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
-                        dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_PMBalance.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
-                        JOptionPane.showMessageDialog(null, "Transaction done.");
-                    }
+                    dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("invoice_supplier")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
+                    dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_PMBalance.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
+                    JOptionPane.showMessageDialog(null, "Transaction done.");
                 }
-                this.dispose();
             }
-            inventory.InventoryPnl_1stLayer.updateTable();
-        }catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(null, "The Company Receipt should be numbers");
+            else
+            {
+                dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
+                dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_PMBalance.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
+                JOptionPane.showMessageDialog(null, "Transaction done.");
+            }
         }
+        inventory.InventoryPnl_1stLayer.updateTable(); //updating the quantity in the table
+        this.dispose();
     }//GEN-LAST:event_btn_ConfirmActionPerformed
 
     private void btn_CloseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_CloseFocusGained
@@ -798,7 +800,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private static javax.swing.JComboBox<String> cbo_Company;
     protected static javax.swing.JComboBox<String> cbo_InventoryType;
     protected static javax.swing.JComboBox<String> cbo_Remarks;
-    protected static org.jdesktop.swingx.JXDatePicker date_Purchase;
+    protected static org.jdesktop.swingx.JXDatePicker date_PMTransaction;
     private javax.swing.JLabel frameGrabber;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
