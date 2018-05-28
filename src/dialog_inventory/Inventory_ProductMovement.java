@@ -470,7 +470,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
             else //invntory out
             {
                 boolean error = false;
-                for(int i=0;i<tbl_PMovementList.getRowCount();i++)
+                for(int i=0;i<tbl_PMovementList.getRowCount();i++) //loop to find quantity error
                 {
                     createDB(); int currentQty=0;
                     try {
@@ -481,16 +481,30 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                         }
                         if((Integer)tbl_PMovementList.getValueAt(i, 5) > currentQty || (Integer)tbl_PMovementList.getValueAt(i, 5) <= 0)
                             error = true;
-                        else {
-                            currentQty-=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
-                            dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
-                        }
                     } catch (SQLException ex) {
                         Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 if(!error)
                 {
+                    dbHandlerUpdates("INSERT INTO inventory_out(idsupplier,remarks,transaction_date) VALUES("+getSupplierID(cbo_Company)+",'"+cbo_Remarks.getSelectedItem()+"',SELECT CURDATE())");
+                    for(int i=0;i<tbl_PMovementList.getRowCount();i++)
+                    {
+                        createDB(); int currentQty=0;
+                        try {
+                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                            while(rs.next())
+                            {
+                                currentQty=rs.getInt("quantity");
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        currentQty-=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
+                        dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                        dbHandlerUpdates("INSERT INTO inventory_out_list(transactNo,barcode,quantity) VALUES("+getLastID("inventory_out")+",'"+tbl_PMovementList.getValueAt(i, 0)+"',"+tbl_PMovementList.getValueAt(i, 5)+")");
+                    }
+                    
                     dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
                     JOptionPane.showMessageDialog(null, "Transaction done.");
                 }
@@ -717,6 +731,20 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
             Logger.getLogger(Inventory_NewProduct.class.getName()).log(Level.SEVERE, null, ex);
             javax.swing.JOptionPane.showMessageDialog(null, "Oops. Something went wrong. (Error:populatingCbo section:newInventory)");
         }
+    }
+    private int getSupplierID(javax.swing.JComboBox cboSupplier)
+    {
+        int id = 0;
+        Object supplierName = cboSupplier.getSelectedItem();
+        createDB();
+        try {
+            rs = stmt.executeQuery("SELECT idsupplier FROM supplier WHERE supplier_name='"+supplierName+"'");
+            while(rs.next())
+                id = rs.getInt("idsupplier");
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
     }
     public static Vector populateTableColumn()
     {
