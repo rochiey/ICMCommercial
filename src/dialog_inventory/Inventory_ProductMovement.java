@@ -245,7 +245,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         jPanel2.add(cbo_InventoryType, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 60, 140, 38));
 
         lbl_NewCompanyName5.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        lbl_NewCompanyName5.setText("Date :");
+        lbl_NewCompanyName5.setText("Purchase Date:");
         jPanel2.add(lbl_NewCompanyName5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         txt_POReceipt.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
@@ -444,6 +444,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 if(date_PMTransaction.getEditor().getText().equals("") || txt_POReceipt.getText().equals("")) JOptionPane.showMessageDialog(null, "Please fill in the fields completely.");
                 else
                 {
+                    dbHandlerUpdates("INSERT INTO invoice_supplier(supplier_SOno,date_of_order,date_of_purchase) VALUES('"+txt_POReceipt.getText()+"',STR_TO_DATE('"+datePurchase+"','"+format+"'),STR_TO_DATE('"+datePurchase+"','"+format+"'))");
                     for(int i=0;i<tbl_PMovementList.getRowCount();i++)
                     {
                         createDB(); int currentQty=0;
@@ -453,33 +454,51 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                             {
                                 currentQty=rs.getInt("quantity");
                             }
-                         currentQty+=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
-                         dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                            currentQty+=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
+                            dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                            dbHandlerUpdates("INSERT purchase_order_supplier(productID,productName,quantity,salesOrderNo) VALUES("+getProductID(tbl_PMovementList.getValueAt(i, 0).toString())+",'"+tbl_PMovementList.getValueAt(i, 1)+"',"+tbl_PMovementList.getValueAt(i, 5)+","+getLastID("invoice_supplier")+")");
                         } catch (SQLException ex) {
                             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    dbHandlerUpdates("INSERT INTO invoice_supplier(supplier_SOno,");
                     dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("invoice_supplier")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
-                    dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_POReceipt.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
                     JOptionPane.showMessageDialog(null, "Transaction done.");
                 }
             }
             else //invntory out
             {
-                if(date_PMTransaction.getEditor().getText().equals("")) JOptionPane.showMessageDialog(null, "Please fill in the fields completely.");
-                else
-                {
-                    dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
-                    dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_POReceipt.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
-                    JOptionPane.showMessageDialog(null, "Transaction done.");
-                }
+                
+                dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
+                dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_POReceipt.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
+                JOptionPane.showMessageDialog(null, "Transaction done.");
             }
         }
         inventory.InventoryPnl_1stLayer.updateTable(); //updating the quantity in the table
         this.dispose();
     }//GEN-LAST:event_btn_ConfirmActionPerformed
-
+    private boolean isQuantityBelowOrExceed(String barcode)
+    {
+        boolean flag = false;
+        createDB();
+        try {
+            rs = stmt.executeQuery("");
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    private int getProductID(String barcode)
+    {
+        int id = 0;
+        createDB();
+        try {
+            rs = stmt.executeQuery("SELECT idproduct FROM product WHERE barcode ='"+barcode+"'");
+            while(rs.next()) id = rs.getInt("idproduct");
+            } catch (SQLException ex) {
+            Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
     private void btn_CloseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_CloseFocusGained
         btn_Close.setBackground(Color.decode("#8fc6f8"));
     }//GEN-LAST:event_btn_CloseFocusGained
@@ -529,6 +548,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         }
         else{
             txt_POReceipt.setEnabled(false);
+            date_PMTransaction.setEnabled(false);
             txt_POReceipt.setText("");
             cbo_Remarks.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bad Condition", "Expired Product", 
                 "Return to Company (Lacking)", 
@@ -557,6 +577,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         try
         {
             boolean found = false;
+            int quantity = Integer.parseInt(txt_Qty.getText());
             for(int i=0;i<dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getRowCount();i++) // duplication
             {   
                 if(dialog_inventory.Inventory_ProductMovement.tbl_PMovementList.getValueAt(i, 0).equals(txt_ArticleName.getText())) found = true; //if duplicate then true
@@ -574,7 +595,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                         inRow.add(rs.getObject("color_code"));
                         inRow.add(rs.getObject("product_size"));
                         inRow.add(rs.getObject("quantity"));
-                        inRow.add((Object)txt_Qty.getText());
+                        inRow.add(quantity);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
@@ -601,7 +622,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 {
                     if(tbl_PMovementList.getValueAt(i, 0).equals(txt_ArticleName.getText())) row = i;
                 }
-                tbl_PMovementList.setValueAt(txt_Qty.getText(), row, 5);
+                tbl_PMovementList.setValueAt(quantity, row, 5);
                 txt_ArticleName.setText("");
                 txt_Qty.setText("");
                 setJTable();
@@ -610,7 +631,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         {
             JOptionPane.showMessageDialog(null,"Please enter correct quantity/article ID");
         }
-        rowData = null;
+        rowData = new Vector<Vector<Object>>();
     }//GEN-LAST:event_btn_AddToTableActionPerformed
 
     private void btn_ViewArticleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ViewArticleFocusGained
