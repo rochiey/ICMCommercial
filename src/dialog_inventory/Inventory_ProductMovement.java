@@ -48,6 +48,8 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         tbl_PMovementList.setModel(tblModel);
         tbl_PMovementList.getTableHeader().setReorderingAllowed(false);
         setJTable();
+        
+        rowData = new Vector<Vector<Object>>();
     }
    
     public static void setJTable(){
@@ -643,7 +645,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         {
             JOptionPane.showMessageDialog(null,"Please enter correct quantity/article ID");
         }
-        rowData = new Vector<Vector<Object>>();
+        
     }//GEN-LAST:event_btn_AddToTableActionPerformed
 
     private void btn_ViewArticleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ViewArticleFocusGained
@@ -742,19 +744,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_ViewArticleActionPerformed
 
     private void cbo_RemarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_RemarksActionPerformed
-        if(cbo_Remarks.getSelectedItem().equals("Product Transfer")) 
-        {
-            txt_ArticleName.setEnabled(true);
-            btn_ViewArticle.setEnabled(true);
-            cbo_Company.setEnabled(true);
-        }
-        else
-        {
-            cbo_Company.setEnabled(false);
-            txt_ArticleName.setText("");
-            txt_ArticleName.setEnabled(false);
-            btn_ViewArticle.setEnabled(false);
-        }
+        
     }//GEN-LAST:event_cbo_RemarksActionPerformed
     public static int getLastID(String tblName)
     {
