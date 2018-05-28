@@ -27,7 +27,7 @@ public class InvStatus_1stLayer extends javax.swing.JPanel {
                 + "category.category_name AS 'Category',REPLACE(product.product_size, 'NULL', '-') AS 'Size',"
                 + "product_color.color_code AS 'Color Code',product.quantity AS 'Quantity',"
                 + "product.selling_price AS 'Retail Price',IFNULL(DATE_FORMAT(product.expiration, '%b. %d, %Y'),'-') AS 'Expiration Date',IFNULL(DATEDIFF(expiration,CURDATE()),'-') AS 'Remain. Days' "
-                + "FROM product,supplier,product_color,category WHERE product.supplier = supplier.idsupplier and product.category = category.idcategory and product.product_color = product_color.idproduct_color and quantity BETWEEN -1 AND 15");
+                + "FROM product,supplier,product_color,category WHERE product.supplier = supplier.idsupplier and product.category = category.idcategory and product.product_color = product_color.idproduct_color");
         setJTable();
         getAllTotals();
     }
