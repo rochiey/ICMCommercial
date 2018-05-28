@@ -467,26 +467,38 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
             }
             else //invntory out
             {
-                
-                dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
-                dbHandlerUpdates("UPDATE invoice_supplier SET supplier_SOno="+txt_POReceipt.getText()+",date_of_purchase=STR_TO_DATE('"+datePurchase+"','"+format+"') WHERE idinvoice_supplier="+getLastID("invoice_supplier"));
-                JOptionPane.showMessageDialog(null, "Transaction done.");
+                boolean error = false;
+                for(int i=0;i<tbl_PMovementList.getRowCount();i++)
+                {
+                    createDB(); int currentQty=0;
+                    try {
+                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+tbl_PMovementList.getValueAt(i, 0));
+                        while(rs.next())
+                        {
+                            currentQty=rs.getInt("quantity");
+                        }
+                        if((Integer)tbl_PMovementList.getValueAt(i, 5) > currentQty || (Integer)tbl_PMovementList.getValueAt(i, 5) <= 0)
+                            error = true;
+                        else {
+                            currentQty-=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
+                            dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if(!error)
+                {
+                    dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
+                    JOptionPane.showMessageDialog(null, "Transaction done.");
+                }
+                else JOptionPane.showMessageDialog(null, "One quantity of the products in the table are either above the stored quantity or not correct.");
             }
+            inventory.InventoryPnl_1stLayer.updateTable(); //updating the quantity in the table
+            this.dispose();
         }
-        inventory.InventoryPnl_1stLayer.updateTable(); //updating the quantity in the table
-        this.dispose();
     }//GEN-LAST:event_btn_ConfirmActionPerformed
-    private boolean isQuantityBelowOrExceed(String barcode)
-    {
-        boolean flag = false;
-        createDB();
-        try {
-            rs = stmt.executeQuery("");
-        } catch (SQLException ex) {
-            Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
+    
     private int getProductID(String barcode)
     {
         int id = 0;
