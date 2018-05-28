@@ -597,6 +597,21 @@ public class SalesOrder_ButtonFunctions {
         }
          return flag;
      }
+     public static int getLastID(String tblName)
+    {
+        Integer theID = 0;
+        createDB();
+        try {
+            rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"'");
+            while(rs.next())
+            {
+                theID = Integer.parseInt(rs.getObject("AUTO_INCREMENT").toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return theID-1;
+    }
      protected void returnAccept(){
          if (txt_ReturnSONo.getText().equals("")){
             JOptionPane.showMessageDialog(null, "<html><center><font size=4>SO number is  required in this transaction."
@@ -611,7 +626,8 @@ public class SalesOrder_ButtonFunctions {
             {
                 int rowCount = SalesOrder_ReturnForm.tbl_ReturnList.getRowCount(); Object idprod = 0,idinvoice=0; Integer quantity = 0, oldquantity=0;
                 float totalnet = 0;
-                
+                dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+totalnet+","+idinvoice+")");
+                dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',"+idinvoice+",'"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"')");
                 for(int i =0;i<rowCount ; i++)
                 {
                     createDB();
@@ -646,9 +662,7 @@ public class SalesOrder_ButtonFunctions {
                         dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE idproduct="+idprod);
                     }
                     dbHandlerUpdates("UPDATE purchase_order_list SET quantity="+poQuantity+",refund="+totalnet+" WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
-                    dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',"+idinvoice+",'"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"')");
-                    dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+totalnet+","+idinvoice+")");
-                    
+                    dbHandlerUpdates("INSERT INTO return_list(transactNo,idproduct,totalNet,returned_quantity) VALUES("+getLastID("return_history")+","+idprod+","+totalnet+","+quantity+")");
                 }
                 StringBuilder sb = new StringBuilder(SalesOrder_ReturnForm.lbl_ReturnSalesTotal.getText());
                 sb.deleteCharAt(0);
