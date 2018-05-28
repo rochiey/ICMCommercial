@@ -504,7 +504,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                         dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
                         dbHandlerUpdates("INSERT INTO inventory_out_list(transactNo,barcode,quantity) VALUES("+getLastID("inventory_out")+",'"+tbl_PMovementList.getValueAt(i, 0)+"',"+tbl_PMovementList.getValueAt(i, 5)+")");
                     }
-                    
                     dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"','"+cbo_Remarks.getSelectedItem().toString()+"')");
                     JOptionPane.showMessageDialog(null, "Transaction done.");
                 }
