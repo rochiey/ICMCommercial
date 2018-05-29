@@ -34,9 +34,9 @@ public class InvTransactions_1stLayer extends javax.swing.JPanel {
             else if(tbl_InvTransactions.getValueAt(tbl_InvTransactions.getSelectedRow(), 1).equals("Inventory OUT"))
             {
                 DatabaseLinker.updateTable(tbl_InvTransactionsDetails, "SELECT transactNo AS 'Transaction No.'"
-                        + ", barcode AS 'Barcode'"
+                        + ", inventory_out_list.barcode AS 'Barcode'"
                         + ", product.product_name AS 'Article Name'"
-                        + ", quantity AS 'Removed Quantity'"
+                        + ", inventory_out_list.quantity AS 'Removed Quantity'"
                         + " FROM inventory_out_list,product WHERE product.barcode=inventory_out_list.barcode AND transactNo="+clickedID_onTable);
 //                DatabaseLinker.updateTable(tbl_InvTransactionsDetails,"SELECT idinvoice AS 'SO No.',idproduct AS 'Product ID',item_name as 'Name'"
 //                + ", product_color.color_code AS 'Color',product.product_size AS 'Size'"
