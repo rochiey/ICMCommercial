@@ -451,13 +451,13 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                     {
                         createDB(); int currentQty=0;
                         try {
-                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
                             while(rs.next())
                             {
                                 currentQty=rs.getInt("quantity");
                             }
                             currentQty+=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
-                            dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                            dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
                             dbHandlerUpdates("INSERT purchase_order_supplier(productID,productName,quantity,salesOrderNo) VALUES("+getProductID(tbl_PMovementList.getValueAt(i, 0).toString())+",'"+tbl_PMovementList.getValueAt(i, 1)+"',"+tbl_PMovementList.getValueAt(i, 5)+","+getLastID("invoice_supplier")+")");
                         } catch (SQLException ex) {
                             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
@@ -474,7 +474,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 {
                     createDB(); int currentQty=0;
                     try {
-                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
                         while(rs.next())
                         {
                             currentQty=rs.getInt("quantity");
@@ -487,12 +487,12 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 }
                 if(!error)
                 {
-                    dbHandlerUpdates("INSERT INTO inventory_out(idsupplier,remarks,transaction_date) VALUES("+getSupplierID(cbo_Company)+",'"+cbo_Remarks.getSelectedItem()+"',SELECT CURDATE())");
+                    dbHandlerUpdates("INSERT INTO inventory_out(idsupplier,remarks,transaction_date) VALUES("+getSupplierID(cbo_Company)+",'"+cbo_Remarks.getSelectedItem()+"',(SELECT CURDATE()))");
                     for(int i=0;i<tbl_PMovementList.getRowCount();i++)
                     {
                         createDB(); int currentQty=0;
                         try {
-                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
                             while(rs.next())
                             {
                                 currentQty=rs.getInt("quantity");
@@ -501,7 +501,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         currentQty-=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
-                        dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode="+tbl_PMovementList.getValueAt(i, 0));
+                        dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
                         dbHandlerUpdates("INSERT INTO inventory_out_list(transactNo,barcode,quantity) VALUES("+getLastID("inventory_out")+",'"+tbl_PMovementList.getValueAt(i, 0)+"',"+tbl_PMovementList.getValueAt(i, 5)+")");
                     }
                     dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("inventory_out")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
