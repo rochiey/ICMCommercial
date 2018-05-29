@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class InvTransactions_1stLayer extends javax.swing.JPanel {
 
     DatabaseLinker invTransaction;
-    public static String query = "SELECT transact_date AS 'Transaction Date', transact_type AS 'Transaction Type', POid AS 'Invoice ID', remarks AS 'Remarks' FROM inventory_transactions";
+    public static String query = "SELECT transact_date AS 'Transaction Date', transact_type AS 'Transaction Type', POid AS 'Transaction ID', remarks AS 'Remarks' FROM inventory_transactions";
     public InvTransactions_1stLayer() {
         initComponents();
         invTransaction = new DatabaseLinker(tbl_InvTransactions, query);
@@ -31,14 +31,15 @@ public class InvTransactions_1stLayer extends javax.swing.JPanel {
                 "WHERE product.product_color=product_color.idproduct_color " +
                 "AND product.idproduct = purchase_order_supplier.productID AND salesOrderNo="+clickedID_onTable);
             }
-            else
+            else if(tbl_InvTransactions.getValueAt(tbl_InvTransactions.getSelectedRow(), 1).equals("Inventory OUT"))
             {
-                DatabaseLinker.updateTable(tbl_InvTransactionsDetails,"SELECT idinvoice AS 'SO No.',idproduct AS 'Product ID',item_name as 'Name'"
-                + ", product_color.color_code AS 'Color',product.product_size AS 'Size'"
-                + ",purchase_order_list.quantity AS 'Quantity', unit_price AS 'Price'"
-                + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'net' FROM purchase_order_list,product_color,product "
-                + "WHERE product.product_color=product_color.idproduct_color "
-                + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+clickedID_onTable);
+                DatabaseLinker.updateTable(tbl_InvTransactionsDetails, "SELECT ");
+//                DatabaseLinker.updateTable(tbl_InvTransactionsDetails,"SELECT idinvoice AS 'SO No.',idproduct AS 'Product ID',item_name as 'Name'"
+//                + ", product_color.color_code AS 'Color',product.product_size AS 'Size'"
+//                + ",purchase_order_list.quantity AS 'Quantity', unit_price AS 'Price'"
+//                + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'net' FROM purchase_order_list,product_color,product "
+//                + "WHERE product.product_color=product_color.idproduct_color "
+//                + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+clickedID_onTable);
             }
         }
     }
