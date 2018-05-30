@@ -392,41 +392,7 @@ public class Account_Login extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_VoidCloseActionPerformed
 
     private void txt_VoidAdminPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_VoidAdminPasswordActionPerformed
-       String user = txt_VoidAdminUsername.getText();
-        String pass = txt_VoidAdminPassword.getText();
-        boolean found = false;
-        createDB();
-        try {
-            rs=stmt.executeQuery("SELECT username FROM systemaccount");
-            while(rs.next())
-            {
-                if(rs.getObject("username").equals(user)) found = true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Account_Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if(found)
-        {
-            int usertype=0;
-            boolean passFound= false;
-            createDB();
-            try {
-                rs = stmt.executeQuery("SELECT password,usertype FROM systemaccount");
-                while(rs.next())
-                {
-                    if(decodeCaesar(rs.getObject("password").toString(), 5).equals(pass)) passFound = true;
-                    usertype = rs.getInt("usertype");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Account_Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if(passFound)
-            {
-                Session.indicateSession(txt_VoidAdminUsername.getText());
-                this.dispose();
-            }
-            else JOptionPane.showMessageDialog(null, "Password not found");
-        }else JOptionPane.showMessageDialog(null, "Username not found");
+        btn_VoidConfirmActionPerformed(evt);
     }//GEN-LAST:event_txt_VoidAdminPasswordActionPerformed
 
     /**
