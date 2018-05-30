@@ -448,14 +448,6 @@ public class SalesOrder_ButtonFunctions {
                                 break;
                         }
                     }
-                 createDB();
-                 float totalBalance=0;
-                 rs=stmt.executeQuery("SELECT total_net FROM credit_transaction WHERE paymentTypeID=243 AND dealer_ID="+iddealer.get(i));
-                 while(rs.next())
-                 {
-                     totalBalance+=rs.getFloat("total_net");
-                 }
-                    dbHandlerUpdates("UPDATE dealer SET balance="+totalBalance);
                 } catch (SQLException ex) {
                     Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
                 }
