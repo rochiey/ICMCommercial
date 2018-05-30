@@ -1,6 +1,6 @@
 package dialog_salesOrder;
 
-import account_login.Account_Login;
+import account_login.Account_LoginOld;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -288,7 +288,7 @@ public class SalesOrder_Edit extends javax.swing.JDialog {
             try {
                conn.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Account_Login.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Account_LoginOld.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return success;
@@ -330,7 +330,7 @@ public class SalesOrder_Edit extends javax.swing.JDialog {
                     if(decodeCaesar(rs.getObject("password").toString(), 5).equals(pass)) found = true;
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Account_Login.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Account_LoginOld.class.getName()).log(Level.SEVERE, null, ex);
             }
                 if(found)
                 {
@@ -390,7 +390,7 @@ public class SalesOrder_Edit extends javax.swing.JDialog {
                     if(decodeCaesar(rs.getObject("password").toString(), 5).equals(pass)) found = true;
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Account_Login.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Account_LoginOld.class.getName()).log(Level.SEVERE, null, ex);
             }
                 if(found)
                 {
