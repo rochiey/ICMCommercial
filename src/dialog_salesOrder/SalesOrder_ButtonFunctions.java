@@ -355,6 +355,22 @@ public class SalesOrder_ButtonFunctions {
         }
         return flag;
     }
+    private static void updateDealerTotalPenalty(float currentPenalty,Object dealer)
+    {
+        createDB();
+        ResultSet result = null;
+        float totalPenalty = 0;
+        try {
+             result = stmt.executeQuery("SELECT total_penalty FROM dealer WHERE iddealer="+dealer);
+             while(result.next())
+             {
+                 totalPenalty = result.getFloat("total_penalty");
+             }
+             totalPenalty += currentPenalty;
+        } catch (SQLException ex) {
+            Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public static void generatePenalty()
     {
         Vector iddealer = new Vector();
@@ -372,51 +388,65 @@ public class SalesOrder_ButtonFunctions {
         {
             if(isCreditDue((int) iddealer.get(i)))
             {
-                int daysleft=0; float money=0,penalty=0;
+                int daysleft=0; float money=0,penalty=0,totalPenalty=0;
                 try {
                     createDB();
-                    rs = stmt.executeQuery("SELECT DATEDIFF(due_date,CURDATE()) as 'days',total_net,penalty FROM credit_transaction WHERE dealer_ID="+iddealer.get(i));
+                    rs = stmt.executeQuery("SELECT DATEDIFF(due_date,CURDATE()) as 'days',total_net,penalty FROM credit_transaction WHERE due_date IS NOT NULL AND dealer_ID="+iddealer.get(i));
                     while(rs.next())
                     {
                         daysleft=rs.getInt("days");
                         money = rs.getFloat("total_net");
                         penalty = rs.getFloat("penalty");
-                        if(daysleft==-1) //1st week
-                        {
-                            float temp = (float) (money*0.02);
-                            penalty+=temp;
-                            money+=temp;
-                            dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+", total_net="+money);
-                        }
-                        else if(daysleft==-8)//2nd week
-                        {
-                            float temp = (float) (money*0.05);
-                            penalty+=temp;
-                            money+=temp;
-                            dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+", total_net="+money);
-                        }
-                        else if(daysleft==-15)//3rd week
-                        {
-                            float temp = (float) (money*0.05);
-                            penalty+=temp;
-                            money+=temp;
-                            dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+", total_net="+money);
-                        }
-                        else if(daysleft==-22)//4th week
-                        {
-                            float temp = (float) (money*0.05);
-                            penalty+=temp;
-                            money+=temp;
-                            dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+", total_net="+money);
-                        }
-                        else if(daysleft==-29)//5th week
-                        {
-                            float temp = (float) (money*0.10);
-                            penalty+=temp;
-                            money+=temp;
-                            dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+", total_net="+money);
-                        }
+                        switch (daysleft) {
+                        //1st week
+                            case -1:
+                                {
+                                    float temp = (float) (money*0.02);
+                                    penalty+=temp;
+                                    updateDealerTotalPenalty(penalty, iddealer.get(i));
+                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    break;
+                                }
                         //after 5th week, send demand letter to the unpaid dealer. after 1 month of demand letter. send subpoena and file a case
+                        //2nd week
+                            case -8:
+                                {
+                                    float temp = (float) (money*0.05);
+                                    penalty+=temp;
+                                    updateDealerTotalPenalty(penalty, iddealer.get(i));
+                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    break;
+                                }
+                        //3rd week
+                            case -15:
+                                {
+                                    float temp = (float) (money*0.05);
+                                    penalty+=temp;
+                                    updateDealerTotalPenalty(penalty, iddealer.get(i));
+                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    break;
+                                }
+                        //4th week
+                            case -22:
+                                {
+                                    float temp = (float) (money*0.05);
+                                    penalty+=temp;
+                                    updateDealerTotalPenalty(penalty, iddealer.get(i));
+                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    break;
+                                }
+                        //5th week
+                            case -29:
+                                {
+                                    float temp = (float) (money*0.10);
+                                    penalty+=temp;
+                                    updateDealerTotalPenalty(penalty, iddealer.get(i));
+                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
                     }
                  createDB();
                  float totalBalance=0;
