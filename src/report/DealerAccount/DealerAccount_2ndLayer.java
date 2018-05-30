@@ -261,6 +261,7 @@ public class DealerAccount_2ndLayer extends javax.swing.JPanel {
 
     private void btn_GenerateCLTransActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerateCLTransActionPerformed
         button.generateCLForm();
+        DealerAccount_1stLayer.setJTable();
     }//GEN-LAST:event_btn_GenerateCLTransActionPerformed
 
 

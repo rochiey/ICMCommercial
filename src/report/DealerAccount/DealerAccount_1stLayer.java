@@ -15,7 +15,7 @@ public class DealerAccount_1stLayer extends javax.swing.JPanel {
     static String query2 = "SELECT invoice_ID AS 'SO No.',IFNULL(DATE_FORMAT(transaction_date, '%b. %d, %Y'),'-') AS 'Transaction Date',dealer_ID AS 'Dealer ID', total_net AS 'Total Net',amount AS 'Cash Paid',payment_type.payment_type_name AS 'Payment Type', IFNULL(DATE_FORMAT(due_date, '%b. %d, %Y'),'-') AS 'Due Date',DATEDIFF(due_date,CURDATE()) AS 'Remain. Days',penalty AS 'Penalty' FROM credit_transaction,payment_type WHERE paymentTypeID = payment_type.idpayment_type AND paymentTypeID = 243 AND due_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY)";
     static String query="SELECT iddealer AS 'ID',CONCAT(first_name,' ',last_name) AS 'Dealer Name',sponsor AS 'Sponsor/Recruiter Name',"
             + "DATE_FORMAT(registration_date, '%b. %d, %Y') AS 'Registration Date',credit_limit AS 'Credit Line',available_credit AS 'Available Credit',"
-            + "balance AS 'Balance' FROM dealer";
+            + "balance AS 'Balance', total_penalty AS 'Total Penalty' FROM dealer";
     DealerAccount_ButtonFunctions button = new DealerAccount_ButtonFunctions();
     
     public DealerAccount_1stLayer() {
@@ -346,7 +346,7 @@ public class DealerAccount_1stLayer extends javax.swing.JPanel {
     
     public static void setJTable()
     {
-        setJTableColumnsWidth(tbl_Outstanding, 1330, 5, 20, 19, 10, 10, 10, 10);
+        setJTableColumnsWidth(tbl_Outstanding, 1330, 5, 20, 19, 10, 10, 10, 10,10);
         JTableFixer.setDealerReportTableField(tbl_Outstanding);
         
         setJTableColumnsWidth(tbl_OutstandingDetails, 1330, 5, 9, 7, 13, 13, 10, 10, 7, 13);
