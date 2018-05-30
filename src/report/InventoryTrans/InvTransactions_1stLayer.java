@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class InvTransactions_1stLayer extends javax.swing.JPanel {
 
     DatabaseLinker invTransaction;
-    public static String query = "SELECT transact_date AS 'Transaction Date', transact_type AS 'Transaction Type', POid AS 'Transaction ID', remarks AS 'Remarks' FROM inventory_transactions";
+    public static String query = "SELECT transact_date AS 'Transaction Date', transact_type AS 'Transaction Type', POid AS 'Transaction ID', remarks AS 'Remarks' FROM inventory_transactions ORDER BY transact_date DESC";
     public InvTransactions_1stLayer() {
         initComponents();
         invTransaction = new DatabaseLinker(tbl_InvTransactions, query);
@@ -38,12 +38,24 @@ public class InvTransactions_1stLayer extends javax.swing.JPanel {
                         + ", product.product_name AS 'Article Name'"
                         + ", inventory_out_list.quantity AS 'Removed Quantity'"
                         + " FROM inventory_out_list,product WHERE product.barcode=inventory_out_list.barcode AND transactNo="+clickedID_onTable);
-//                DatabaseLinker.updateTable(tbl_InvTransactionsDetails,"SELECT idinvoice AS 'SO No.',idproduct AS 'Product ID',item_name as 'Name'"
-//                + ", product_color.color_code AS 'Color',product.product_size AS 'Size'"
-//                + ",purchase_order_list.quantity AS 'Quantity', unit_price AS 'Price'"
-//                + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'net' FROM purchase_order_list,product_color,product "
-//                + "WHERE product.product_color=product_color.idproduct_color "
-//                + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+clickedID_onTable);
+                
+            }
+            else if(tbl_InvTransactions.getValueAt(tbl_InvTransactions.getSelectedRow(), 1).equals("RETURN"))
+            {
+                DatabaseLinker.updateTable(tbl_InvTransactionsDetails, "SELECT transactNo AS 'Transaction No.'"
+                        + ", product.product_name AS 'Article Name'"
+                        + ", totalNet AS 'Total Net'"
+                        + ", returned_quantity AS 'Returned Quantity' FROM return_list,product"
+                        + " WHERE return_list.idproduct=product.idproduct AND return_list.transactNo="+clickedID_onTable);
+            }
+            else //sales order
+            {
+                DatabaseLinker.updateTable(tbl_InvTransactionsDetails,"SELECT idinvoice AS 'SO No.',idproduct AS 'Product ID',item_name as 'Name'"
+                + ", product_color.color_code AS 'Color',product.product_size AS 'Size'"
+                + ",purchase_order_list.quantity AS 'Quantity', unit_price AS 'Price'"
+                + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'net' FROM purchase_order_list,product_color,product "
+                + "WHERE product.product_color=product_color.idproduct_color "
+                + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+clickedID_onTable);
             }
         }
     }
