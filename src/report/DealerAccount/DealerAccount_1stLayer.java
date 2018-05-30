@@ -245,6 +245,11 @@ public class DealerAccount_1stLayer extends javax.swing.JPanel {
 
         txt_dealerID.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         txt_dealerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_dealerID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_dealerIDActionPerformed(evt);
+            }
+        });
         txt_dealerID.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_dealerIDKeyReleased(evt);
@@ -367,6 +372,10 @@ public class DealerAccount_1stLayer extends javax.swing.JPanel {
             + "DATE_FORMAT(registration_date, '%b. %d, %Y') AS 'Registration Date',credit_limit AS 'Credit Line',available_credit AS 'Available Credit',"
             + "balance AS 'Balance' FROM dealer");
     }//GEN-LAST:event_txt_dealerIDKeyReleased
+
+    private void txt_dealerIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_dealerIDActionPerformed
+        setJTable();
+    }//GEN-LAST:event_txt_dealerIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
