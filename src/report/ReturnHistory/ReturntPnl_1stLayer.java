@@ -274,6 +274,11 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
 
         txt_RFNo.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         txt_RFNo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_RFNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_RFNoActionPerformed(evt);
+            }
+        });
         txt_RFNo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_RFNoKeyReleased(evt);
@@ -350,12 +355,11 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
         {
             int row = tbl_data.getSelectedRow();
             clickedID_onTable = (int) tbl_data.getValueAt(row, 0);
-            DatabaseLinker.updateTable(tbl_ReturnReportDetails, "SELECT idinvoice AS 'SO No.',idproduct AS 'Article ID',item_name as 'Article Name'"
-            + ", product_color.color_code AS 'Color',REPLACE(product.product_size, 'NULL', '-') AS 'Size'"
-            + ",purchase_order_list.quantity AS 'Qty', unit_price AS 'Retail Price'"
-            + ", discounted_price AS '% Price',purchase_order_list.total_price AS 'Net Price' FROM purchase_order_list,product_color,product "
-            + "WHERE product.product_color=product_color.idproduct_color "
-            + "AND product.idproduct = purchase_order_list.item_code AND idinvoice="+tbl_data.getValueAt(row, 6));
+            DatabaseLinker.updateTable(tbl_ReturnReportDetails, "SELECT transactNo AS 'Transaction No.'"
+            + ", product.product_name AS 'Article Name'"
+            + ", totalNet AS 'Total Net'"
+            + ", returned_quantity AS 'Returned Quantity' FROM return_list,product"
+            + " WHERE return_list.idproduct=product.idproduct AND return_list.transactNo="+clickedID_onTable);
         }
         getTotalReturn();
         setJTable();
@@ -371,7 +375,12 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
     private void txt_RFNoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_RFNoKeyReleased
         if(!txt_RFNo.getText().equals(""))DatabaseLinker.updateTable(tbl_ReturnReport, "SELECT idreturn_history AS 'RF No.',return_date AS 'Return Date', customer_name AS 'Customer Name',return_reason AS 'Reason',invoice.total_net AS 'Original Amount',refund AS 'Refund', invoiceID AS 'For SO No.' FROM return_history,invoice WHERE invoiceID=idinvoice AND idreturn_history="+txt_RFNo.getText());
         else DatabaseLinker.updateTable(tbl_ReturnReport, "SELECT idreturn_history AS 'RF No.',return_date AS 'Return Date', customer_name AS 'Customer Name',return_reason AS 'Reason',invoice.total_net AS 'Original Amount',refund AS 'Refund', invoiceID AS 'For SO No.' FROM return_history,invoice WHERE invoiceID=idinvoice");
+        setJTable();
     }//GEN-LAST:event_txt_RFNoKeyReleased
+
+    private void txt_RFNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_RFNoActionPerformed
+        setJTable();
+    }//GEN-LAST:event_txt_RFNoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
