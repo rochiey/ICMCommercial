@@ -446,7 +446,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 if(date_PMTransaction.getEditor().getText().equals("") || txt_POReceipt.getText().equals("")) JOptionPane.showMessageDialog(null, "Please fill in the fields completely.");
                 else
                 {
-                    dbHandlerUpdates("INSERT INTO invoice_supplier(supplier_SOno,date_of_order,date_of_purchase) VALUES('"+txt_POReceipt.getText()+"',STR_TO_DATE('"+datePurchase+"','"+format+"'),STR_TO_DATE('"+datePurchase+"','"+format+"'))");
+                    dbHandlerUpdates("INSERT INTO invoice_supplier(supplier_SOno,date_of_order,date_of_purchase,balance) VALUES('"+txt_POReceipt.getText()+"',STR_TO_DATE('"+datePurchase+"','"+format+"'),STR_TO_DATE('"+datePurchase+"','"+format+"'),0)");
                     for(int i=0;i<tbl_PMovementList.getRowCount();i++)
                     {
                         createDB(); int currentQty=0;
