@@ -201,7 +201,7 @@ public class Account_Login extends javax.swing.JFrame {
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zImages/logo3.png"))); // NOI18N
-        jPanel2.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 200, -1));
+        jPanel2.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 200, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 550));
 
