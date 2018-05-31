@@ -156,6 +156,7 @@ public class Account_Login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -198,6 +199,9 @@ public class Account_Login extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zImages/logo3.png"))); // NOI18N
+        jPanel2.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 200, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 550));
 
@@ -418,6 +422,7 @@ public class Account_Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel logo;
     private javax.swing.JPasswordField txt_Password;
     private javax.swing.JTextField txt_UserName;
     // End of variables declaration//GEN-END:variables
