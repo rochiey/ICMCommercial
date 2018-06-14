@@ -25,7 +25,7 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
     public ReportPnl_1stLayer() {
         initComponents();
         //lbl_SalesReportDate.setText("Today");
-        DatabaseLinker.updateTable(tbl_ReportSales, "SELECT idinvoice AS 'SO No.',DATE_FORMAT(date_of_transaction, '%b. %d, %Y') AS 'Transaction Date',(SELECT CONCAT(dealer.first_name,' ',dealer.last_name) FROM dealer WHERE dealer.iddealer=invoice.customerDealer) AS 'Customer Name',total_net AS 'Total Net', amount_paid AS 'Amount Paid',payment_type.payment_type_name AS 'Payment Type',total_refund AS 'Return/Refund Amount' FROM payment_type,invoice WHERE payment_type=payment_type.idpayment_type");
+        DatabaseLinker.updateTable(tbl_ReportSales, "SELECT idinvoice AS 'SO No.',DATE_FORMAT(date_of_transaction, '%b. %d, %Y') AS 'Transaction Date',(SELECT CONCAT(dealer.first_name,' ',dealer.last_name) FROM dealer WHERE dealer.iddealer=invoice.customerDealer) AS 'Customer Name',total_net AS 'Total Net', amount_paid AS 'Amount Paid',payment_type.payment_type_name AS 'Payment Type',total_refund AS 'Return/Refund Amount' FROM payment_type,invoice WHERE payment_type=payment_type.idpayment_type ORDER BY date_of_transaction DESC");
         setJTable();
         getAllTotal();
     }

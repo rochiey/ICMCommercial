@@ -119,7 +119,6 @@ public class PrinterService implements Printable {
                 default:
                     break;
             }
-            System.out.println(rows);
         }
         
 	public List<String> getPrinters(){
