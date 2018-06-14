@@ -1,6 +1,7 @@
 package com;
 
 
+import dialog_salesOrder.SalesOrder_Tender;
 import java.awt.BasicStroke;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -39,30 +40,78 @@ public class PrinterService implements Printable {
         public String cashierName = "cashier name here";
         public String customerName = "customer name here";
         public Integer invoice = 0;
-        public String paymentType = "";
+        public int paymentType = 0;
+        public float change = 0;
+        public float totalNet = 0;
         
         Vector<Vector<Object>> rows = new Vector<Vector<Object>>(); //data
-        
+        Vector<Object> col = new Vector<Object>();
         PrinterService()
         {
             rows = new Vector<Vector<Object>>();
-            paymentType = "";
+            col = new Vector<Object>();
+            paymentType = 0;
             cashierName = "";
             customerName = "";
+            change = 0;
+            totalNet = 0;
         }
-        
-        public static void setPrinterData(javax.swing.JTable data)
+        public float getRealFloat(String floatNum)
         {
-            /* Table Index Data
-            * 1 - barcode
-            * 2 - product name
-            * 3 - color
-            * 4 - size
-            * 5 - qty
-            * 8 - discounted price
-            * 9 - total price
+            StringBuilder sb = new StringBuilder(floatNum);
+            for(int i=0;i<floatNum.length();i++)
+            {
+                if(floatNum.charAt(i) == ',') sb.deleteCharAt(i);
+            }
+            float result = Float.parseFloat(sb.toString());
+            return result;
+        }
+        public void setPrinterData(javax.swing.JTable data,String cashierName,String customerName,int paymentType)
+        {
+            /* Table Index Data         Payment Type
+            * 1 - barcode   0            1 - cash
+            * 2 - product name  1        2 - credit
+            * 3 - color   2              3 - credit pull out
+            * 4 - size  3
+            * 5 - qty  4
+            * 8 - discounted price  5
             */
             
+            switch(paymentType)
+            {
+                case 1:
+                    StringBuilder change = new StringBuilder(SalesOrder_Tender.lbl_CashChange.getText());
+                    StringBuilder totalNet = new StringBuilder(SalesOrder_Tender.lbl_CashTotal.getText());
+                    change.deleteCharAt(0);
+                    totalNet.deleteCharAt(0);
+                    
+                    this.paymentType = paymentType;
+                    this.cashierName = cashierName;
+                    this.customerName = customerName;
+                    
+                    this.change = getRealFloat(change.toString());
+                    this.totalNet = getRealFloat(totalNet.toString());
+                    
+                    for(int i=0;i<data.getRowCount();i++)
+                    {
+                        col.add(data.getValueAt(i, 1)); //barcode
+                        col.add(data.getValueAt(i, 2)); //product name
+                        col.add(data.getValueAt(i, 3)); //color
+                        col.add(data.getValueAt(i, 4)); //size
+                        col.add(data.getValueAt(i, 5)); //qty
+                        col.add(data.getValueAt(i, 8)); //dscounted price
+                        rows.add(col);
+                    }
+                    break;
+                case 2:
+                    this.paymentType = paymentType;
+                    break;
+                case 3:
+                    this.paymentType = paymentType;
+                    break;
+                default:
+                    break;
+            }
             
         }
         
@@ -128,7 +177,7 @@ public class PrinterService implements Printable {
                     int x=40 ;                                //print start at 10 on y axies
                     int imagewidth=50;
                     int imageheight=50;
-                    BufferedImage read = ImageIO.read(PrinterService.class.getResource("logo3.png"));
+                    BufferedImage read = ImageIO.read(PrinterService.class.getResource("/zImages/logo3.png"));
                     g2d.drawImage(read,x,y,imagewidth,imageheight,null); 
                 }catch(IOException e)
                 {

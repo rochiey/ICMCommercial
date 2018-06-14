@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class Session {
     public static String sessionType;
     public static boolean isRunning = false;
-    public static String whoisUsing;
+    public static String cashier = "";
     
     static Connection conn = null;
     static Statement stmt = null;
@@ -85,12 +85,26 @@ public class Session {
     {
         Session.isRunning = false;
     }
+    public static String getCashierName(String user)
+    {
+        createDB();
+        String name = "";
+        try {
+            rs = stmt.executeQuery("SELECT CONCAT(first_name,' ',last_name) AS 'name' FROM systemaccount WHERE username = '"+user+"'");
+            
+            name = rs.getString("name");
+        } catch (SQLException ex) {
+            Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return name;
+    }
     public static void indicateSession(String user)
     {
         if(isAdmin(user)) 
         {
             start();
             Session.sessionType = "Admin";
+            Session.cashier = getCashierName(user);
             ICMMainSystem main = new ICMMainSystem();
             main.pack();
             main.setLocationRelativeTo(null);

@@ -1458,8 +1458,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         return result;
     }
     private void txt_CashAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CashAmountActionPerformed
-        button.cashTenderAccept();
-        this.dispose();
+        btn_CashAcceptActionPerformed(evt);
     }//GEN-LAST:event_txt_CashAmountActionPerformed
 
     private void txt_CPullCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_CPullCashActionPerformed
