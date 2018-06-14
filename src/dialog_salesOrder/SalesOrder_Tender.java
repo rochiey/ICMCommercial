@@ -1422,7 +1422,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         //Print here
         PrinterService printerService = new PrinterService();
         //table, cashier, customer, 1 - cash
-        printerService.setPrinterData(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart, com.Session.cashier, salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][0].toString(), 1);
+        printerService.setPrinterData(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart, com.Session.cashier, salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1].toString(), 1);
         PrinterJob pj = PrinterJob.getPrinterJob();
         pj.setPrintable(printerService,PrinterService.getPageFormat(pj));
         try {
