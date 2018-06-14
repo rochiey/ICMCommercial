@@ -84,6 +84,8 @@ public class Session {
     public static void End()
     {
         Session.isRunning = false;
+        Session.cashier = "";
+        Session.sessionType = "";
     }
     public static String getCashierName(String user)
     {
@@ -91,8 +93,9 @@ public class Session {
         String name = "";
         try {
             rs = stmt.executeQuery("SELECT CONCAT(first_name,' ',last_name) AS 'name' FROM systemaccount WHERE username = '"+user+"'");
-            
-            name = rs.getString("name");
+           while(rs.next())
+                name = rs.getString("name");
+           
         } catch (SQLException ex) {
             Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -241,7 +241,7 @@ public class SalesOrder_ButtonFunctions {
                     dialog_salesOrder.SalesOrder_ButtonFunctions.toPurchaseOrder();
                     dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
                     salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
-                    JOptionPane.showMessageDialog(null, "Transaction done.");
+                    //JOptionPane.showMessageDialog(null, "Transaction done.");
                     inventory.InventoryPnl_1stLayer.updateTable();
                 }
                 else // dealer
@@ -251,7 +251,7 @@ public class SalesOrder_ButtonFunctions {
                     dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
                     //SalesOrder_Tender.dbHandlerUpdates("DELETE FROM invoice WHERE total_net IS NULL");
                     salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
-                    JOptionPane.showMessageDialog(null, "Transaction done.");
+                    //JOptionPane.showMessageDialog(null, "Transaction done.");
                     inventory.InventoryPnl_1stLayer.updateTable();
                     //this.dispose();
                 }

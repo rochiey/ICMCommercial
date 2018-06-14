@@ -43,17 +43,19 @@ public class PrinterService implements Printable {
         public int paymentType = 0;
         public float change = 0;
         public float totalNet = 0;
+        public float cash = 0;
         
-        Vector<Vector<Object>> rows = new Vector<Vector<Object>>(); //data
-        Vector<Object> col = new Vector<Object>();
-        PrinterService()
+        Vector<Vector<String>> rows = new Vector<Vector<String>>(); //data
+        Vector<String> col = new Vector<String>();
+        public PrinterService()
         {
-            rows = new Vector<Vector<Object>>();
-            col = new Vector<Object>();
+            rows = new Vector<Vector<String>>();
+            col = new Vector<String>();
             paymentType = 0;
             cashierName = "";
             customerName = "";
             change = 0;
+            cash = 0;
             totalNet = 0;
         }
         public float getRealFloat(String floatNum)
@@ -74,9 +76,10 @@ public class PrinterService implements Printable {
             * 3 - color   2              3 - credit pull out
             * 4 - size  3
             * 5 - qty  4
-            * 8 - discounted price  5
+            * 7 - dscount 5
+            * 8 - discounted price  6
             */
-            
+            total_item_count =0; //init
             switch(paymentType)
             {
                 case 1:
@@ -84,24 +87,28 @@ public class PrinterService implements Printable {
                     StringBuilder totalNet = new StringBuilder(SalesOrder_Tender.lbl_CashTotal.getText());
                     change.deleteCharAt(0);
                     totalNet.deleteCharAt(0);
-                    
+                    total_item_count = data.getRowCount();
                     this.paymentType = paymentType;
                     this.cashierName = cashierName;
                     this.customerName = customerName;
                     
                     this.change = getRealFloat(change.toString());
                     this.totalNet = getRealFloat(totalNet.toString());
+                    this.cash = Float.parseFloat(SalesOrder_Tender.txt_CashAmount.getText());
                     
                     for(int i=0;i<data.getRowCount();i++)
                     {
-                        col.add(data.getValueAt(i, 1)); //barcode
-                        col.add(data.getValueAt(i, 2)); //product name
-                        col.add(data.getValueAt(i, 3)); //color
-                        col.add(data.getValueAt(i, 4)); //size
-                        col.add(data.getValueAt(i, 5)); //qty
-                        col.add(data.getValueAt(i, 8)); //dscounted price
+                        col = new Vector<String>();
+                        col.add(data.getValueAt(i, 1).toString()); //barcode
+                        col.add(data.getValueAt(i, 2).toString()); //product name
+                        col.add(data.getValueAt(i, 3).toString()); //color
+                        col.add(data.getValueAt(i, 4).toString()); //size
+                        col.add(data.getValueAt(i, 5).toString()); //qty
+                        col.add(data.getValueAt(i, 7).toString()); //discount
+                        col.add(data.getValueAt(i, 8).toString()); //dscounted price
                         rows.add(col);
                     }
+                    
                     break;
                 case 2:
                     this.paymentType = paymentType;
@@ -112,7 +119,7 @@ public class PrinterService implements Printable {
                 default:
                     break;
             }
-            
+            System.out.println(rows);
         }
         
 	public List<String> getPrinters(){
@@ -163,7 +170,6 @@ public class PrinterService implements Printable {
 		if (page > 0) { /* We have only one page, and 'page' is zero-based */
 			return NO_SUCH_PAGE;
 		}
- 
 		/*
 		 * User (0,0) is typically outside the imageable area, so we must
 		 * translate by the X and Y values in the PageFormat to avoid clipping
@@ -207,22 +213,26 @@ public class PrinterService implements Printable {
                     g.drawString("%", 80, y+160);
                     g.drawString("%PRICE", 100, y+160);
                 y+=160; //re initial y after the header
-                int cH = 0;
-                for(int i=0;i<10;i++)
+                int cH = (y+10);
+                for(int i=0;i<total_item_count;i++)
                 {
-                    //
-                    cH = (y+10);
+                    g.drawString(rows.get(i).get(4), 45, cH); //qty
+                    g.drawString(rows.get(i).get(5), 80, cH); //%
+                    g.drawString(rows.get(i).get(6), 100, cH); //%price
+                    g.drawString(rows.get(i).get(1)+" "+rows.get(i).get(3)+" "+rows.get(i).get(2),0,cH+10); // item name size color
+                    
+                    cH = cH + 20;
                 }
                 
                 //FOOTER
                 g2d.setStroke(new BasicStroke(2));
                 g2d.drawLine(0, cH+10, 180, cH+10);
-                    g.drawString("TOTAL: PHP 555.00", 45, cH+20);
+                    g.drawString("TOTAL: PHP "+totalNet, 45, cH+20);
 //                g.drawString("Signature:", 0, cH+40);
                 //signature
-                    g.drawString("Payment Type: CREDIT", 0, cH+100);
-                    g.drawString("CASH: PHP 1000.00", 45, cH+110);
-                    g.drawString("CHANGE: PHP 445.00", 45, cH+120);
+                    g.drawString("Payment Type: CASH", 0, cH+100);
+                    g.drawString("CASH: PHP "+cash, 45, cH+110);
+                    g.drawString("CHANGE: "+change, 45, cH+120);
                 g.drawString("Thank you! Please Come Again!", 0, cH+140);
                 
                 
@@ -298,18 +308,17 @@ public class PrinterService implements Printable {
             SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
             return sdf.format(cal.getTime());
         }
-        public static void main(String[] args) {
- 
-		PrinterService printerService = new PrinterService();
-		PrinterJob pj = PrinterJob.getPrinterJob();
-                pj.setPrintable(new PrinterService(),PrinterService.getPageFormat(pj));
-              try {
-                   pj.print();
-
-                   }
-               catch (PrinterException ex) {
-                       ex.printStackTrace();
-                   }
+//        public static void main(String[] args) {
+// 
+//            PrinterService printerService = new PrinterService();
+//            PrinterJob pj = PrinterJob.getPrinterJob();
+//            pj.setPrintable(new PrinterService(),PrinterService.getPageFormat(pj));
+//            try {
+//                pj.print();
+//            }
+//            catch (PrinterException ex) {
+//                ex.printStackTrace();
+//            }
 		//System.out.println(printerService.getPrinters());
 				
 		//print some stuff
@@ -330,6 +339,6 @@ public class PrinterService implements Printable {
 //		printerService.printBytes("POS-80-Series", cutP);
                
 	
-	}
+	//}
 }
  

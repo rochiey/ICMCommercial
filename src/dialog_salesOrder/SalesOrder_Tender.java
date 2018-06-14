@@ -1,5 +1,6 @@
 package dialog_salesOrder;
 
+import com.PrinterService;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
@@ -1418,8 +1419,20 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowLostFocus
 
     private void btn_CashAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CashAcceptActionPerformed
+        //Print here
+        PrinterService printerService = new PrinterService();
+        //table, cashier, customer, 1 - cash
+        printerService.setPrinterData(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart, com.Session.cashier, salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][0].toString(), 1);
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setPrintable(printerService,PrinterService.getPageFormat(pj));
+        try {
+            pj.print();
+        }
+        catch (PrinterException ex) {
+            ex.printStackTrace();
+        }
+        //close
         //button.cashTenderAccept();
-        //PRINT HERE
         this.dispose();
     }//GEN-LAST:event_btn_CashAcceptActionPerformed
 
