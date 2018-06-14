@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class ReturntPnl_1stLayer extends javax.swing.JPanel {
 
     DatabaseLinker returnHistory,invoiceDetails;
-    static String returnQuery="SELECT idreturn_history AS 'RF No.',DATE_FORMAT(return_date, '%b. %d, %Y') AS 'Return Date', customer_name AS 'Customer Name',return_reason AS 'Reason',invoice.total_net AS 'Original Amount',refund AS 'Refund', invoiceID AS 'For SO No.' FROM return_history,invoice WHERE invoiceID=idinvoice";
+    static String returnQuery="SELECT idreturn_history AS 'RF No.',DATE_FORMAT(return_date, '%b. %d, %Y') AS 'Return Date', customer_name AS 'Customer Name',return_reason AS 'Reason',invoice.total_net AS 'Original Amount',refund AS 'Refund', invoiceID AS 'For SO No.' FROM return_history,invoice WHERE invoiceID=idinvoice ORDER BY return_date DESC";
     public ReturntPnl_1stLayer() {
         initComponents();
        returnHistory = new DatabaseLinker(tbl_ReturnReport, returnQuery);
