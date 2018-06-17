@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -76,6 +77,8 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(salesOrder.SalesOrder_ButtonFunctions.iddealer);
+        System.out.println(totalPenalty);
         return totalPenalty;
     }
     public static void generateBalance()
@@ -83,13 +86,21 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         createDB();
         try {
             rs = stmt.executeQuery("SELECT balance FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+            BigDecimal bdresult = round(getTotalPenalty(), 2);
+            System.out.println(bdresult);
             while(rs.next())
             {
-                lbl_CPullBalance.setText("₱"+(rs.getFloat("balance")+getTotalPenalty()));
+                //lbl_CPullBalance.setText
+                System.out.println("₱"+(round(rs.getFloat("balance"), 2).add(bdresult)).toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public static BigDecimal round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);       
+        return bd;
     }
     public static void createDB()
     {

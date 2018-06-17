@@ -91,7 +91,7 @@ public class PrinterService implements Printable {
                     this.paymentType = "CASH";
                     this.cashierName = cashierName;
                     this.customerName = customerName;
-                    
+                    this.invoice = dialog_salesOrder.SalesOrder_ButtonFunctions.getLastID("invoice")+1;
                     this.change = getRealFloat(change.toString());
                     this.totalNet = getRealFloat(totalNet.toString());
                     this.cash = Float.parseFloat(SalesOrder_Tender.txt_CashAmount.getText());
