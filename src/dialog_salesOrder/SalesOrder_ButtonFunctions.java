@@ -465,7 +465,7 @@ public class SalesOrder_ButtonFunctions {
     }
     protected void pullOutAccept()
     {
-        if(salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1] != "")
+        if(salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1] != "Walk-in")
         {
             StringBuilder sb = new StringBuilder(SalesOrder_Tender.lbl_CPullBalance.getText());
             sb.deleteCharAt(0);
@@ -495,9 +495,9 @@ public class SalesOrder_ButtonFunctions {
                 Float creditLineIncrease = (float)(amountoPurchase*.20)+creditLine;
                 balance-=totalNet;
                 
-                //salesOrderTender.invoiceID represents the id of credited invoices
+                //salesOrderTender.invoiceID represents the id of credited invoices in credit history
                 if(SalesOrder_Tender.invoiceID == 0){
-                    dbHandlerUpdates("UPDATE dealer SET credit_limit="+creditLineIncrease+",available_credit="+creditLineIncrease+", balance=0 WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                    dbHandlerUpdates("UPDATE dealer SET credit_limit="+creditLineIncrease+",available_credit="+creditLineIncrease+", balance=0, total_penalty=0 WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                     dbHandlerUpdates("INSERT INTO credit_transaction(transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES((SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
                     dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL,penalty=0 where dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                 }
