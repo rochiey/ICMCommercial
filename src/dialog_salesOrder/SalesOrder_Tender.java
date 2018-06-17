@@ -1432,7 +1432,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         //close
-        //button.cashTenderAccept();
+        button.cashTenderAccept();
         this.dispose();
     }//GEN-LAST:event_btn_CashAcceptActionPerformed
 
