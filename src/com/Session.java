@@ -1,5 +1,7 @@
 package com;
+import dialog_salesOrder.SalesOrder_ButtonFunctions;
 import icm.ICMMainSystem;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,6 +10,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,6 +41,9 @@ public class Session {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
+    }
+    public static float round(float d, int decimalPlace) {
+         return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).floatValue();
     }
     private static void dbHandlerUpdates(String query)
     {

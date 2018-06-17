@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
@@ -39,6 +40,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         { 
             initComponents();
             generateDueDate();
+            setTotalPenaltyForEveryDealer();
             generateBalance(); //plus penalty
             invoiceID = 0;
         }
@@ -63,44 +65,55 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         }
         return flag;
     }
-    protected static float getTotalPenalty()
+    private static void setTotalPenaltyForEveryDealer()
     {
-        float totalPenalty=0;
+        Vector id = new Vector();
         try {
             createDB();
-            rs = stmt.executeQuery("SELECT penalty FROM credit_transaction WHERE dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+            rs = stmt.executeQuery("SELECT DISTINCT dealer_ID FROM credit_transaction");
             while(rs.next())
             {
-                totalPenalty+=rs.getFloat("penalty");
+                id.add(rs.getObject("dealer_ID"));
             }
-            
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(salesOrder.SalesOrder_ButtonFunctions.iddealer);
-        System.out.println(totalPenalty);
-        return totalPenalty;
+        for(int i=0;i<id.size();i++)
+        {
+            float totalPenalty=0;
+            try
+            {
+                createDB();
+                rs = stmt.executeQuery("SELECT penalty FROM credit_transaction WHERE paymentTypeID=243 AND dealer_ID="+id.get(i));
+                while(rs.next())
+                {
+                    totalPenalty+=round(rs.getFloat("penalty"), 2);
+                }
+                totalPenalty=round(totalPenalty, 2);
+            }catch(SQLException e)
+            {
+                e.printStackTrace();
+            }
+            dbHandlerUpdates("UPDATE dealer SET total_penalty="+totalPenalty+" WHERE iddealer="+id.get(i));
+        }
     }
     public static void generateBalance()
     {
         createDB();
         try {
-            rs = stmt.executeQuery("SELECT balance FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-            BigDecimal bdresult = round(getTotalPenalty(), 2);
-            System.out.println(bdresult);
+            rs = stmt.executeQuery("SELECT balance+total_penalty FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+           
             while(rs.next())
             {
-                //lbl_CPullBalance.setText
-                System.out.println("₱"+(round(rs.getFloat("balance"), 2).add(bdresult)).toString());
+                lbl_CPullBalance.setText("₱"+rs.getFloat("balance+total_penalty"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static BigDecimal round(float d, int decimalPlace) {
-        BigDecimal bd = new BigDecimal(Float.toString(d));
-        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);       
-        return bd;
+    public static float round(float d, int decimalPlace) {
+         return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).floatValue();
     }
     public static void createDB()
     {
