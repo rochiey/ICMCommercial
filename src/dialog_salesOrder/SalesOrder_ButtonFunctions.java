@@ -479,14 +479,15 @@ public class SalesOrder_ButtonFunctions {
             if(amountoPurchase<totalNet) JOptionPane.showMessageDialog(null, "You don't meet the required amount to pay.");
             else
             {
-                Float creditLine = null,balance=null;
+                Float creditLine = null,balance=null,penalty=null;
                 createDB();
                 try {
-                    rs = stmt.executeQuery("SELECT credit_limit,balance FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                    rs = stmt.executeQuery("SELECT credit_limit,balance,total_penalty FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                     while(rs.next())
                     {
                         creditLine = rs.getFloat("credit_limit");
                         balance = rs.getFloat("balance");
+                        penalty = rs.getFloat("total_penalty");
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
@@ -494,6 +495,7 @@ public class SalesOrder_ButtonFunctions {
                 //CREDIT LINE INCREASE IF WHOLE BALANCE IS PAID
                 Float creditLineIncrease = (float)(amountoPurchase*.20)+creditLine;
                 balance-=totalNet;
+                penalty-=totalNet;
                 
                 //salesOrderTender.invoiceID represents the id of credited invoices in credit history
                 if(SalesOrder_Tender.invoiceID == 0){
@@ -504,7 +506,7 @@ public class SalesOrder_ButtonFunctions {
                 else{ //if partial. credit line not increase
                     dbHandlerUpdates("UPDATE dealer SET balance="+balance+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                     dbHandlerUpdates("INSERT INTO credit_transaction(invoice_ID,transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES("+SalesOrder_Tender.invoiceID+",(SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
-                    dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL where invoice_ID="+SalesOrder_Tender.invoiceID);
+                    dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL,penalty=0 where invoice_ID="+SalesOrder_Tender.invoiceID);
                 }
                 salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
                 SalesOrder_Tender.invoiceID = 0;
