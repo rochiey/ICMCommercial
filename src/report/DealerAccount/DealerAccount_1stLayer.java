@@ -21,7 +21,7 @@ public class DealerAccount_1stLayer extends javax.swing.JPanel {
     public DealerAccount_1stLayer() {
         initComponents();
         dealerReport = new DatabaseLinker(tbl_Outstanding, query);
-        credit_pulloutDetails = new DatabaseLinker(tbl_OutstandingDetails, "");
+        //credit_pulloutDetails = new DatabaseLinker(tbl_OutstandingDetails, "");
         getTotals();
         generateDueAndPenalty();
         setJTable();

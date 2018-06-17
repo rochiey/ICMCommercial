@@ -40,7 +40,7 @@ public class PrinterService implements Printable {
         public String cashierName = "cashier name here";
         public String customerName = "customer name here";
         public Integer invoice = 0;
-        public int paymentType = 0;
+        public String paymentType = "";
         public float change = 0;
         public float totalNet = 0;
         public float cash = 0;
@@ -51,7 +51,7 @@ public class PrinterService implements Printable {
         {
             rows = new Vector<Vector<String>>();
             col = new Vector<String>();
-            paymentType = 0;
+            paymentType = "";
             cashierName = "";
             customerName = "";
             change = 0;
@@ -88,7 +88,7 @@ public class PrinterService implements Printable {
                     change.deleteCharAt(0);
                     totalNet.deleteCharAt(0);
                     total_item_count = data.getRowCount();
-                    this.paymentType = paymentType;
+                    this.paymentType = "CASH";
                     this.cashierName = cashierName;
                     this.customerName = customerName;
                     
@@ -111,10 +111,13 @@ public class PrinterService implements Printable {
                     
                     break;
                 case 2:
-                    this.paymentType = paymentType;
+                    this.paymentType = "CREDIT";
+                    this.cash = 0;
+                    this.change = 0;
+                    
                     break;
                 case 3:
-                    this.paymentType = paymentType;
+                    this.paymentType = "CREDIT-PULLOUT";
                     break;
                 default:
                     break;
@@ -213,14 +216,17 @@ public class PrinterService implements Printable {
                     g.drawString("%PRICE", 100, y+160);
                 y+=160; //re initial y after the header
                 int cH = (y+10);
-                for(int i=0;i<total_item_count;i++)
+                if(paymentType.equals("CASH"))
                 {
-                    g.drawString(rows.get(i).get(4), 45, cH); //qty
-                    g.drawString(rows.get(i).get(5), 80, cH); //%
-                    g.drawString(rows.get(i).get(6), 100, cH); //%price
-                    g.drawString(rows.get(i).get(1)+" "+rows.get(i).get(3)+" "+rows.get(i).get(2),0,cH+10); // item name size color
-                    
-                    cH = cH + 20;
+                    for(int i=0;i<total_item_count;i++)
+                    {
+                        g.drawString(rows.get(i).get(4), 45, cH); //qty
+                        g.drawString(rows.get(i).get(5), 80, cH); //%
+                        g.drawString(rows.get(i).get(6), 100, cH); //%price
+                        g.drawString(rows.get(i).get(1)+" "+rows.get(i).get(3)+" "+rows.get(i).get(2),0,cH+10); // item name size color
+
+                        cH = cH + 20;
+                    }
                 }
                 
                 //FOOTER
@@ -229,7 +235,7 @@ public class PrinterService implements Printable {
                     g.drawString("TOTAL: PHP "+totalNet, 45, cH+20);
 //                g.drawString("Signature:", 0, cH+40);
                 //signature
-                    g.drawString("Payment Type: CASH", 0, cH+100);
+                    g.drawString("Payment Type: "+paymentType, 0, cH+100);
                     g.drawString("CASH: PHP "+cash, 45, cH+110);
                     g.drawString("CHANGE: "+change, 45, cH+120);
                 g.drawString("Thank you! Please Come Again!", 0, cH+140);
