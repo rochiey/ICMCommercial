@@ -5,6 +5,7 @@ import static dialog_salesOrder.SalesOrder_Tender.createDB;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,13 +23,13 @@ public class SalesOrder_CreditHistory extends javax.swing.JDialog {
 
     SalesOrder_ButtonFunctions button = new SalesOrder_ButtonFunctions();
     int xMouse, yMouse;
-    public static String query="SELECT invoice_ID AS 'SO No.',transaction_date AS 'Transaction Date',total_net AS 'Total Net',due_date AS 'Due Date',DATEDIFF(due_date,CURDATE()) AS 'Days Left',penalty AS 'Penalty' FROM credit_transaction WHERE paymentTypeID=243 AND dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer+" AND due_date IS NOT NULL";
+    public static String query="";
     
     public SalesOrder_CreditHistory(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
-        DatabaseLinker.updateTable(tbl_CreditHistory, query);
+        DatabaseLinker.updateTable(tbl_CreditHistory, query="SELECT invoice_ID AS 'SO No.',transaction_date AS 'Transaction Date',total_net AS 'Total Net',due_date AS 'Due Date',DATEDIFF(due_date,CURDATE()) AS 'Days Left',penalty AS 'Penalty' FROM credit_transaction WHERE paymentTypeID=243 AND dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer+" AND due_date IS NOT NULL");
     }
     static Connection conn = null;
     static Statement stmt = null;
@@ -397,7 +398,7 @@ public class SalesOrder_CreditHistory extends javax.swing.JDialog {
     private void btn_CreditSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CreditSelectActionPerformed
         int row = tbl_CreditHistory.getSelectedRow();
         clickedID_onTable = (Integer) tbl_CreditHistory.getModel().getValueAt(row, 0);
-        SalesOrder_Tender.lbl_CPullBalance.setText("₱"+SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 2));
+        SalesOrder_Tender.lbl_CPullBalance.setText("₱"+(Float.parseFloat(SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 2).toString())+Float.parseFloat(SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 5).toString())));
         SalesOrder_Tender.invoiceID=clickedID_onTable;
         this.dispose();
     }//GEN-LAST:event_btn_CreditSelectActionPerformed
@@ -410,21 +411,8 @@ public class SalesOrder_CreditHistory extends javax.swing.JDialog {
         tableclicked(evt, tbl_CreditHistory);
     }//GEN-LAST:event_tbl_CreditHistoryMousePressed
     public static int clickedID_onTable = 0;
-    protected static float getTotalPenalty() //per invoice
-    {
-        float totalPenalty=0;
-        try {
-            createDB();
-            rs = stmt.executeQuery("SELECT penalty FROM credit_transaction WHERE invoice_ID="+SalesOrder_Tender.invoiceID);
-            while(rs.next())
-            {
-                totalPenalty=rs.getFloat("penalty");
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return totalPenalty;
+    public static float round(float d, int decimalPlace) {
+         return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).floatValue();
     }
     public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
     {
@@ -432,7 +420,6 @@ public class SalesOrder_CreditHistory extends javax.swing.JDialog {
         {
             int row = tbl_data.getSelectedRow();
             clickedID_onTable = (Integer) tbl_data.getModel().getValueAt(row, 0);
-            SalesOrder_Tender.lbl_CPullBalance.setText("₱"+((Float)tbl_CreditHistory.getValueAt(row, 2)+getTotalPenalty()));
             SalesOrder_Tender.invoiceID=clickedID_onTable;
         }
     }
