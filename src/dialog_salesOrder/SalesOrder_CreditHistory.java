@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
@@ -397,11 +398,15 @@ public class SalesOrder_CreditHistory extends javax.swing.JDialog {
 
     private void btn_CreditSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CreditSelectActionPerformed
         int row = tbl_CreditHistory.getSelectedRow();
-        System.out.println(row);
-        clickedID_onTable = (Integer) tbl_CreditHistory.getModel().getValueAt(row, 0);
-        SalesOrder_Tender.lbl_CPullBalance.setText("₱"+(Float.parseFloat(SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 2).toString())+Float.parseFloat(SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 5).toString())));
-        SalesOrder_Tender.invoiceID=clickedID_onTable;
-        this.dispose();
+        if(row == 0)
+        {
+            clickedID_onTable = (Integer) tbl_CreditHistory.getModel().getValueAt(row, 0);
+            SalesOrder_Tender.lbl_CPullBalance.setText("₱"+(Float.parseFloat(SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 2).toString())+Float.parseFloat(SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 5).toString())));
+            SalesOrder_Tender.invoiceID=clickedID_onTable;
+            this.dispose();
+        }
+        else JOptionPane.showMessageDialog(null, "There is previous invoice that is not paid. Please try again.");
+        
     }//GEN-LAST:event_btn_CreditSelectActionPerformed
 
     private void txt_CreditSOKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_CreditSOKeyReleased

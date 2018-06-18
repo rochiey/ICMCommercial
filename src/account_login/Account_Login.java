@@ -24,9 +24,11 @@ public class Account_Login extends javax.swing.JFrame {
 
     
     public Account_Login() {
+        mysqlStart(); 
+        
         initComponents();
         setPlaceHolder();
-        mysqlStart();
+        
     }
     private void setPlaceHolder()
     {
@@ -113,7 +115,7 @@ public class Account_Login extends javax.swing.JFrame {
     private void mysqlStart()
     {
         try {
-           Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\mysql\\bin\\mysqld.exe");
+           Process process = Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\mysql\\bin\\mysqld.exe");
            
         } catch (IOException ex) {
             Logger.getLogger(Account_Login.class.getName()).log(Level.SEVERE, null, ex);
