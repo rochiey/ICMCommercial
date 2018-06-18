@@ -5,6 +5,7 @@ import com.Session;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,12 +22,11 @@ import javax.swing.JOptionPane;
  */
 public class Account_Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form asd
-     */
+    
     public Account_Login() {
         initComponents();
         setPlaceHolder();
+        //mysqlStart();
     }
     private void setPlaceHolder()
     {
@@ -109,6 +109,15 @@ public class Account_Login extends javax.swing.JFrame {
             }
         }
         return success;
+    }
+    private void mysqlStart()
+    {
+        try {
+            Process process = Runtime.getRuntime().exec("C:\\Users\\percival\\Desktop\\ICMCommercialSystem\\src\\mysql\\bin\\mysqld.exe");
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Account_Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     private void loginActionPerformed()
     {

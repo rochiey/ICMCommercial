@@ -1,0 +1,73 @@
+2018-06-18 23:48:38 3740 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2018-06-18 23:48:38 3740 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2018-06-18 23:48:38 3740 [Note] InnoDB: The InnoDB memory heap is disabled
+2018-06-18 23:48:38 3740 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2018-06-18 23:48:38 3740 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2018-06-18 23:48:38 3740 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2018-06-18 23:48:38 3740 [Note] InnoDB: Using generic crc32 instructions
+2018-06-18 23:48:38 3740 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2018-06-18 23:48:38 3740 [Note] InnoDB: Completed initialization of buffer pool
+2018-06-18 23:48:38 3740 [Note] InnoDB: Highest supported file format is Barracuda.
+2018-06-18 23:48:38 3740 [Note] InnoDB: The log sequence number 1835037 in ibdata file do not match the log sequence number 12017778 in the ib_logfiles!
+2018-06-18 23:48:38 3740 [Note] InnoDB: Restoring possible half-written data pages from the doublewrite buffer...
+2018-06-18 23:48:39 3740 [Warning] InnoDB: Resizing redo log from 2*320 to 2*3072 pages, LSN=12017778
+2018-06-18 23:48:39 3740 [Warning] InnoDB: Starting to delete and rewrite log files.
+2018-06-18 23:48:40 3740 [Note] InnoDB: Setting log file .\ib_logfile101 size to 48 MB
+2018-06-18 23:48:40 3740 [Note] InnoDB: Setting log file .\ib_logfile1 size to 48 MB
+2018-06-18 23:48:40 3740 [Note] InnoDB: Renaming log file .\ib_logfile101 to .\ib_logfile0
+2018-06-18 23:48:40 3740 [Warning] InnoDB: New log files created, LSN=12018188
+2018-06-18 23:48:40 3740 [Note] InnoDB: 128 rollback segment(s) are active.
+2018-06-18 23:48:40 3740 [Note] InnoDB: Waiting for purge to start
+2018-06-18 23:48:40 3740 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.36-83.0 started; log sequence number 12017778
+2018-06-18 23:48:40 6472 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2018-06-18 23:48:40 3740 [Note] Plugin 'FEEDBACK' is disabled.
+2018-06-18 23:48:40 3740 [Note] Server socket created on IP: '::'.
+2018-06-18 23:48:40 3740 [ERROR] Can't start server: Bind on TCP/IP port. Got error: 10048: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+
+2018-06-18 23:48:40 3740 [ERROR] Do you already have another mysqld server running on port: 3306 ?
+2018-06-18 23:48:40 3740 [ERROR] Aborting
+
+2018-06-19  0:00:26 7936 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2018-06-19  0:00:26 7936 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2018-06-19  0:00:26 7936 [Note] InnoDB: The InnoDB memory heap is disabled
+2018-06-19  0:00:26 7936 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2018-06-19  0:00:26 7936 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2018-06-19  0:00:26 7936 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2018-06-19  0:00:26 7936 [Note] InnoDB: Using generic crc32 instructions
+2018-06-19  0:00:26 7936 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2018-06-19  0:00:26 7936 [Note] InnoDB: Completed initialization of buffer pool
+2018-06-19  0:00:26 7936 [Note] InnoDB: Highest supported file format is Barracuda.
+2018-06-19  0:00:29 7936 [Warning] InnoDB: Resizing redo log from 2*320 to 2*3072 pages, LSN=12018710
+2018-06-19  0:00:29 7936 [Warning] InnoDB: Starting to delete and rewrite log files.
+2018-06-19  0:00:29 7936 [Note] InnoDB: Setting log file .\ib_logfile101 size to 48 MB
+2018-06-19  0:00:29 7936 [Note] InnoDB: Setting log file .\ib_logfile1 size to 48 MB
+2018-06-19  0:00:29 7936 [Note] InnoDB: Renaming log file .\ib_logfile101 to .\ib_logfile0
+2018-06-19  0:00:29 7936 [Warning] InnoDB: New log files created, LSN=12019212
+2018-06-19  0:00:29 7936 [Note] InnoDB: 128 rollback segment(s) are active.
+2018-06-19  0:00:29 7936 [Note] InnoDB: Waiting for purge to start
+2018-06-19  0:00:29 7936 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.36-83.0 started; log sequence number 12018710
+2018-06-19  0:00:29 6332 [Note] InnoDB: Dumping buffer pool(s) not yet started
+2018-06-19  0:00:29 7936 [Note] Plugin 'FEEDBACK' is disabled.
+2018-06-19  0:00:29 7936 [Note] Server socket created on IP: '::'.
+2018-06-19  0:00:30 7936 [Note] C:\Users\percival\Desktop\ICMCommercialSystem\src\mysql\bin\mysqld.exe: ready for connections.
+Version: '10.1.31-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2018-06-19  0:00:30 2892 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2018-06-19  0:00:30 2892 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2018-06-19  0:00:30 2892 [Note] InnoDB: The InnoDB memory heap is disabled
+2018-06-19  0:00:30 2892 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2018-06-19  0:00:30 2892 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2018-06-19  0:00:30 2892 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2018-06-19  0:00:30 2892 [Note] InnoDB: Using generic crc32 instructions
+2018-06-19  0:00:30 2892 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2018-06-19  0:00:30 2892 [Note] InnoDB: Completed initialization of buffer pool
+2018-06-19  0:00:30 2892 [ERROR] InnoDB: .\ibdata1 can't be opened in read-write mode
+2018-06-19  0:00:30 2892 [ERROR] InnoDB: The system tablespace must be writable!
+2018-06-19  0:00:30 2892 [ERROR] Plugin 'InnoDB' init function returned error.
+2018-06-19  0:00:30 2892 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2018-06-19  0:00:30 2892 [Note] Plugin 'FEEDBACK' is disabled.
+2018-06-19  0:00:30 2892 [ERROR] Unknown/unsupported storage engine: InnoDB
+2018-06-19  0:00:30 2892 [ERROR] Aborting
+

@@ -397,6 +397,7 @@ public class SalesOrder_CreditHistory extends javax.swing.JDialog {
 
     private void btn_CreditSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CreditSelectActionPerformed
         int row = tbl_CreditHistory.getSelectedRow();
+        System.out.println(row);
         clickedID_onTable = (Integer) tbl_CreditHistory.getModel().getValueAt(row, 0);
         SalesOrder_Tender.lbl_CPullBalance.setText("₱"+(Float.parseFloat(SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 2).toString())+Float.parseFloat(SalesOrder_CreditHistory.tbl_CreditHistory.getValueAt(row, 5).toString())));
         SalesOrder_Tender.invoiceID=clickedID_onTable;
