@@ -1,5 +1,6 @@
 package dialog_inventory;
 
+import com.DB;
 import com.DbUtils;
 import static dialog_inventory.Inventory_Category.*;
 import static dialog_inventory.Inventory_Color.*;
@@ -27,68 +28,23 @@ import org.jdesktop.swingx.JXDatePicker;
 public class Inventory_ButtonFunctions {
     public static int clickedID_onTable = 0;
     
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
-    public static void createDB()
-    {
-        rs = null;
-        stmt = null;
-        conn = null;
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    static int successEx = 0;
-    private static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:code:sql command()"
-                   + "</font></center></html>", "Error Message", 0);
-            ex.printStackTrace();
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DbUtils.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error: session: sql commands"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
-    }
+    
     private int getSupplierID(JComboBox cboSupplier)
     {
         DB.createDB();
         int idsupplier = 0;
         try {
-            rs = stmt.executeQuery("SELECT idsupplier FROM supplier WHERE supplier_name ='"+cboSupplier.getSelectedItem().toString()+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT idsupplier FROM supplier WHERE supplier_name ='"+cboSupplier.getSelectedItem().toString()+"'");
+            while(DB.rs.next())
             {
-                idsupplier = Integer.parseInt(rs.getObject("idsupplier").toString());
+                idsupplier = Integer.parseInt(DB.rs.getObject("idsupplier").toString());
             }
-            rs.close();
+            DB.rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops, something went wrong. Please try again."
                    + "</font></center></html>", "Error Message", 0);
-            System.exit(0);
+            //System.exit(0);
         }
         return idsupplier;
     }
@@ -97,16 +53,16 @@ public class Inventory_ButtonFunctions {
         DB.createDB();
         int idcolor = 0;
         try {
-            rs= stmt.executeQuery("SELECT idproduct_color FROM product_color WHERE color_code ='"+cboColor.getSelectedItem().toString()+"'");
-            while(rs.next())
+            DB.rs= DB.stmt.executeQuery("SELECT idproduct_color FROM product_color WHERE color_code ='"+cboColor.getSelectedItem().toString()+"'");
+            while(DB.rs.next())
             {
-                idcolor = Integer.parseInt(rs.getObject("idproduct_color").toString());
+                idcolor = Integer.parseInt(DB.rs.getObject("idproduct_color").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops, something went wrong. Please try again."
                    + "</font></center></html>", "Error Message", 0);
-            System.exit(0);
+            //System.exit(0);
         }
         return idcolor;
     }
@@ -115,16 +71,16 @@ public class Inventory_ButtonFunctions {
         DB.createDB();
         int idcategory = 0;
         try {
-            rs= stmt.executeQuery("SELECT idcategory FROM category WHERE category_name ='"+cboCategory.getSelectedItem().toString()+"'");
-            while(rs.next())
+            DB.rs= DB.stmt.executeQuery("SELECT idcategory FROM category WHERE category_name ='"+cboCategory.getSelectedItem().toString()+"'");
+            while(DB.rs.next())
             {
-                idcategory = Integer.parseInt(rs.getObject("idcategory").toString());
+                idcategory = Integer.parseInt(DB.rs.getObject("idcategory").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops, something went wrong. Please try again."
                    + "</font></center></html>", "Error Message", 0);
-            System.exit(0);
+            //System.exit(0);
         }
         return idcategory;
     }
@@ -159,12 +115,12 @@ public class Inventory_ButtonFunctions {
         ResultSet rs2 = null; int idcategory=0;
         DB.createDB();
         try {
-                rs = stmt.executeQuery("SELECT category FROM product WHERE idproduct ="+clickedID_onTable);
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT category FROM product WHERE idproduct ="+clickedID_onTable);
+                while(DB.rs.next())
                 {
-                    idcategory = Integer.parseInt(rs.getObject("category").toString());
+                    idcategory = Integer.parseInt(DB.rs.getObject("category").toString());
                 }
-                rs2 = stmt.executeQuery("SELECT category_type FROM category WHERE idcategory ="+idcategory);
+                rs2 = DB.stmt.executeQuery("SELECT category_type FROM category WHERE idcategory ="+idcategory);
                 while(rs2.next())
                 {
                     if(rs2.getObject("category_type").equals(16))
@@ -190,10 +146,10 @@ public class Inventory_ButtonFunctions {
         ResultSet rs2 = null; int idcategory=0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT category_type FROM category WHERE category_name ='"+cboCategory.getSelectedItem()+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT category_type FROM category WHERE category_name ='"+cboCategory.getSelectedItem()+"'");
+            while(DB.rs.next())
             {
-                if(Integer.parseInt(rs.getObject("category_type").toString()) == 16) 
+                if(Integer.parseInt(DB.rs.getObject("category_type").toString()) == 16) 
                 {
                     date_UpdateProdExpiration.getEditor().setText("");
                     date_UpdateProdExpiration.getEditor().disable();
@@ -216,10 +172,10 @@ public class Inventory_ButtonFunctions {
         
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT category_type FROM category WHERE category_name ='"+cboCategory.getSelectedItem()+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT category_type FROM category WHERE category_name ='"+cboCategory.getSelectedItem()+"'");
+            while(DB.rs.next())
             {
-                if(Integer.parseInt(rs.getObject("category_type").toString()) == 16) 
+                if(Integer.parseInt(DB.rs.getObject("category_type").toString()) == 16) 
                 {
                     date_NewProdExpiration.getEditor().setText("");
                     date_NewProdExpiration.getEditor().disable();
@@ -237,6 +193,7 @@ public class Inventory_ButtonFunctions {
                    + "</font></center></html>", "Error Message", 0);
         }
     }
+    static int successEx;
     protected void addNewProduct(){
         if (date_NewProdExpiration.isEnabled()){ // if product is expirable
             if (txt_NewProdName.getText().equals("") || date_NewProdExpiration.getDate() == null || txt_NewBarcode.getText().equals("")){
@@ -253,7 +210,7 @@ public class Inventory_ButtonFunctions {
                 {
                     for(int i=0;i<sizes.size();i++)
                     {
-                        dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0)");
+                        successEx = DB.dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0)");
                     }
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
@@ -261,7 +218,7 @@ public class Inventory_ButtonFunctions {
                 }
                 else 
                 {
-                    dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0)");
+                    successEx = DB.dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0)");
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
                         + "</font></center></html>", "Information Message", 1);
@@ -284,7 +241,7 @@ public class Inventory_ButtonFunctions {
                 {
                     for(int i=0;i<sizes.size();i++)
                     {
-                        dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0)");
+                        DB.dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0)");
                     }
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
@@ -292,7 +249,7 @@ public class Inventory_ButtonFunctions {
                 }
                 else 
                 {
-                    dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0)");
+                    DB.dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'-',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0)");
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
                         + "</font></center></html>", "Information Message", 1);
@@ -305,13 +262,13 @@ public class Inventory_ButtonFunctions {
     {
         DB.createDB();
         try {
-        rs = stmt.executeQuery("SELECT supplier.supplier_name,product.product_name,category.category_name,product.product_size,product_color.color_code,product.expiration,product.selling_price FROM product,supplier,category,product_color WHERE product.supplier=supplier.idsupplier AND product.category=category.idcategory AND product.product_color = product_color.idproduct_color AND idproduct ="+clickedID_onTable);
+        DB.rs = DB.stmt.executeQuery("SELECT supplier.supplier_name,product.product_name,category.category_name,product.product_size,product_color.color_code,product.expiration,product.selling_price FROM product,supplier,category,product_color WHERE product.supplier=supplier.idsupplier AND product.category=category.idcategory AND product.product_color = product_color.idproduct_color AND idproduct ="+clickedID_onTable);
         Vector row = new Vector();
-            while(rs.next())
+            while(DB.rs.next())
             {
                 for(int i=0;i<7;i++)
                 {
-                    row.addElement(rs.getObject(i+1));
+                    row.addElement(DB.rs.getObject(i+1));
                 }
                 cbo_UpdateProdCompany.setSelectedItem(row.get(0));
                 txt_UpdateProdName.setText(row.get(1).toString());
@@ -351,7 +308,7 @@ public class Inventory_ButtonFunctions {
             else{
                 String expDate = date_UpdateProdExpiration.getEditor().getText();
                 String dateFormat = "%Y-%m-%d";
-                dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",expiration = STR_TO_DATE('"+expDate+"','"+dateFormat+"'),selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
+                DB.dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",expiration = STR_TO_DATE('"+expDate+"','"+dateFormat+"'),selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product information successfully updated!"
                         + "</font></center></html>", "Information Message", 1);
             }
@@ -364,7 +321,7 @@ public class Inventory_ButtonFunctions {
             }
             else{
                 //INSERT SQL QUERY FOR UPDATING PRODUCT
-                dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
+                DB.dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product information successfully updated!"
                         + "</font></center></html>", "Information Message", 1);
             }
@@ -409,7 +366,7 @@ public class Inventory_ButtonFunctions {
             else{
                 if (btn_NewInventory.getText().equals("Add")){
                     //insert SQL query here for ADDING NEW SUPPLIER
-                    dbHandlerUpdates("INSERT INTO supplier(supplier_name,contact_number,contact_person,discount) VALUES('"+txt_NewCompanyName.getText()+"','"+txt_NewCompanyContact.getText()+"','"+txt_NewCompanyContactPerson.getText()+"',"+txt_NewCompanyDiscount.getText()+")");
+                    DB.dbHandlerUpdates("INSERT INTO supplier(supplier_name,contact_number,contact_person,discount) VALUES('"+txt_NewCompanyName.getText()+"','"+txt_NewCompanyContact.getText()+"','"+txt_NewCompanyContactPerson.getText()+"',"+txt_NewCompanyDiscount.getText()+")");
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Company successfully added!"
                         + "</font></center></html>", "Information Message", 1);
                     if(dialogclassification == 1) Inventory_NewProduct.updateSupplierCBO();
@@ -420,7 +377,7 @@ public class Inventory_ButtonFunctions {
                     //insert SQL query here for EDITING SUPPLIER
                     if(clickedID_onTable<0) JOptionPane.showMessageDialog(null,"Please click a record.");
                     else {
-                        dbHandlerUpdates("UPDATE supplier SET supplier_name = '"+txt_NewCompanyName.getText()+"',contact_number = '"+txt_NewCompanyContact.getText()+"',contact_person = '"+txt_NewCompanyContactPerson.getText()+"', discount = "+txt_NewCompanyDiscount.getText()+" WHERE idsupplier = "+clickedID_onTable);
+                        DB.dbHandlerUpdates("UPDATE supplier SET supplier_name = '"+txt_NewCompanyName.getText()+"',contact_number = '"+txt_NewCompanyContact.getText()+"',contact_person = '"+txt_NewCompanyContactPerson.getText()+"', discount = "+txt_NewCompanyDiscount.getText()+" WHERE idsupplier = "+clickedID_onTable);
                         JOptionPane.showMessageDialog(null, "<html><center><font size=4>Company successfully updated!"
                         + "</font></center></html>", "Information Message", 1);
                         if(dialogclassification == 1) Inventory_NewProduct.updateSupplierCBO();
@@ -436,13 +393,13 @@ public class Inventory_ButtonFunctions {
     {
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT supplier_name,contact_number,contact_person,discount FROM supplier WHERE idsupplier ="+clickedID_onTable);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT supplier_name,contact_number,contact_person,discount FROM supplier WHERE idsupplier ="+clickedID_onTable);
+            while(DB.rs.next())
             {
-                txt_NewCompanyName.setText(rs.getObject("supplier_name").toString());
-                txt_NewCompanyContact.setText(rs.getObject("contact_number").toString());
-                txt_NewCompanyContactPerson.setText(rs.getObject("contact_person").toString());
-                txt_NewCompanyDiscount.setText(rs.getObject("discount").toString());
+                txt_NewCompanyName.setText(DB.rs.getObject("supplier_name").toString());
+                txt_NewCompanyContact.setText(DB.rs.getObject("contact_number").toString());
+                txt_NewCompanyContactPerson.setText(DB.rs.getObject("contact_person").toString());
+                txt_NewCompanyDiscount.setText(DB.rs.getObject("discount").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -491,11 +448,11 @@ public class Inventory_ButtonFunctions {
         boolean flag = false;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT color_code FROM product_color");
+            DB.rs = DB.stmt.executeQuery("SELECT color_code FROM product_color");
             
-            while(rs.next())
+            while(DB.rs.next())
             {
-                 if(rs.getObject("color_code").equals(colorCode)) flag = true;
+                 if(DB.rs.getObject("color_code").equals(colorCode)) flag = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -524,7 +481,7 @@ public class Inventory_ButtonFunctions {
                 else{
                     //insert SQL query here for ADDING NEW COLOR
                     if(!isDuplicateColor(txt_ColorCode)){
-                        dbHandlerUpdates("INSERT INTO product_color(color_code,color_name) VALUES('"+txt_ColorCode.getText()+"','"+txt_ColorName.getText()+"')");
+                        DB.dbHandlerUpdates("INSERT INTO product_color(color_code,color_name) VALUES('"+txt_ColorCode.getText()+"','"+txt_ColorName.getText()+"')");
                         JOptionPane.showMessageDialog(null, "<html><center><font size=4>Color successfully added!"
                             + "</font></center></html>", "Information Message", 1);
                         Inventory_Color.updateTable();
@@ -549,7 +506,7 @@ public class Inventory_ButtonFunctions {
                     else{
                         //insert SQL query here for EDITING NEW COLOR
                         if(!isDuplicateColor(txt_ColorCode)){
-                            dbHandlerUpdates("UPDATE product_color SET color_code = '"+txt_ColorCode.getText()+"',color_name = '"+txt_ColorName.getText()+"' WHERE idproduct_color = "+clickedID_onTable);
+                            DB.dbHandlerUpdates("UPDATE product_color SET color_code = '"+txt_ColorCode.getText()+"',color_name = '"+txt_ColorName.getText()+"' WHERE idproduct_color = "+clickedID_onTable);
                             JOptionPane.showMessageDialog(null, "<html><center><font size=4>Color information successfully updated!"
                                 + "</font></center></html>", "Information Message", 1);
                             Inventory_Color.updateTable();
@@ -606,7 +563,7 @@ public class Inventory_ButtonFunctions {
                 }
                 else{
                     //insert SQL query here for ADDING NEW CATEGORY
-                    dbHandlerUpdates("INSERT INTO category(category_name,category_type) VALUES('"+txt_CategoryName.getText()+"',"+getCategoryType(cbo_CategoryType)+")");
+                    DB.dbHandlerUpdates("INSERT INTO category(category_name,category_type) VALUES('"+txt_CategoryName.getText()+"',"+getCategoryType(cbo_CategoryType)+")");
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Category successfully added!"
                         + "</font></center></html>", "Information Message", 1);
                     Inventory_Category.updateTable();
@@ -623,7 +580,7 @@ public class Inventory_ButtonFunctions {
                 }
                 else{
                     //insert SQL query here for EDITING CATEGORY
-                    dbHandlerUpdates("UPDATE category SET category_name = '"+txt_CategoryName.getText()+"',category_type = "+getCategoryType(cbo_CategoryType)+" WHERE idcategory ="+clickedID_onTable);
+                    DB.dbHandlerUpdates("UPDATE category SET category_name = '"+txt_CategoryName.getText()+"',category_type = "+getCategoryType(cbo_CategoryType)+" WHERE idcategory ="+clickedID_onTable);
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Category information successfully updated!"
                         + "</font></center></html>", "Information Message", 1);
                     Inventory_Category.updateTable();
@@ -639,10 +596,10 @@ public class Inventory_ButtonFunctions {
     {
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT category_name FROM category WHERE idcategory="+clickedID_onTable);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT category_name FROM category WHERE idcategory="+clickedID_onTable);
+            while(DB.rs.next())
             {
-                txt_CategoryName.setText(rs.getObject("category_name").toString());
+                txt_CategoryName.setText(DB.rs.getObject("category_name").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -653,11 +610,11 @@ public class Inventory_ButtonFunctions {
     {
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT color_code,color_name FROM product_color where idproduct_color ="+clickedID_onTable);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT color_code,color_name FROM product_color where idproduct_color ="+clickedID_onTable);
+            while(DB.rs.next())
             {
-                txt_ColorCode.setText(rs.getObject("color_code").toString());
-                txt_ColorName.setText(rs.getObject("color_name").toString());
+                txt_ColorCode.setText(DB.rs.getObject("color_code").toString());
+                txt_ColorName.setText(DB.rs.getObject("color_name").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -694,10 +651,10 @@ public class Inventory_ButtonFunctions {
                 //ADD OR DEDUCT STOCK DEPEND OF INVENTORY TYPE
                 int existingQuantity = 0,totalQuantity = 0; String transactionType = "";
                 DB.createDB();
-                rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct ="+clickedID_onTable);
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE idproduct ="+clickedID_onTable);
+                while(DB.rs.next())
                 {
-                    existingQuantity = (int) rs.getObject("quantity");
+                    existingQuantity = (int) DB.rs.getObject("quantity");
                 }
                 if(Inventory_ProductMovement.cbo_InventoryType.getSelectedItem().equals("Inventory IN") && quantity >= 1)
                 {   
@@ -711,8 +668,8 @@ public class Inventory_ButtonFunctions {
                 }
                 String transDate = dateTransaction.getEditor().getText();
                 String dateFormat = "%Y-%m-%d";
-                dbHandlerUpdates("UPDATE product SET quantity = "+totalQuantity+" WHERE idproduct="+clickedID_onTable);  
-                dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,productID,product_name,quantity) VALUES((SELECT CURDATE()),'"+transactionType+"',"+clickedID_onTable+",(SELECT product_name FROM product WHERE idproduct="+clickedID_onTable+"),"+quantity+")");
+                DB.dbHandlerUpdates("UPDATE product SET quantity = "+totalQuantity+" WHERE idproduct="+clickedID_onTable);  
+                DB.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,productID,product_name,quantity) VALUES((SELECT CURDATE()),'"+transactionType+"',"+clickedID_onTable+",(SELECT product_name FROM product WHERE idproduct="+clickedID_onTable+"),"+quantity+")");
                 inventory.InventoryPnl_1stLayer.updateTable();
                 //INVENTORY OUT
             } catch (SQLException ex) {

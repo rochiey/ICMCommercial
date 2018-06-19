@@ -29,6 +29,10 @@ public class DB {
     
     public static void createDB()
     {
+        rs = null;
+        stmt = null;
+        conn = null;
+        
         try {
             Properties prop=new Properties();
             prop.setProperty("user",username);

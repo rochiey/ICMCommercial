@@ -25,6 +25,7 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import com.DB;
 
 public class Inventory_ProductMovement extends javax.swing.JDialog {
 
@@ -446,24 +447,24 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 if(date_PMTransaction.getEditor().getText().equals("") || txt_POReceipt.getText().equals("")) JOptionPane.showMessageDialog(null, "Please fill in the fields completely.");
                 else
                 {
-                    dbHandlerUpdates("INSERT INTO invoice_supplier(supplier_SOno,date_of_order,date_of_purchase,balance) VALUES('"+txt_POReceipt.getText()+"',STR_TO_DATE('"+datePurchase+"','"+format+"'),STR_TO_DATE('"+datePurchase+"','"+format+"'),0)");
+                    DB.dbHandlerUpdates("INSERT INTO invoice_supplier(supplier_SOno,date_of_order,date_of_purchase,balance) VALUES('"+txt_POReceipt.getText()+"',STR_TO_DATE('"+datePurchase+"','"+format+"'),STR_TO_DATE('"+datePurchase+"','"+format+"'),0)");
                     for(int i=0;i<tbl_PMovementList.getRowCount();i++)
                     {
                         DB.createDB(); int currentQty=0;
                         try {
-                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
-                            while(rs.next())
+                            DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
+                            while(DB.rs.next())
                             {
-                                currentQty=rs.getInt("quantity");
+                                currentQty=DB.rs.getInt("quantity");
                             }
                             currentQty+=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
-                            dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
-                            dbHandlerUpdates("INSERT purchase_order_supplier(productID,productName,quantity,salesOrderNo) VALUES("+getProductID(tbl_PMovementList.getValueAt(i, 0).toString())+",'"+tbl_PMovementList.getValueAt(i, 1)+"',"+tbl_PMovementList.getValueAt(i, 5)+","+getLastID("invoice_supplier")+")");
+                            DB.dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
+                            DB.dbHandlerUpdates("INSERT purchase_order_supplier(productID,productName,quantity,salesOrderNo) VALUES("+getProductID(tbl_PMovementList.getValueAt(i, 0).toString())+",'"+tbl_PMovementList.getValueAt(i, 1)+"',"+tbl_PMovementList.getValueAt(i, 5)+","+getLastID("invoice_supplier")+")");
                         } catch (SQLException ex) {
                             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("invoice_supplier")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
+                    DB.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("invoice_supplier")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
                     JOptionPane.showMessageDialog(null, "Transaction done.");
                 }
             }
@@ -474,10 +475,10 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 {
                     DB.createDB(); int currentQty=0;
                     try {
-                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
-                        while(rs.next())
+                        DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
+                        while(DB.rs.next())
                         {
-                            currentQty=rs.getInt("quantity");
+                            currentQty=DB.rs.getInt("quantity");
                         }
                         if((Integer)tbl_PMovementList.getValueAt(i, 5) > currentQty || (Integer)tbl_PMovementList.getValueAt(i, 5) <= 0)
                             error = true;
@@ -487,24 +488,24 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 }
                 if(!error)
                 {
-                    dbHandlerUpdates("INSERT INTO inventory_out(idsupplier,remarks,transaction_date) VALUES("+getSupplierID(cbo_Company)+",'"+cbo_Remarks.getSelectedItem()+"',(SELECT CURDATE()))");
+                    DB.dbHandlerUpdates("INSERT INTO inventory_out(idsupplier,remarks,transaction_date) VALUES("+getSupplierID(cbo_Company)+",'"+cbo_Remarks.getSelectedItem()+"',(SELECT CURDATE()))");
                     for(int i=0;i<tbl_PMovementList.getRowCount();i++)
                     {
                         DB.createDB(); int currentQty=0;
                         try {
-                            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
-                            while(rs.next())
+                            DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
+                            while(DB.rs.next())
                             {
-                                currentQty=rs.getInt("quantity");
+                                currentQty=DB.rs.getInt("quantity");
                             }
                         } catch (SQLException ex) {
                             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         currentQty-=Integer.parseInt(tbl_PMovementList.getValueAt(i, 5).toString());
-                        dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
-                        dbHandlerUpdates("INSERT INTO inventory_out_list(transactNo,barcode,quantity) VALUES("+getLastID("inventory_out")+",'"+tbl_PMovementList.getValueAt(i, 0)+"',"+tbl_PMovementList.getValueAt(i, 5)+")");
+                        DB.dbHandlerUpdates("UPDATE product SET quantity="+currentQty+" WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
+                        DB.dbHandlerUpdates("INSERT INTO inventory_out_list(transactNo,barcode,quantity) VALUES("+getLastID("inventory_out")+",'"+tbl_PMovementList.getValueAt(i, 0)+"',"+tbl_PMovementList.getValueAt(i, 5)+")");
                     }
-                    dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("inventory_out")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
+                    DB.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'"+cbo_InventoryType.getSelectedItem().toString()+"',"+getLastID("inventory_out")+",'"+cbo_Remarks.getSelectedItem().toString()+"')");
                     JOptionPane.showMessageDialog(null, "Transaction done.");
                 }
                 else JOptionPane.showMessageDialog(null, "One quantity of the products in the table are either above the stored quantity or not correct.");
@@ -519,8 +520,8 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         int id = 0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT idproduct FROM product WHERE barcode ='"+barcode+"'");
-            while(rs.next()) id = rs.getInt("idproduct");
+            DB.rs = DB.stmt.executeQuery("SELECT idproduct FROM product WHERE barcode ='"+barcode+"'");
+            while(DB.rs.next()) id = DB.rs.getInt("idproduct");
             } catch (SQLException ex) {
             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -614,14 +615,14 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 DB.createDB();
                 Vector<Object> inRow = new Vector<Object>();
                 try {
-                    rs=stmt.executeQuery("SELECT barcode,product_name,product_color.color_code,product_size,quantity FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
-                    while(rs.next())
+                    DB.rs=DB.stmt.executeQuery("SELECT barcode,product_name,product_color.color_code,product_size,quantity FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
+                    while(DB.rs.next())
                     {
-                        inRow.add(rs.getObject("barcode"));
-                        inRow.add(rs.getObject("product_name"));
-                        inRow.add(rs.getObject("color_code"));
-                        inRow.add(rs.getObject("product_size"));
-                        inRow.add(rs.getObject("quantity"));
+                        inRow.add(DB.rs.getObject("barcode"));
+                        inRow.add(DB.rs.getObject("product_name"));
+                        inRow.add(DB.rs.getObject("color_code"));
+                        inRow.add(DB.rs.getObject("product_size"));
+                        inRow.add(DB.rs.getObject("quantity"));
                         inRow.add(quantity);
                     }
                 } catch (SQLException ex) {
@@ -676,43 +677,6 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private void btn_ViewArticleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ViewArticleMouseExited
         btn_ViewArticle.setBackground(UIManager.getColor("control"));
     }//GEN-LAST:event_btn_ViewArticleMouseExited
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static void dbHandlerUpdates(String query)
-    {
-        try{
-        DB.createDB();
-         stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            javax.swing.JOptionPane.showMessageDialog(null, "Oops, something went wrong. Please try again. (error: sql syntax)");
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
     
     static Vector vecsupplier;
     private static void getSupplier2ComboBox()
@@ -720,10 +684,10 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         vecsupplier = new Vector();
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT supplier_name FROM supplier");
+            while(DB.rs.next())
             {
-                vecsupplier.add(rs.getObject("supplier_name"));
+                vecsupplier.add(DB.rs.getObject("supplier_name"));
             }
             
         } catch (SQLException ex) {
@@ -737,9 +701,9 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         Object supplierName = cboSupplier.getSelectedItem();
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT idsupplier FROM supplier WHERE supplier_name='"+supplierName+"'");
-            while(rs.next())
-                id = rs.getInt("idsupplier");
+            DB.rs = DB.stmt.executeQuery("SELECT idsupplier FROM supplier WHERE supplier_name='"+supplierName+"'");
+            while(DB.rs.next())
+                id = DB.rs.getInt("idsupplier");
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -778,10 +742,10 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
         Integer theID = 0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"' LIMIT 1");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"' LIMIT 1");
+            while(DB.rs.next())
             {
-                theID = Integer.parseInt(rs.getObject("AUTO_INCREMENT").toString());
+                theID = Integer.parseInt(DB.rs.getObject("AUTO_INCREMENT").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);

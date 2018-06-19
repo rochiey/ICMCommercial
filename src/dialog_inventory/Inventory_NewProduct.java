@@ -24,14 +24,12 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import com.DB;
 
 public class Inventory_NewProduct extends javax.swing.JDialog {
     private static Vector vecsupplier,veccolor,veccategory;
     private Inventory_ButtonFunctions button = new Inventory_ButtonFunctions();
     int xMouse, yMouse;
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
     
     public Inventory_NewProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -46,10 +44,10 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         boolean flag = false;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT category_type FROM category WHERE category_name='"+cboCategory.getSelectedItem()+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT category_type FROM category WHERE category_name='"+cboCategory.getSelectedItem()+"'");
+            while(DB.rs.next())
             {
-                if(rs.getInt("category_type") == 15) flag = true;
+                if(DB.rs.getInt("category_type") == 15) flag = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_NewProduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,49 +82,15 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         cbo_NewProdColor.setModel(new DefaultComboBoxModel<>(veccolor));
         cbo_NewProdCompany.setModel(new DefaultComboBoxModel<>(vecsupplier));
     }
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static void dbHandlerUpdates(String query)
-    {
-        try{
-        DB.createDB();
-         stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "Oops, something went wrong. Please try again. (error: sql syntax)");
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DbUtils.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
     private static void getSupplier2ComboBox()
     {
         vecsupplier = new Vector();
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT supplier_name FROM supplier");
+            while(DB.rs.next())
             {
-                vecsupplier.add(rs.getObject("supplier_name"));
+                vecsupplier.add(DB.rs.getObject("supplier_name"));
             }
             
         } catch (SQLException ex) {
@@ -139,10 +103,10 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         veccolor = new Vector();
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT color_code FROM product_color");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT color_code FROM product_color");
+            while(DB.rs.next())
             {
-                veccolor.add(rs.getObject("color_code"));
+                veccolor.add(DB.rs.getObject("color_code"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_NewProduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,10 +118,10 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         veccategory = new Vector();
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT category_name FROM category");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT category_name FROM category");
+            while(DB.rs.next())
             {
-                veccategory.add(rs.getObject("category_name"));
+                veccategory.add(DB.rs.getObject("category_name"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_NewProduct.class.getName()).log(Level.SEVERE, null, ex);
