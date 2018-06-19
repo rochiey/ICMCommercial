@@ -24,12 +24,11 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import org.jdesktop.xswingx.PromptSupport;
+import com.DB;
 
 public class InventoryPnl_1stLayer extends javax.swing.JPanel {
     
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
+   
     DatabaseLinker product;
     private Inventory_ButtonFunctions button = new Inventory_ButtonFunctions();
     static String sqlquery = "SELECT product.idproduct AS 'Code',supplier.supplier_name AS 'Company Name',"
@@ -58,48 +57,6 @@ public class InventoryPnl_1stLayer extends javax.swing.JPanel {
         setJTable();
     }
     
-    public static void createDB()
-    {
-        rs = null;
-        stmt = null;
-        conn = null;
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    static int successEx = 0;
-    private static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:code:sql command()"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DbUtils.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error: session: sql commands"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
-    }
     static Vector vecsupplier = new Vector();
     public static void updateGenerateCompany()
     {
@@ -111,10 +68,10 @@ public class InventoryPnl_1stLayer extends javax.swing.JPanel {
         DB.createDB();
         vecsupplier.add("ALL");
         try {
-            rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT supplier_name FROM supplier");
+            while(DB.rs.next())
             {
-                vecsupplier.add(rs.getObject("supplier_name"));
+                vecsupplier.add(DB.rs.getObject("supplier_name"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(InventoryPnl_1stLayer.class.getName()).log(Level.SEVERE, null, ex);
