@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import static salesOrder.SalesPnl_1stLayer.*;
 import com.DB;
 
 public class SalesOrder_ButtonFunctions {
@@ -163,10 +162,10 @@ public class SalesOrder_ButtonFunctions {
         DB.createDB(); int quantity = Integer.parseInt(txtQuantity.getText());
         int dbQuantity = 0;
         try {
-            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
+            while(DB.rs.next())
             {
-                if(rs.getObject("quantity") != null)dbQuantity = Integer.parseInt(rs.getObject("quantity").toString());
+                if(DB.rs.getObject("quantity") != null)dbQuantity = Integer.parseInt(DB.rs.getObject("quantity").toString());
                 //else JOptionPane.showMessageDialog(null, "The quantity is empty. Please try again later.");
             }
         } catch (SQLException ex) {
@@ -179,10 +178,10 @@ public class SalesOrder_ButtonFunctions {
     {
         DB.createDB(); float sellingprice= 0;
         try {
-            rs = stmt.executeQuery("SELECT selling_price FROM product WHERE product.barcode='"+barcode+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT selling_price FROM product WHERE product.barcode='"+barcode+"'");
+            while(DB.rs.next())
             {
-                sellingprice = Float.parseFloat(rs.getObject("selling_price").toString());
+                sellingprice = Float.parseFloat(DB.rs.getObject("selling_price").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,10 +192,10 @@ public class SalesOrder_ButtonFunctions {
     {
         DB.createDB(); int discount=0;
         try {
-            rs = stmt.executeQuery("SELECT discount FROM dealer_supplier_bridge WHERE supplierID=(SELECT supplier FROM product WHERE product.barcode = '"+barcode+"') AND dealerID ="+iddealer);//For dealers only
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT discount FROM dealer_supplier_bridge WHERE supplierID=(SELECT supplier FROM product WHERE product.barcode = '"+barcode+"') AND dealerID ="+iddealer);//For dealers only
+            while(DB.rs.next())
             {
-                discount= Integer.parseInt(rs.getObject("discount").toString());
+                discount= Integer.parseInt(DB.rs.getObject("discount").toString());
             }
             
         } catch (SQLException ex) {
@@ -240,30 +239,30 @@ public class SalesOrder_ButtonFunctions {
     }
     public static void updateCustomerInfo()
     {
-        tbl_SalesCustomerDetails.setModel(new javax.swing.table.DefaultTableModel(customerInfo, new String[]
+        SalesPnl_1stLayer.tbl_SalesCustomerDetails.setModel(new javax.swing.table.DefaultTableModel(customerInfo, new String[]
         {
             "",""
         }));
-        tbl_SalesCustomerDetails.setBackground(Color.WHITE);
-        tbl_SalesCustomerDetails.setShowGrid(true);
-        tbl_SalesCustomerDetails.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tbl_SalesCustomerDetails.getColumnModel().getColumn(0).setPreferredWidth(140);
-        tbl_SalesCustomerDetails.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tbl_SalesCustomerDetails.setRowHeight(27);
-        tbl_SalesCustomerDetails.setTableHeader(null);
+        SalesPnl_1stLayer.tbl_SalesCustomerDetails.setBackground(Color.WHITE);
+        SalesPnl_1stLayer.tbl_SalesCustomerDetails.setShowGrid(true);
+        SalesPnl_1stLayer.tbl_SalesCustomerDetails.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        SalesPnl_1stLayer.tbl_SalesCustomerDetails.getColumnModel().getColumn(0).setPreferredWidth(140);
+        SalesPnl_1stLayer.tbl_SalesCustomerDetails.getColumnModel().getColumn(1).setPreferredWidth(200);
+        SalesPnl_1stLayer.tbl_SalesCustomerDetails.setRowHeight(27);
+        SalesPnl_1stLayer.tbl_SalesCustomerDetails.setTableHeader(null);
     }
     public static void generateDealerInfo(int ID)
     {
         DB.createDB();
         customerInfo[0][1]="Dealer";
         try {
-            rs = stmt.executeQuery("SELECT CONCAT(dealer.first_name,' ',dealer.last_name),credit_limit,available_credit,balance FROM dealer WHERE iddealer = "+ID);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT CONCAT(dealer.first_name,' ',dealer.last_name),credit_limit,available_credit,balance FROM dealer WHERE iddealer = "+ID);
+            while(DB.rs.next())
             {
-                customerInfo[1][1] = rs.getObject(1);
-                customerInfo[2][1] = "₱"+String.format("%,.2f",rs.getFloat("credit_limit"));
-                customerInfo[3][1] = "₱"+String.format("%,.2f",rs.getFloat("available_credit"));
-                customerInfo[4][1] = "₱"+String.format("%,.2f",rs.getFloat("balance"));
+                customerInfo[1][1] = DB.rs.getObject(1);
+                customerInfo[2][1] = "₱"+String.format("%,.2f",DB.rs.getFloat("credit_limit"));
+                customerInfo[3][1] = "₱"+String.format("%,.2f",DB.rs.getFloat("available_credit"));
+                customerInfo[4][1] = "₱"+String.format("%,.2f",DB.rs.getFloat("balance"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -283,7 +282,7 @@ public class SalesOrder_ButtonFunctions {
         salesOrder.SalesOrder_ButtonFunctions.cleanCustomerInfo();
         SalesPnl_2ndLayer.tblModel.setRowCount(0);
         SalesPnl_2ndLayer.lbl_SalesTotal.setText("₱0.00");
-        txt_SalesInput.setText("");
+        SalesPnl_1stLayer.txt_SalesInput.setText("");
         salesOrder.SalesOrder_ButtonFunctions.iddealer=0;
         salesOrder.SalesOrder_ButtonFunctions.clickedID_onTable=0;
     }
@@ -318,7 +317,7 @@ public class SalesOrder_ButtonFunctions {
     }
      
     protected void SalesOrderView(){
-        if (lbl_SalesProductCode.getText().equals("Article Code:")){
+        if (SalesPnl_1stLayer.lbl_SalesProductCode.getText().equals("Article Code:")){
             dialog_salesOrder.SalesOrder_ButtonFunctions.inventoryView=0;
             SalesOrder_ViewInventory sales = new SalesOrder_ViewInventory(null, true);
             sales.pack();
@@ -405,10 +404,10 @@ public class SalesOrder_ButtonFunctions {
             try {
                 int cartQuantity=0;
                 boolean found = false;
-                rs = stmt.executeQuery("SELECT barcode FROM product");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT barcode FROM product");
+                while(DB.rs.next())
                 {
-                    if(rs.getString("barcode").equals(TRAP.toString()))
+                    if(DB.rs.getString("barcode").equals(TRAP.toString()))
                     {
                         found = true;
                     }
@@ -421,7 +420,7 @@ public class SalesOrder_ButtonFunctions {
                             updateCustomerInfo();
                             setProduct_toCart(this.salesBarcode);
                             SalesPnl_2ndLayer.getTotalNet();
-                            txt_SalesInput.setText("");
+                            SalesPnl_1stLayer.txt_SalesInput.setText("");
                         }else{
                             setProduct_toCart(this.salesBarcode);
                             customerInfo[0][1] = "Walk-in";
@@ -431,7 +430,7 @@ public class SalesOrder_ButtonFunctions {
                             customerInfo[4][1]="₱0.00";
                             updateCustomerInfo();
                             SalesPnl_2ndLayer.getTotalNet();
-                            txt_SalesInput.setText("");
+                            SalesPnl_1stLayer.txt_SalesInput.setText("");
                             }
                     }
                     else{ //if found duplicate barcode
@@ -444,10 +443,10 @@ public class SalesOrder_ButtonFunctions {
                                 cartQuantity = Integer.parseInt(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString());
                                 DB.createDB();
                                 int currentQuantity=0;
-                                rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+this.salesBarcode+"'");
-                                while(rs.next())
+                                DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+this.salesBarcode+"'");
+                                while(DB.rs.next())
                                 {
-                                    currentQuantity = rs.getInt("quantity");
+                                    currentQuantity = DB.rs.getInt("quantity");
                                 }
                                 if(cartQuantity<currentQuantity && cartQuantity>0)
                                 {
