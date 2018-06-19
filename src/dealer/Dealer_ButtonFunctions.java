@@ -1,5 +1,6 @@
 package dealer;
 
+import com.DB;
 import com.DatabaseLinker;
 import static dealer.DealerPnl_1stLayer.*;
 import dialog_dealer.*;
@@ -15,50 +16,15 @@ import javax.swing.JOptionPane;
 import static report.DealerAccount.DealerAccount_1stLayer.setJTable;
 
 public class Dealer_ButtonFunctions {
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static void dbHandlerUpdates(String query)
-    {
-        try{
-        DB.createDB();
-         stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Dealer_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+   
     public void handleEmptySupplier()
     {
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT COUNT(*) FROM supplier");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT COUNT(*) FROM supplier");
+            while(DB.rs.next())
             {
-                if(Integer.parseInt(rs.getObject("count(*)").toString()) != 0) dealerNew();
+                if(Integer.parseInt(DB.rs.getObject("count(*)").toString()) != 0) dealerNew();
                 else JOptionPane.showMessageDialog(null, "<html><center><font size=4>Can't Add. No products/suppliers found."
                    + "</font></center></html>", "Error Message", 0);
                     //JOptionPane.showMessageDialog(null,"Can't add. No products/suppliers found.");

@@ -82,49 +82,6 @@ public class Account_LoginOld extends javax.swing.JDialog {
         }
         return encoded.toString();
     }
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
-    
-    static int successExUpdate = 0 ;
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static int dbHandlerUpdates(String query)
-    {
-        int success = 1;
-        try{
-        DB.createDB();
-         successExUpdate = stmt.executeUpdate(query);
-         
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops. Something went wrong. Please try again."
-                   + "</font></center></html>", "Error Message", 0);
-        }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Account_LoginOld.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return success;
-    }
     /**
      * @param args the command line arguments
      */
