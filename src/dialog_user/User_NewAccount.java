@@ -476,7 +476,7 @@ public class User_NewAccount extends javax.swing.JDialog {
 
     private void btn_NewUserRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NewUserRegisterActionPerformed
         button.userNewAccount();
-        if(User_ButtonFunctions.successExUpdate > 0) this.dispose();
+        if(User_ButtonFunctions.successEx > 0) this.dispose();
         UserPnl_1stLayer.updateTable();
     }//GEN-LAST:event_btn_NewUserRegisterActionPerformed
 

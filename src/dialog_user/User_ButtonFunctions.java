@@ -151,6 +151,7 @@ public class User_ButtonFunctions {
         if(cbousertype.getSelectedItem().toString().equals("Admin Account")) return 51;
         else return 21; //21 user - 51 admin
     }
+    static int successEx;
     protected void userNewAccount(){
         if(txt_NewUsername.getText().equals("") || txt_NewUserPassword.getText().equals("") || txt_NewUserConPassword.getText().equals("") ||
             txt_NewUserFName.getText().equals("") || txt_NewUserLName.getText().equals("")||
@@ -175,7 +176,7 @@ public class User_ButtonFunctions {
                     String dateFormat = "%Y-%m-%d";
                     String ciphered = encodeCaesar(txt_NewUserPassword.getText(), 5); //5 caesar key
                 //SQL Code for adding New User Account
-                int success = DB.dbHandlerUpdates("INSERT INTO systemaccount(First_Name,Middle_Name,Last_Name,gender,birthday,civil_status,nationality,address,email_address,contact_number,registration_date,occupation,username,password,usertype)"
+                successEx = DB.dbHandlerUpdates("INSERT INTO systemaccount(First_Name,Middle_Name,Last_Name,gender,birthday,civil_status,nationality,address,email_address,contact_number,registration_date,occupation,username,password,usertype)"
                                 + " VALUES('"+txt_NewUserFName.getText()+"','"+txt_NewUserMName.getText()+"','"+txt_NewUserLName.getText()+"',"+idgender+",STR_TO_DATE('"+bday+"','"+dateFormat+"'),"+idcivilstatus+",'"+txt_NewUserNationality.getText()+"','"+txt_NewUserAddress.getText()+"','"+txt_NewUserEmail.getText()+"','"+txt_NewUserContact.getText()+"',STR_TO_DATE('"+regDate+"','"+dateFormat+"'),'"+txt_NewUserOccupation.getText()+"','"+txt_NewUsername.getText()+"','"+ciphered+"',"+idusertype+")");
                 UserPnl_1stLayer.updateTable();
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>User account successfully added!"
