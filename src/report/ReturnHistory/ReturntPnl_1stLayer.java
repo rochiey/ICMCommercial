@@ -4,6 +4,7 @@ import com.DatabaseLinker;
 import com.JTableFixer;
 import static com.JTableFixer.setJTableColumnsWidth;
 import java.awt.Color;
+import com.DB;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -53,60 +54,17 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
         float originalAmount=0,refund=0;
         DB.createDB();
         try {
-            rs=stmt.executeQuery("SELECT SUM(invoice.total_net) AS 'orig', SUM(refund) AS 'refund' FROM return_history,invoice WHERE invoiceID=idinvoice");
-            while(rs.next())
+            DB.rs=DB.stmt.executeQuery("SELECT SUM(invoice.total_net) AS 'orig', SUM(refund) AS 'refund' FROM return_history,invoice WHERE invoiceID=idinvoice");
+            while(DB.rs.next())
             {
-                originalAmount = Float.parseFloat(rs.getObject("orig").toString());
-                refund = Float.parseFloat(rs.getObject("refund").toString());
+                originalAmount = Float.parseFloat(DB.rs.getObject("orig").toString());
+                refund = Float.parseFloat(DB.rs.getObject("refund").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(ReturntPnl_1stLayer.class.getName()).log(Level.SEVERE, null, ex);
         }
         lbl_OriginalAmount.setText("₱"+df.format(Float.parseFloat(String.format("%.2f", originalAmount))));
         lbl_DeductedAmount.setText("₱"+df.format(Float.parseFloat(String.format("%.2f", refund))));
-    }
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    static int successEx = 0;
-    public static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Error:Code:Sql Command"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ReturntPnl_1stLayer.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:session:connectionCloseDbHandlerUpdates(query)"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
     }
     
     public static void setJTable(){
