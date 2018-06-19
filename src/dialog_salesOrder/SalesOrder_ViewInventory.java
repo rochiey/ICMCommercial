@@ -23,15 +23,13 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.xswingx.PromptSupport;
+import com.DB;
 
 public class SalesOrder_ViewInventory extends javax.swing.JDialog {
 
     SalesOrder_ButtonFunctions dialogSalesButton = new SalesOrder_ButtonFunctions();
     salesOrder.SalesOrder_ButtonFunctions salesOrderButton = new salesOrder.SalesOrder_ButtonFunctions();
     int xMouse, yMouse;
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
     DatabaseLinker productDisplay;
     static String query = "SELECT idproduct AS 'Code', product_name AS 'Product Name',product_color.color_code AS 'Color', REPLACE(product_size, 'NULL', '-') as 'Size', quantity AS 'Quantity', selling_price AS 'Price' FROM product,product_color WHERE product.product_color=product_color.idproduct_color";
     public static int toViewInventory = 0;
@@ -55,49 +53,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         setJTable();
     }
     public static String supplierName = "";
-    public static void createDB()
-    {
-        rs = null;
-        stmt = null;
-        conn = null;
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    static int successEx = 0;
-    private static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:code:sql command()"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error: session: sql commands"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
-    }
-
+    
     public static void setJTable(){
         setJTableColumnsWidth(tbl_InventoryList, 720, 5, 19, 7, 7, 6, 9);
         JTableFixer.setViewInventoryTableField(tbl_InventoryList);
@@ -386,10 +342,10 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         DB.createDB();
         vecsupplier.add("ALL");
         try {
-            rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT supplier_name FROM supplier");
+            while(DB.rs.next())
             {
-                vecsupplier.add(rs.getObject("supplier_name"));
+                vecsupplier.add(DB.rs.getObject("supplier_name"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
@@ -429,10 +385,10 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
             DB.createDB();
             try {
                 //fetch barcode thru product id
-                rs = stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);
+                while(DB.rs.next())
                 {
-                    barcode = rs.getObject("barcode").toString();
+                    barcode = DB.rs.getObject("barcode").toString();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
@@ -447,10 +403,10 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
             DB.createDB();
             try {
                 //fetch barcode thru product id
-                rs = stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);
+                while(DB.rs.next())
                 {
-                    barcode = rs.getObject("barcode").toString();
+                    barcode = DB.rs.getObject("barcode").toString();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(SalesOrder_ViewInventory.class.getName()).log(Level.SEVERE, null, ex);
