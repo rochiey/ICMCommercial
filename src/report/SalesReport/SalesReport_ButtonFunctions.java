@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static report.SalesReport.Generate_SalesReport.*;
 import static report.SalesReport.ReportPnl_1stLayer.*;
+import com.DB;
 
 public class SalesReport_ButtonFunctions {
 
@@ -41,12 +42,12 @@ public class SalesReport_ButtonFunctions {
         DB.createDB();
         float totalNet=0,amountPaid=0,refundAmount=0;
         try {
-            rs=stmt.executeQuery("SELECT SUM(total_net) AS 'totalnet',SUM(amount_paid) AS 'amountpaid',SUM(total_refund) AS 'totalrefund' FROM invoice WHERE "+where);
-            while(rs.next())
+            DB.rs=DB.stmt.executeQuery("SELECT SUM(total_net) AS 'totalnet',SUM(amount_paid) AS 'amountpaid',SUM(total_refund) AS 'totalrefund' FROM invoice WHERE "+where);
+            while(DB.rs.next())
             {
-                totalNet = rs.getFloat("totalnet");
-                amountPaid = rs.getFloat("amountpaid");
-                refundAmount = rs.getFloat("totalrefund");
+                totalNet = DB.rs.getFloat("totalnet");
+                amountPaid = DB.rs.getFloat("amountpaid");
+                refundAmount = DB.rs.getFloat("totalrefund");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ReportPnl_1stLayer.class.getName()).log(Level.SEVERE, null, ex);
