@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import com.DB:
 
 public class ReportPnl_1stLayer extends javax.swing.JPanel {
 
@@ -53,12 +54,12 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
         DB.createDB();
         float totalNet=0,amountPaid=0,refundAmount=0;
         try {
-            rs=stmt.executeQuery("SELECT SUM(total_net) AS 'totalnet',SUM(amount_paid) AS 'amountpaid',SUM(total_refund) AS 'totalrefund' FROM invoice");
-            while(rs.next())
+            DB.rs=DB.stmt.executeQuery("SELECT SUM(total_net) AS 'totalnet',SUM(amount_paid) AS 'amountpaid',SUM(total_refund) AS 'totalrefund' FROM invoice");
+            while(DB.rs.next())
             {
-                totalNet = rs.getFloat("totalnet");
-                amountPaid = rs.getFloat("amountpaid");
-                refundAmount = rs.getFloat("totalrefund");
+                totalNet = DB.rs.getFloat("totalnet");
+                amountPaid = DB.rs.getFloat("amountpaid");
+                refundAmount = DB.rs.getFloat("totalrefund");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ReportPnl_1stLayer.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,49 +67,6 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
         lbl_TNet.setText("₱"+df.format(Float.parseFloat(String.format("%.2f", totalNet))));
         lbl_CPaid.setText("₱"+df.format(Float.parseFloat(String.format("%.2f", amountPaid))));
         lbl_RefundAmount.setText("₱"+df.format(Float.parseFloat(String.format("%.2f", refundAmount))));
-    }
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
-    
-    static int successExUpdate = 0 ;
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static int dbHandlerUpdates(String query)
-    {
-        int success = 1;
-        try{
-        DB.createDB();
-         successExUpdate = stmt.executeUpdate(query);
-         
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops. Something went wrong. Please try again."
-                   + "</font></center></html>", "Error Message", 0);
-        }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ReportPnl_1stLayer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return success;
     }
     public static Float getTotalAmount()
     {
