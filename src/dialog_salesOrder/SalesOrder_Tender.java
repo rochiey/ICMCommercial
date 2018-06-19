@@ -21,6 +21,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import com.DB;
 
 public class SalesOrder_Tender extends javax.swing.JDialog {
 
@@ -45,19 +46,16 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
             invoiceID = 0;
         }
     }
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
     public static boolean isCreditDue()
     {
         boolean flag=false;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT due_date,CURDATE() AS 'date today' FROM credit_transaction WHERE due_date IS NOT NULL AND paymentTypeID=243 AND dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT due_date,CURDATE() AS 'date today' FROM credit_transaction WHERE due_date IS NOT NULL AND paymentTypeID=243 AND dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+            while(DB.rs.next())
             {
-                Date duedate = rs.getDate("due_date");
-                Date today = rs.getDate("date today");
+                Date duedate = DB.rs.getDate("due_date");
+                Date today = DB.rs.getDate("date today");
                 if(today.after(duedate)) flag=true;
             }
         } catch (SQLException ex) {
@@ -70,12 +68,12 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
         Vector id = new Vector();
         try {
             DB.createDB();
-            rs = stmt.executeQuery("SELECT DISTINCT dealer_ID FROM credit_transaction");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT DISTINCT dealer_ID FROM credit_transaction");
+            while(DB.rs.next())
             {
-                id.add(rs.getObject("dealer_ID"));
+                id.add(DB.rs.getObject("dealer_ID"));
             }
-            rs.close();
+            DB.rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -85,28 +83,28 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
             try
             {
                 DB.createDB();
-                rs = stmt.executeQuery("SELECT penalty FROM credit_transaction WHERE paymentTypeID=243 AND dealer_ID="+id.get(i));
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT penalty FROM credit_transaction WHERE paymentTypeID=243 AND dealer_ID="+id.get(i));
+                while(DB.rs.next())
                 {
-                    totalPenalty+=round(rs.getFloat("penalty"), 2);
+                    totalPenalty+=round(DB.rs.getFloat("penalty"), 2);
                 }
                 totalPenalty=round(totalPenalty, 2);
             }catch(SQLException e)
             {
                 e.printStackTrace();
             }
-            dbHandlerUpdates("UPDATE dealer SET total_penalty="+totalPenalty+" WHERE iddealer="+id.get(i));
+            DB.dbHandlerUpdates("UPDATE dealer SET total_penalty="+totalPenalty+" WHERE iddealer="+id.get(i));
         }
     }
     public static void generateBalance()
     {
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT balance+total_penalty FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+            DB.rs = DB.stmt.executeQuery("SELECT balance+total_penalty FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
            
-            while(rs.next())
+            while(DB.rs.next())
             {
-                lbl_CPullBalance.setText("₱"+rs.getFloat("balance+total_penalty"));
+                lbl_CPullBalance.setText("₱"+DB.rs.getFloat("balance+total_penalty"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,54 +113,15 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     public static float round(float d, int decimalPlace) {
          return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).floatValue();
     }
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    static int successEx = 0;
-    public static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Error:Code:Sql Command"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:session:connectionCloseDbHandlerUpdates(query)"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
-    }
+   
     public static boolean hasAvailableCredit()
     {
         DB.createDB(); float availableCredit = 0;
         try {
-            rs = stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+            while(DB.rs.next())
             {
-                availableCredit=rs.getFloat("available_credit");
+                availableCredit=DB.rs.getFloat("available_credit");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,13 +132,13 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     {
         DB.createDB();  int days =0; Date newDate = null;
         try {
-            rs = stmt.executeQuery("SELECT due_date FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-            while(rs.next()) days = rs.getInt("due_date");
-            rs.close();
-            rs = stmt.executeQuery("SELECT DATE_ADD((SELECT CURDATE()),INTERVAL "+days+" DAY) AS 'Due Date' FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer+"");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT due_date FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+            while(DB.rs.next()) days = DB.rs.getInt("due_date");
+            DB.rs.close();
+            DB.rs = DB.stmt.executeQuery("SELECT DATE_ADD((SELECT CURDATE()),INTERVAL "+days+" DAY) AS 'Due Date' FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer+"");
+            while(DB.rs.next())
             {
-                newDate = rs.getDate("Due Date");
+                newDate = DB.rs.getDate("Due Date");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
@@ -190,10 +149,10 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     {
         DB.createDB(); float availableCredit = 0;
         try {
-            rs = stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+            while(DB.rs.next())
             {
-                availableCredit=rs.getFloat("available_credit");
+                availableCredit=DB.rs.getFloat("available_credit");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
