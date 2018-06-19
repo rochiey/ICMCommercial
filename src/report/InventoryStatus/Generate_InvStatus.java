@@ -15,61 +15,17 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import com.DB;
 
 public class Generate_InvStatus extends javax.swing.JDialog {
     
     InvStatus_ButtonFunctions button = new InvStatus_ButtonFunctions();
     int xMouse, yMouse;
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
-    
+   
     public Generate_InvStatus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         generateCompany();
         initComponents();
-    }
-    public static void createDB()
-    {
-        rs = null;
-        stmt = null;
-        conn = null;
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    static int successEx = 0;
-    private static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:code:sql command()"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Generate_InvStatus.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error: session: sql commands"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
     }
     static Vector vecsupplier = new Vector();
     private static void generateCompany()
@@ -77,10 +33,10 @@ public class Generate_InvStatus extends javax.swing.JDialog {
         DB.createDB();
         vecsupplier.add("ALL");
         try {
-            rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT supplier_name FROM supplier");
+            while(DB.rs.next())
             {
-                vecsupplier.add(rs.getObject("supplier_name"));
+                vecsupplier.add(DB.rs.getObject("supplier_name"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Generate_InvStatus.class.getName()).log(Level.SEVERE, null, ex);
