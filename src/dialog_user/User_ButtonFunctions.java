@@ -19,61 +19,19 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import user.UserPnl_1stLayer;
+import com.DB;
 
 public class User_ButtonFunctions {
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
     
-    static int successExUpdate = 0 ;
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static int dbHandlerUpdates(String query)
-    {
-        int success = 1;
-        try{
-        DB.createDB();
-         successExUpdate = stmt.executeUpdate(query);
-         
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops. Something went wrong. Please try again."
-                   + "</font></center></html>", "Error Message", 0);
-            System.exit(0);
-        }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return success;
-    }
     public static void countIncrementedID()
     {
         Integer theID = 0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'systemaccount'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'systemaccount'");
+            while(DB.rs.next())
             {
-                theID = Integer.parseInt(rs.getObject("AUTO_INCREMENT").toString());
+                theID = Integer.parseInt(DB.rs.getObject("AUTO_INCREMENT").toString());
             }
             txt_NewUserID.setText(theID.toString());
         } catch (SQLException ex) {
@@ -118,14 +76,14 @@ public class User_ButtonFunctions {
     {
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT * FROM systemaccount WHERE ID = "+clickedID_onTable);
-            ResultSetMetaData meta = rs.getMetaData();
+            DB.rs = DB.stmt.executeQuery("SELECT * FROM systemaccount WHERE ID = "+clickedID_onTable);
+            ResultSetMetaData meta = DB.rs.getMetaData();
             Object []data = new Object[meta.getColumnCount()];
-            while(rs.next())
+            while(DB.rs.next())
             {
                 for (int index = 1; index <= meta.getColumnCount(); index++) 
                 {
-                        data[index - 1] = rs.getObject(meta.getColumnName(index));
+                        data[index - 1] = DB.rs.getObject(meta.getColumnName(index));
                 }
                 txt_UpdateUserID.setText(data[0].toString());
                 txt_UpdateUserFName.setText(data[1].toString());
@@ -217,7 +175,7 @@ public class User_ButtonFunctions {
                     String dateFormat = "%Y-%m-%d";
                     String ciphered = encodeCaesar(txt_NewUserPassword.getText(), 5); //5 caesar key
                 //SQL Code for adding New User Account
-                int success = dbHandlerUpdates("INSERT INTO systemaccount(First_Name,Middle_Name,Last_Name,gender,birthday,civil_status,nationality,address,email_address,contact_number,registration_date,occupation,username,password,usertype)"
+                int success = DB.dbHandlerUpdates("INSERT INTO systemaccount(First_Name,Middle_Name,Last_Name,gender,birthday,civil_status,nationality,address,email_address,contact_number,registration_date,occupation,username,password,usertype)"
                                 + " VALUES('"+txt_NewUserFName.getText()+"','"+txt_NewUserMName.getText()+"','"+txt_NewUserLName.getText()+"',"+idgender+",STR_TO_DATE('"+bday+"','"+dateFormat+"'),"+idcivilstatus+",'"+txt_NewUserNationality.getText()+"','"+txt_NewUserAddress.getText()+"','"+txt_NewUserEmail.getText()+"','"+txt_NewUserContact.getText()+"',STR_TO_DATE('"+regDate+"','"+dateFormat+"'),'"+txt_NewUserOccupation.getText()+"','"+txt_NewUsername.getText()+"','"+ciphered+"',"+idusertype+")");
                 UserPnl_1stLayer.updateTable();
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>User account successfully added!"
@@ -281,7 +239,7 @@ public class User_ButtonFunctions {
                     String regDate = date_UpdateUserRegDate.getEditor().getText();
                     String dateFormat = "%Y-%m-%d";
                     String ciphered = encodeCaesar(txt_UpdateUserPassword.getText(), 5);
-                dbHandlerUpdates("UPDATE systemaccount SET First_Name = '"+txt_UpdateUserFName.getText()+"',Middle_Name = '"+txt_UpdateUserMName.getText()+"',Last_Name = '"+txt_UpdateUserLName.getText()+"',gender = "+idgender+",birthday = STR_TO_DATE('"+bday+"','"+dateFormat+"'),Civil_Status = "+idcivilstatus+",Nationality = '"+txt_UpdateUserNationality.getText()+"',Address = '"+txt_UpdateUserAddress.getText()+"',Email_Address = '"+txt_UpdateUserEmail.getText()+"',Contact_Number = '"+txt_UpdateUserContact.getText()+"',registration_date = STR_TO_DATE('"+regDate+"','"+dateFormat+"'),Occupation = '"+txt_UpdateUserOccupation.getText()+"',Username = '"+txt_UpdateUsername.getText()+"',password = '"+ciphered+"',usertype = "+idusertype+" WHERE ID = "+clickedID_onTable);
+                DB.dbHandlerUpdates("UPDATE systemaccount SET First_Name = '"+txt_UpdateUserFName.getText()+"',Middle_Name = '"+txt_UpdateUserMName.getText()+"',Last_Name = '"+txt_UpdateUserLName.getText()+"',gender = "+idgender+",birthday = STR_TO_DATE('"+bday+"','"+dateFormat+"'),Civil_Status = "+idcivilstatus+",Nationality = '"+txt_UpdateUserNationality.getText()+"',Address = '"+txt_UpdateUserAddress.getText()+"',Email_Address = '"+txt_UpdateUserEmail.getText()+"',Contact_Number = '"+txt_UpdateUserContact.getText()+"',registration_date = STR_TO_DATE('"+regDate+"','"+dateFormat+"'),Occupation = '"+txt_UpdateUserOccupation.getText()+"',Username = '"+txt_UpdateUsername.getText()+"',password = '"+ciphered+"',usertype = "+idusertype+" WHERE ID = "+clickedID_onTable);
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>User account information successfully updated!"
                     + "</font></center></html>", "Information Message", 1);
             }
