@@ -1,7 +1,6 @@
 
 package com;
 
-import account_login.Account_Login;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

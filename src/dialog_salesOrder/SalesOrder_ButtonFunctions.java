@@ -24,54 +24,13 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static salesOrder.SalesOrder_ButtonFunctions.*;
 import salesOrder.SalesPnl_2ndLayer;
+import com.DB;
 
 
 public class SalesOrder_ButtonFunctions {
     
     static SalesOrder_Void sales = new SalesOrder_Void(null, true);
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    static int successEx = 0;
-    public static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Error:Code:Sql Command"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:session:connectionCloseDbHandlerUpdates(query)"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
-    }
+    
     public static String clickedBarcode = "";
 //    public static void tableclicked(java.awt.event.MouseEvent evt,JTable tbl_data)
 //    {
@@ -167,10 +126,10 @@ public class SalesOrder_ButtonFunctions {
                 Integer quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter new quantity"));
                 DB.createDB();
                 int currentQuantity=0;
-                rs = stmt.executeQuery("SELECT quantity FROM product WHERE product.barcode='"+this.clickedBarcode+"'");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE product.barcode='"+this.clickedBarcode+"'");
+                while(DB.rs.next())
                 {
-                    currentQuantity = rs.getInt("quantity");
+                    currentQuantity = DB.rs.getInt("quantity");
                 }
                 if(quantity<=currentQuantity && quantity >0)
                 {
@@ -237,18 +196,18 @@ public class SalesOrder_ButtonFunctions {
             {
                 if(salesOrder.SalesOrder_ButtonFunctions.customerInfo[1][1] == "Walk-in")
                 {
-                    dbHandlerUpdates("INSERT INTO invoice(payment_type,date_of_transaction,amount_paid,total_net) VALUES(234,(SELECT CURDATE()),"+amountoPurchase+","+totalNet+")");
+                    DB.dbHandlerUpdates("INSERT INTO invoice(payment_type,date_of_transaction,amount_paid,total_net) VALUES(234,(SELECT CURDATE()),"+amountoPurchase+","+totalNet+")");
                     dialog_salesOrder.SalesOrder_ButtonFunctions.toPurchaseOrder();
-                    dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
+                    DB.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
                     salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
                     //JOptionPane.showMessageDialog(null, "Transaction done.");
                     inventory.InventoryPnl_1stLayer.updateTable();
                 }
                 else // dealer
                 {
-                    dbHandlerUpdates("INSERT INTO invoice(CustomerDealer,payment_type,date_of_transaction,amount_paid,total_net) VALUES("+salesOrder.SalesOrder_ButtonFunctions.iddealer+",234,(SELECT CURDATE()),"+amountoPurchase+","+totalNet+")");
+                    DB.dbHandlerUpdates("INSERT INTO invoice(CustomerDealer,payment_type,date_of_transaction,amount_paid,total_net) VALUES("+salesOrder.SalesOrder_ButtonFunctions.iddealer+",234,(SELECT CURDATE()),"+amountoPurchase+","+totalNet+")");
                     dialog_salesOrder.SalesOrder_ButtonFunctions.toPurchaseOrder();
-                    dialog_salesOrder.SalesOrder_ButtonFunctions.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
+                    DB.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Cash')");
                     //SalesOrder_Tender.dbHandlerUpdates("DELETE FROM invoice WHERE total_net IS NULL");
                     salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
                     //JOptionPane.showMessageDialog(null, "Transaction done.");
@@ -268,10 +227,10 @@ public class SalesOrder_ButtonFunctions {
             barcode = SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString();
             quantity = Integer.parseInt(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString());
             try {
-                rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
+                while(DB.rs.next())
                 {
-                    oldquantity = Integer.parseInt(rs.getObject("quantity").toString());
+                    oldquantity = Integer.parseInt(DB.rs.getObject("quantity").toString());
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -283,8 +242,8 @@ public class SalesOrder_ButtonFunctions {
             retailPrice.deleteCharAt(0);
             discountedPrice.deleteCharAt(0);
             totalNetPrice.deleteCharAt(0);
-            dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE barcode='"+barcode+"'");
-            dbHandlerUpdates("INSERT INTO purchase_order_list(idinvoice,item_code,item_name,quantity,unit_price,discount_percent,discounted_price,total_price) VALUES("+salesOrder.SalesOrder_ButtonFunctions.invoiceID+","+getProductID(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString())+",'"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 2)+"',"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5)+","+getRealFloat(retailPrice.toString())+","+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7)+","+getRealFloat(discountedPrice.toString())+","+getRealFloat(totalNetPrice.toString())+")");
+            DB.dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE barcode='"+barcode+"'");
+            DB.dbHandlerUpdates("INSERT INTO purchase_order_list(idinvoice,item_code,item_name,quantity,unit_price,discount_percent,discounted_price,total_price) VALUES("+salesOrder.SalesOrder_ButtonFunctions.invoiceID+","+getProductID(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString())+",'"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 2)+"',"+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5)+","+getRealFloat(retailPrice.toString())+","+SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 7)+","+getRealFloat(discountedPrice.toString())+","+getRealFloat(totalNetPrice.toString())+")");
         }
     }
     protected static int getProductID(String barcode)
@@ -292,10 +251,10 @@ public class SalesOrder_ButtonFunctions {
         int idproduct = -1;
         try {
             DB.createDB();
-            rs = stmt.executeQuery("SELECT idproduct FROM product WHERE barcode='"+barcode+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT idproduct FROM product WHERE barcode='"+barcode+"'");
+            while(DB.rs.next())
             {
-                idproduct = rs.getInt("idproduct");
+                idproduct = DB.rs.getInt("idproduct");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,11 +272,11 @@ public class SalesOrder_ButtonFunctions {
             {
                 DB.createDB(); Float availableCredit =null; Float currentBal=null;
                 try {
-                    rs= stmt.executeQuery("SELECT available_credit,balance FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                    while(rs.next())
+                    DB.rs= DB.stmt.executeQuery("SELECT available_credit,balance FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                    while(DB.rs.next())
                     {
-                        availableCredit = rs.getFloat("available_credit");
-                        currentBal = rs.getFloat("balance");
+                        availableCredit = DB.rs.getFloat("available_credit");
+                        currentBal = DB.rs.getFloat("balance");
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -326,10 +285,10 @@ public class SalesOrder_ButtonFunctions {
                 currentBal+=totalNetCredit;
                 String duedate = SalesOrder_Tender.date_CreditDue.getEditor().getText();
                 String format = "%Y-%m-%d";
-                dbHandlerUpdates("INSERT INTO invoice(CustomerDealer,payment_type,date_of_transaction,amount_paid,total_net) VALUES("+salesOrder.SalesOrder_ButtonFunctions.iddealer+",243,(SELECT CURDATE()),0,"+totalNetCredit+")");
-                dbHandlerUpdates("UPDATE dealer SET available_credit="+availableCredit+",balance="+currentBal+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Credit')");
-                dbHandlerUpdates("INSERT INTO credit_transaction(invoice_ID,transaction_date,dealer_ID,total_net,amount,paymentTypeID,due_date,penalty) VALUES("+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",(SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNetCredit+",0,243,STR_TO_DATE('"+duedate+"','"+format+"'),0)");
+                DB.dbHandlerUpdates("INSERT INTO invoice(CustomerDealer,payment_type,date_of_transaction,amount_paid,total_net) VALUES("+salesOrder.SalesOrder_ButtonFunctions.iddealer+",243,(SELECT CURDATE()),0,"+totalNetCredit+")");
+                DB.dbHandlerUpdates("UPDATE dealer SET available_credit="+availableCredit+",balance="+currentBal+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                DB.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',"+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",'Credit')");
+                DB.dbHandlerUpdates("INSERT INTO credit_transaction(invoice_ID,transaction_date,dealer_ID,total_net,amount,paymentTypeID,due_date,penalty) VALUES("+salesOrder.SalesOrder_ButtonFunctions.invoiceID+",(SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNetCredit+",0,243,STR_TO_DATE('"+duedate+"','"+format+"'),0)");
                 toPurchaseOrder();
                 JOptionPane.showMessageDialog(null, "Transaction Done");
                 inventory.InventoryPnl_1stLayer.updateTable();
@@ -343,11 +302,11 @@ public class SalesOrder_ButtonFunctions {
         boolean flag=false;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT due_date,CURDATE() AS 'date today' FROM credit_transaction WHERE due_date IS NOT NULL AND paymentTypeID=243 AND dealer_ID="+id);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT due_date,CURDATE() AS 'date today' FROM credit_transaction WHERE due_date IS NOT NULL AND paymentTypeID=243 AND dealer_ID="+id);
+            while(DB.rs.next())
             {
-                Date duedate = rs.getDate("due_date");
-                Date today = rs.getDate("date today");
+                Date duedate = DB.rs.getDate("due_date");
+                Date today = DB.rs.getDate("date today");
                 if(today.after(duedate)) flag=true;
             }
         } catch (SQLException ex) {
@@ -361,7 +320,7 @@ public class SalesOrder_ButtonFunctions {
         ResultSet result = null;
         float totalPenalty = 0;
         try {
-             result = stmt.executeQuery("SELECT total_penalty FROM dealer WHERE iddealer="+dealer);
+             result = DB.stmt.executeQuery("SELECT total_penalty FROM dealer WHERE iddealer="+dealer);
              while(result.next())
              {
                  totalPenalty = result.getFloat("total_penalty");
@@ -376,10 +335,10 @@ public class SalesOrder_ButtonFunctions {
         Vector iddealer = new Vector();
         DB.createDB();
         try {
-            rs=stmt.executeQuery("SELECT iddealer FROM dealer");
-            while(rs.next())
+            DB.rs=DB.stmt.executeQuery("SELECT iddealer FROM dealer");
+            while(DB.rs.next())
             {
-                iddealer.add(rs.getObject("iddealer"));
+                iddealer.add(DB.rs.getObject("iddealer"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -391,12 +350,12 @@ public class SalesOrder_ButtonFunctions {
                 int daysleft=0; float money=0,penalty=0,totalPenalty=0;
                 try {
                     DB.createDB();
-                    rs = stmt.executeQuery("SELECT DATEDIFF(due_date,CURDATE()) as 'days',total_net,penalty FROM credit_transaction WHERE due_date IS NOT NULL AND dealer_ID="+iddealer.get(i));
-                    while(rs.next())
+                    DB.rs = DB.stmt.executeQuery("SELECT DATEDIFF(due_date,CURDATE()) as 'days',total_net,penalty FROM credit_transaction WHERE due_date IS NOT NULL AND dealer_ID="+iddealer.get(i));
+                    while(DB.rs.next())
                     {
-                        daysleft=rs.getInt("days");
-                        money = rs.getFloat("total_net");
-                        penalty = rs.getFloat("penalty");
+                        daysleft=DB.rs.getInt("days");
+                        money = DB.rs.getFloat("total_net");
+                        penalty = DB.rs.getFloat("penalty");
                         switch (daysleft) {
                         //1st week
                             case -1:
@@ -404,7 +363,7 @@ public class SalesOrder_ButtonFunctions {
                                     float temp = (float) (money*0.02);
                                     penalty+=temp;
                                     updateDealerTotalPenalty(penalty, iddealer.get(i));
-                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    DB.dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
                                     break;
                                 }
                         //after 5th week, send demand letter to the unpaid dealer. after 1 month of demand letter. send subpoena and file a case
@@ -414,7 +373,7 @@ public class SalesOrder_ButtonFunctions {
                                     float temp = (float) (money*0.05);
                                     penalty+=temp;
                                     updateDealerTotalPenalty(penalty, iddealer.get(i));
-                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    DB.dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
                                     break;
                                 }
                         //3rd week
@@ -423,7 +382,7 @@ public class SalesOrder_ButtonFunctions {
                                     float temp = (float) (money*0.05);
                                     penalty+=temp;
                                     updateDealerTotalPenalty(penalty, iddealer.get(i));
-                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    DB.dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
                                     break;
                                 }
                         //4th week
@@ -432,7 +391,7 @@ public class SalesOrder_ButtonFunctions {
                                     float temp = (float) (money*0.05);
                                     penalty+=temp;
                                     updateDealerTotalPenalty(penalty, iddealer.get(i));
-                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    DB.dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
                                     break;
                                 }
                         //5th week
@@ -441,7 +400,7 @@ public class SalesOrder_ButtonFunctions {
                                     float temp = (float) (money*0.10);
                                     penalty+=temp;
                                     updateDealerTotalPenalty(penalty, iddealer.get(i));
-                                    dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
+                                    DB.dbHandlerUpdates("UPDATE credit_transaction SET penalty="+penalty+" WHERE dealer_ID="+iddealer.get(i));
                                     break;
                                 }
                             default:
@@ -482,12 +441,12 @@ public class SalesOrder_ButtonFunctions {
                 Float creditLine = null,balance=null,penalty=null;
                 DB.createDB();
                 try {
-                    rs = stmt.executeQuery("SELECT credit_limit,balance,total_penalty FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                    while(rs.next())
+                    DB.rs = DB.stmt.executeQuery("SELECT credit_limit,balance,total_penalty FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                    while(DB.rs.next())
                     {
-                        creditLine = rs.getFloat("credit_limit");
-                        balance = rs.getFloat("balance");
-                        penalty = rs.getFloat("total_penalty");
+                        creditLine = DB.rs.getFloat("credit_limit");
+                        balance = DB.rs.getFloat("balance");
+                        penalty = DB.rs.getFloat("total_penalty");
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
@@ -499,14 +458,14 @@ public class SalesOrder_ButtonFunctions {
                 
                 //salesOrderTender.invoiceID represents the id of credited invoices in credit history
                 if(SalesOrder_Tender.invoiceID == 0){
-                    dbHandlerUpdates("UPDATE dealer SET credit_limit="+creditLineIncrease+",available_credit="+creditLineIncrease+", balance=0, total_penalty=0 WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                    dbHandlerUpdates("INSERT INTO credit_transaction(transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES((SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
-                    dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL,penalty=0 where dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                    DB.dbHandlerUpdates("UPDATE dealer SET credit_limit="+creditLineIncrease+",available_credit="+creditLineIncrease+", balance=0, total_penalty=0 WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                    DB.dbHandlerUpdates("INSERT INTO credit_transaction(transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES((SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
+                    DB.dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL,penalty=0 where dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                 }
                 else{ //if partial. credit line not increase
-                    dbHandlerUpdates("UPDATE dealer SET balance="+balance+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
-                    dbHandlerUpdates("INSERT INTO credit_transaction(invoice_ID,transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES("+SalesOrder_Tender.invoiceID+",(SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
-                    dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL,penalty=0 where invoice_ID="+SalesOrder_Tender.invoiceID);
+                    DB.dbHandlerUpdates("UPDATE dealer SET balance="+balance+" WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
+                    DB.dbHandlerUpdates("INSERT INTO credit_transaction(invoice_ID,transaction_date,dealer_ID,total_net,amount,paymentTypeID,penalty) VALUES("+SalesOrder_Tender.invoiceID+",(SELECT CURDATE()),"+salesOrder.SalesOrder_ButtonFunctions.iddealer+","+totalNet+","+amountoPurchase+",432,0)");
+                    DB.dbHandlerUpdates("UPDATE credit_transaction SET due_date=NULL,penalty=0 where invoice_ID="+SalesOrder_Tender.invoiceID);
                 }
                 salesOrder.SalesOrder_ButtonFunctions.SalesOrderNew();
                 SalesOrder_Tender.invoiceID = 0;
@@ -591,28 +550,28 @@ public class SalesOrder_ButtonFunctions {
         DB.createDB(); int maxrdays =0;
         try {
             if(SalesOrder_ReturnForm.iddealer != 0){ //dealer
-                rs = stmt.executeQuery("SELECT max_return_days FROM dealer WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT max_return_days FROM dealer WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
+                while(DB.rs.next())
                 {
-                    maxrdays=rs.getInt("max_return_days"); //from a specific dealer
+                    maxrdays=DB.rs.getInt("max_return_days"); //from a specific dealer
                 }
-                rs.close();
+                DB.rs.close();
                 DB.createDB();
-                rs = stmt.executeQuery("SELECT CURDATE() as currentdate,DATE_ADD((SELECT date_of_transaction FROM invoice WHERE idinvoice="+txt_ReturnSONo.getText()+"),INTERVAL "+maxrdays+" DAY) AS 'newdate' FROM invoice LIMIT 1");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT CURDATE() as currentdate,DATE_ADD((SELECT date_of_transaction FROM invoice WHERE idinvoice="+txt_ReturnSONo.getText()+"),INTERVAL "+maxrdays+" DAY) AS 'newdate' FROM invoice LIMIT 1");
+                while(DB.rs.next())
                 {
-                    Date datenow = rs.getDate("currentdate");
-                    Date returndate = rs.getDate("newdate");
+                    Date datenow = DB.rs.getDate("currentdate");
+                    Date returndate = DB.rs.getDate("newdate");
                     flag = datenow.after(returndate);
                 }
             }
             else // walk in (7 days return)
             {
-                rs = stmt.executeQuery("SELECT CURDATE() as currentdate,DATE_ADD((SELECT date_of_transaction FROM invoice WHERE idinvoice="+txt_ReturnSONo.getText()+"),INTERVAL 7 DAY) AS 'newdate' FROM invoice LIMIT 1");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT CURDATE() as currentdate,DATE_ADD((SELECT date_of_transaction FROM invoice WHERE idinvoice="+txt_ReturnSONo.getText()+"),INTERVAL 7 DAY) AS 'newdate' FROM invoice LIMIT 1");
+                while(DB.rs.next())
                 {
-                    Date datenow = rs.getDate("currentdate");
-                    Date returndate = rs.getDate("newdate");
+                    Date datenow = DB.rs.getDate("currentdate");
+                    Date returndate = DB.rs.getDate("newdate");
                     flag = datenow.after(returndate);
                 }
             }
@@ -626,10 +585,10 @@ public class SalesOrder_ButtonFunctions {
         Integer theID = 0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"'");
+            while(DB.rs.next())
             {
-                theID = Integer.parseInt(rs.getObject("AUTO_INCREMENT").toString());
+                theID = Integer.parseInt(DB.rs.getObject("AUTO_INCREMENT").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -650,8 +609,8 @@ public class SalesOrder_ButtonFunctions {
             {
                 int rowCount = SalesOrder_ReturnForm.tbl_ReturnList.getRowCount(); Object idprod = 0,idinvoice=0; Integer quantity = 0, oldquantity=0;
                 float totalnet = 0;
-                dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+totalnet+","+idinvoice+")");
-                dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',"+idinvoice+",'"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"')");
+                DB.dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+totalnet+","+idinvoice+")");
+                DB.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',"+idinvoice+",'"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"')");
                 for(int i =0;i<rowCount ; i++)
                 {
                     DB.createDB();
@@ -660,10 +619,10 @@ public class SalesOrder_ButtonFunctions {
                     idprod = SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(i, 1);
                     quantity = Integer.parseInt(SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(i, 5).toString());
                     try {
-                        rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+idprod);
-                        while(rs.next())
+                        DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE idproduct="+idprod);
+                        while(DB.rs.next())
                         {
-                            oldquantity = (Integer) rs.getObject("quantity");
+                            oldquantity = (Integer) DB.rs.getObject("quantity");
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -671,10 +630,10 @@ public class SalesOrder_ButtonFunctions {
                     oldquantity+=quantity; int poQuantity = 0;
                     DB.createDB();
                     try {
-                        rs=stmt.executeQuery("SELECT quantity FROM purchase_order_list WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
-                        while(rs.next())
+                        DB.rs=DB.stmt.executeQuery("SELECT quantity FROM purchase_order_list WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
+                        while(DB.rs.next())
                         {
-                            poQuantity = rs.getInt("quantity");
+                            poQuantity = DB.rs.getInt("quantity");
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -683,26 +642,26 @@ public class SalesOrder_ButtonFunctions {
                     poQuantity-=quantity;
 //                    String reason = SalesOrder_ReturnForm.txt_ReturnReason.getText();
                     if(SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().equals("Change Size") || SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().equals("Other..")){
-                        dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE idproduct="+idprod);
+                        DB.dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE idproduct="+idprod);
                     }
-                    dbHandlerUpdates("UPDATE purchase_order_list SET quantity="+poQuantity+",refund="+totalnet+" WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
-                    dbHandlerUpdates("INSERT INTO return_list(transactNo,idproduct,totalNet,returned_quantity) VALUES("+getLastID("return_history")+","+idprod+","+totalnet+","+quantity+")");
+                    DB.dbHandlerUpdates("UPDATE purchase_order_list SET quantity="+poQuantity+",refund="+totalnet+" WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
+                    DB.dbHandlerUpdates("INSERT INTO return_list(transactNo,idproduct,totalNet,returned_quantity) VALUES("+getLastID("return_history")+","+idprod+","+totalnet+","+quantity+")");
                 }
                 StringBuilder sb = new StringBuilder(SalesOrder_ReturnForm.lbl_ReturnSalesTotal.getText());
                 sb.deleteCharAt(0);
-                dbHandlerUpdates("UPDATE invoice SET total_refund="+sb.toString()+" WHERE idinvoice="+idinvoice);//stock in logs
+                DB.dbHandlerUpdates("UPDATE invoice SET total_refund="+sb.toString()+" WHERE idinvoice="+idinvoice);//stock in logs
                 if(cbo_ReturnCType.getSelectedItem().equals("Dealer")) //refund to dealer's available credit
                 {
                     float old_availableCredit=0;
                     DB.createDB();
                     try {
-                        rs = stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
-                        while(rs.next())
+                        DB.rs = DB.stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
+                        while(DB.rs.next())
                         {
-                            old_availableCredit = rs.getFloat("available_credit");
+                            old_availableCredit = DB.rs.getFloat("available_credit");
                         }
-                        rs.close();
-                        dbHandlerUpdates("UPDATE dealer SET available_credit="+(old_availableCredit+Float.parseFloat(sb.toString()))+" WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
+                        DB.rs.close();
+                        DB.dbHandlerUpdates("UPDATE dealer SET available_credit="+(old_availableCredit+Float.parseFloat(sb.toString()))+" WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
                     } catch (SQLException ex) {
                         Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
                     }
