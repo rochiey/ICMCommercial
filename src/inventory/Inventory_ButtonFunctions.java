@@ -1,5 +1,6 @@
 package inventory;
 
+import com.DB;
 import com.DatabaseLinker;
 import dialog_inventory.Inventory_NewProduct;
 import dialog_inventory.Inventory_ProductMovement;
@@ -74,12 +75,12 @@ public class Inventory_ButtonFunctions {
     public static int countIncrementedID()
     {
         Integer theID = 0;
-        inventory.InventoryPnl_1stLayer.DB.createDB();
+        DB.createDB();
         try {
-            inventory.InventoryPnl_1stLayer.rs = inventory.InventoryPnl_1stLayer.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'invoice_supplier' limit 1");
-            while(inventory.InventoryPnl_1stLayer.rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'invoice_supplier' limit 1");
+            while(DB.rs.next())
             {
-                theID = Integer.parseInt(inventory.InventoryPnl_1stLayer.rs.getObject("AUTO_INCREMENT").toString());
+                theID = Integer.parseInt(DB.rs.getObject("AUTO_INCREMENT").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
