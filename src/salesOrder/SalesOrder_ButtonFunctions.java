@@ -21,67 +21,25 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import static salesOrder.SalesPnl_1stLayer.*;
+import com.DB;
 
 public class SalesOrder_ButtonFunctions {
     
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    static int successEx = 0;
     public static int invoiceID = countIncrementedID();
     public static int countIncrementedID()
     {
         Integer theID = 0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'invoice' limit 1");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'invoice' limit 1");
+            while(DB.rs.next())
             {
-                theID = Integer.parseInt(rs.getObject("AUTO_INCREMENT").toString());
+                theID = Integer.parseInt(DB.rs.getObject("AUTO_INCREMENT").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
         return theID;
-    }
-    private static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops, something went wrong. Please try again."
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:session:connectionCloseDbHandlerUpdates(query)"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
     }
     public static Object[][]customerInfo = new Object[5][5];
     public static void cleanCustomerInfo()
@@ -102,10 +60,10 @@ public class SalesOrder_ButtonFunctions {
         Integer theID = 0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"'");
+            while(DB.rs.next())
             {
-                theID = Integer.parseInt(rs.getObject("AUTO_INCREMENT").toString());
+                theID = Integer.parseInt(DB.rs.getObject("AUTO_INCREMENT").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -116,10 +74,10 @@ public class SalesOrder_ButtonFunctions {
     {
         DB.createDB(); String name = "";
         try {
-            rs = stmt.executeQuery("SELECT product_name FROM product WHERE product.barcode='"+barcode+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT product_name FROM product WHERE product.barcode='"+barcode+"'");
+            while(DB.rs.next())
             {
-                name = rs.getObject("product_name").toString();
+                name = DB.rs.getObject("product_name").toString();
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,10 +99,10 @@ public class SalesOrder_ButtonFunctions {
         boolean flag = false;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
+            while(DB.rs.next())
             {
-                if(rs.getInt("quantity") == 0) flag = true;
+                if(DB.rs.getInt("quantity") == 0) flag = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -176,10 +134,10 @@ public class SalesOrder_ButtonFunctions {
     {
         DB.createDB(); Object size=0;
         try {
-            rs = stmt.executeQuery("SELECT product_size FROM product WHERE product.barcode='"+barcode+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT product_size FROM product WHERE product.barcode='"+barcode+"'");
+            while(DB.rs.next())
             {
-                size = rs.getObject("product_size");
+                size = DB.rs.getObject("product_size");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -190,10 +148,10 @@ public class SalesOrder_ButtonFunctions {
     {
         DB.createDB(); Object color="";
         try {
-            rs = stmt.executeQuery("SELECT product_color.color_code FROM product_color,product WHERE product_color.idproduct_color=(SELECT product.product_color FROM product WHERE product.barcode = '"+barcode+"') limit 1");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT product_color.color_code FROM product_color,product WHERE product_color.idproduct_color=(SELECT product.product_color FROM product WHERE product.barcode = '"+barcode+"') limit 1");
+            while(DB.rs.next())
             {
-                color = rs.getObject("color_code");
+                color = DB.rs.getObject("color_code");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
