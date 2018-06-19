@@ -42,7 +42,7 @@ public class Dealer_ButtonFunctions {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -65,7 +65,7 @@ public class Dealer_ButtonFunctions {
     private int getSponsorID(String name)
     {
         int id =0;
-        createDB();
+        DB.createDB();
          try {
              rs = stmt.executeQuery("SELECT iddealer FROM dealer WHERE first_name = '"+name+"'");
              while(rs.next())
@@ -82,7 +82,7 @@ public class Dealer_ButtonFunctions {
     public static void countIncrementedID()
     {
         Integer theID = 0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'dealer' limit 1");
             while(rs.next())
@@ -121,7 +121,7 @@ public class Dealer_ButtonFunctions {
     }
     public static TableModel populateSupplierDiscountTable(String query)
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery(query);
             
@@ -195,7 +195,7 @@ public class Dealer_ButtonFunctions {
     private static String getSponsorName(int id)
     {
         String name = "";
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT first_name FROM dealer WHERE iddealer ="+id);
             while(rs.next())
@@ -211,7 +211,7 @@ public class Dealer_ButtonFunctions {
     }
     public static void generateUpdateDialog()
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT * FROM dealer WHERE iddealer ="+clickedID_onTable);
             while(rs.next())
@@ -263,7 +263,7 @@ public class Dealer_ButtonFunctions {
         Vector supplierName = new Vector();
         Vector supplierDiscount = new Vector();
         int rowCount = tbl_NewDealerDiscount.getRowCount();
-        createDB();
+        DB.createDB();
         try {
             for(int i=0;i<rowCount;i++)
             {
@@ -287,7 +287,7 @@ public class Dealer_ButtonFunctions {
     }
     private void toUpdateEntityBridge()
     {
-        createDB();
+        DB.createDB();
         Vector supplierID = new Vector();
         Vector supplierName = new Vector();
         Vector supplierDiscount = new Vector();

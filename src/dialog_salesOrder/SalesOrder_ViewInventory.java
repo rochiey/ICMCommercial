@@ -77,7 +77,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -383,7 +383,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
     }
     private static void generateCompany()
     {
-        createDB();
+        DB.createDB();
         vecsupplier.add("ALL");
         try {
             rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
@@ -426,7 +426,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         
         if(SalesOrder_ButtonFunctions.inventoryView==0){ //sales order
             String barcode="";
-            createDB();
+            DB.createDB();
             try {
                 //fetch barcode thru product id
                 rs = stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);
@@ -444,7 +444,7 @@ public class SalesOrder_ViewInventory extends javax.swing.JDialog {
         else if(SalesOrder_ButtonFunctions.inventoryView==3) // product movement
         {
             String barcode="";
-            createDB();
+            DB.createDB();
             try {
                 //fetch barcode thru product id
                 rs = stmt.executeQuery("SELECT barcode FROM product WHERE idproduct="+idprod);

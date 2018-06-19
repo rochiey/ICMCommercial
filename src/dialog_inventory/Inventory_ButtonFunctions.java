@@ -52,7 +52,7 @@ public class Inventory_ButtonFunctions {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -75,7 +75,7 @@ public class Inventory_ButtonFunctions {
     }
     private int getSupplierID(JComboBox cboSupplier)
     {
-        createDB();
+        DB.createDB();
         int idsupplier = 0;
         try {
             rs = stmt.executeQuery("SELECT idsupplier FROM supplier WHERE supplier_name ='"+cboSupplier.getSelectedItem().toString()+"'");
@@ -94,7 +94,7 @@ public class Inventory_ButtonFunctions {
     }
     private int getProductColor(JComboBox cboColor)
     {
-        createDB();
+        DB.createDB();
         int idcolor = 0;
         try {
             rs= stmt.executeQuery("SELECT idproduct_color FROM product_color WHERE color_code ='"+cboColor.getSelectedItem().toString()+"'");
@@ -112,7 +112,7 @@ public class Inventory_ButtonFunctions {
     }
     private int getCategory(JComboBox cboCategory)
     {
-        createDB();
+        DB.createDB();
         int idcategory = 0;
         try {
             rs= stmt.executeQuery("SELECT idcategory FROM category WHERE category_name ='"+cboCategory.getSelectedItem().toString()+"'");
@@ -157,7 +157,7 @@ public class Inventory_ButtonFunctions {
     public static void disableUpdateRegDate()
     {
         ResultSet rs2 = null; int idcategory=0;
-        createDB();
+        DB.createDB();
         try {
                 rs = stmt.executeQuery("SELECT category FROM product WHERE idproduct ="+clickedID_onTable);
                 while(rs.next())
@@ -188,7 +188,7 @@ public class Inventory_ButtonFunctions {
     public static void disableUpdateRegDate(JComboBox cboCategory)
     {
         ResultSet rs2 = null; int idcategory=0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT category_type FROM category WHERE category_name ='"+cboCategory.getSelectedItem()+"'");
             while(rs.next())
@@ -214,7 +214,7 @@ public class Inventory_ButtonFunctions {
     public static void disableNewRegDate(JComboBox cboCategory)
     {
         
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT category_type FROM category WHERE category_name ='"+cboCategory.getSelectedItem()+"'");
             while(rs.next())
@@ -303,7 +303,7 @@ public class Inventory_ButtonFunctions {
     }
     public static void generateUpdate()
     {
-        createDB();
+        DB.createDB();
         try {
         rs = stmt.executeQuery("SELECT supplier.supplier_name,product.product_name,category.category_name,product.product_size,product_color.color_code,product.expiration,product.selling_price FROM product,supplier,category,product_color WHERE product.supplier=supplier.idsupplier AND product.category=category.idcategory AND product.product_color = product_color.idproduct_color AND idproduct ="+clickedID_onTable);
         Vector row = new Vector();
@@ -434,7 +434,7 @@ public class Inventory_ButtonFunctions {
     }
     private void generateCompanyUpdate()
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT supplier_name,contact_number,contact_person,discount FROM supplier WHERE idsupplier ="+clickedID_onTable);
             while(rs.next())
@@ -489,7 +489,7 @@ public class Inventory_ButtonFunctions {
     private boolean isDuplicateColor(JTextField colorCode)
     {
         boolean flag = false;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT color_code FROM product_color");
             
@@ -637,7 +637,7 @@ public class Inventory_ButtonFunctions {
     }
     public static void populateCategory()
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT category_name FROM category WHERE idcategory="+clickedID_onTable);
             while(rs.next())
@@ -651,7 +651,7 @@ public class Inventory_ButtonFunctions {
     }
     public static void populateColor()
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT color_code,color_name FROM product_color where idproduct_color ="+clickedID_onTable);
             while(rs.next())
@@ -693,7 +693,7 @@ public class Inventory_ButtonFunctions {
             try {
                 //ADD OR DEDUCT STOCK DEPEND OF INVENTORY TYPE
                 int existingQuantity = 0,totalQuantity = 0; String transactionType = "";
-                createDB();
+                DB.createDB();
                 rs = stmt.executeQuery("SELECT quantity FROM product WHERE idproduct ="+clickedID_onTable);
                 while(rs.next())
                 {

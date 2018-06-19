@@ -449,7 +449,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                     dbHandlerUpdates("INSERT INTO invoice_supplier(supplier_SOno,date_of_order,date_of_purchase,balance) VALUES('"+txt_POReceipt.getText()+"',STR_TO_DATE('"+datePurchase+"','"+format+"'),STR_TO_DATE('"+datePurchase+"','"+format+"'),0)");
                     for(int i=0;i<tbl_PMovementList.getRowCount();i++)
                     {
-                        createDB(); int currentQty=0;
+                        DB.createDB(); int currentQty=0;
                         try {
                             rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
                             while(rs.next())
@@ -472,7 +472,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                 boolean error = false;
                 for(int i=0;i<tbl_PMovementList.getRowCount();i++) //loop to find quantity error
                 {
-                    createDB(); int currentQty=0;
+                    DB.createDB(); int currentQty=0;
                     try {
                         rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
                         while(rs.next())
@@ -490,7 +490,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
                     dbHandlerUpdates("INSERT INTO inventory_out(idsupplier,remarks,transaction_date) VALUES("+getSupplierID(cbo_Company)+",'"+cbo_Remarks.getSelectedItem()+"',(SELECT CURDATE()))");
                     for(int i=0;i<tbl_PMovementList.getRowCount();i++)
                     {
-                        createDB(); int currentQty=0;
+                        DB.createDB(); int currentQty=0;
                         try {
                             rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+tbl_PMovementList.getValueAt(i, 0)+"'");
                             while(rs.next())
@@ -517,7 +517,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private int getProductID(String barcode)
     {
         int id = 0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT idproduct FROM product WHERE barcode ='"+barcode+"'");
             while(rs.next()) id = rs.getInt("idproduct");
@@ -611,7 +611,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
             }
             if(!found)
             {
-                createDB();
+                DB.createDB();
                 Vector<Object> inRow = new Vector<Object>();
                 try {
                     rs=stmt.executeQuery("SELECT barcode,product_name,product_color.color_code,product_size,quantity FROM product,product_color WHERE product_color=product_color.idproduct_color AND product.idproduct="+idprod);
@@ -693,7 +693,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private static void dbHandlerUpdates(String query)
     {
         try{
-        createDB();
+        DB.createDB();
          stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -718,7 +718,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     private static void getSupplier2ComboBox()
     {
         vecsupplier = new Vector();
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
             while(rs.next())
@@ -735,7 +735,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     {
         int id = 0;
         Object supplierName = cboSupplier.getSelectedItem();
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT idsupplier FROM supplier WHERE supplier_name='"+supplierName+"'");
             while(rs.next())
@@ -776,7 +776,7 @@ public class Inventory_ProductMovement extends javax.swing.JDialog {
     public static int getLastID(String tblName)
     {
         Integer theID = 0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"' LIMIT 1");
             while(rs.next())

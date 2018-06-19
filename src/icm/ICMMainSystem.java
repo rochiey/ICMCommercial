@@ -426,7 +426,7 @@ public class ICMMainSystem extends javax.swing.JFrame {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors

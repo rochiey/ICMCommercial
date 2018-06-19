@@ -51,7 +51,7 @@ public class Generate_InvStatus extends javax.swing.JDialog {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -74,7 +74,7 @@ public class Generate_InvStatus extends javax.swing.JDialog {
     static Vector vecsupplier = new Vector();
     private static void generateCompany()
     {
-        createDB();
+        DB.createDB();
         vecsupplier.add("ALL");
         try {
             rs = stmt.executeQuery("SELECT supplier_name FROM supplier");

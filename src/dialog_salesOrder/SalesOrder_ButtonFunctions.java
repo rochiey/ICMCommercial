@@ -51,7 +51,7 @@ public class SalesOrder_ButtonFunctions {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -165,7 +165,7 @@ public class SalesOrder_ButtonFunctions {
             try{
                 DecimalFormat df = new DecimalFormat("#,###.00");
                 Integer quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter new quantity"));
-                createDB();
+                DB.createDB();
                 int currentQuantity=0;
                 rs = stmt.executeQuery("SELECT quantity FROM product WHERE product.barcode='"+this.clickedBarcode+"'");
                 while(rs.next())
@@ -264,7 +264,7 @@ public class SalesOrder_ButtonFunctions {
         int rowCount = SalesPnl_2ndLayer.tbl_SalesCart.getRowCount(); String barcode = ""; Integer quantity = 0, oldquantity=0;
         for(int i =0;i<rowCount ; i++)
         {
-            createDB();
+            DB.createDB();
             barcode = SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString();
             quantity = Integer.parseInt(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString());
             try {
@@ -291,7 +291,7 @@ public class SalesOrder_ButtonFunctions {
     {
         int idproduct = -1;
         try {
-            createDB();
+            DB.createDB();
             rs = stmt.executeQuery("SELECT idproduct FROM product WHERE barcode='"+barcode+"'");
             while(rs.next())
             {
@@ -311,7 +311,7 @@ public class SalesOrder_ButtonFunctions {
             float totalNetCredit = getRealFloat(sb.toString());
             if(SalesOrder_Tender.isHugeThanLimit(totalNetCredit))
             {
-                createDB(); Float availableCredit =null; Float currentBal=null;
+                DB.createDB(); Float availableCredit =null; Float currentBal=null;
                 try {
                     rs= stmt.executeQuery("SELECT available_credit,balance FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                     while(rs.next())
@@ -341,7 +341,7 @@ public class SalesOrder_ButtonFunctions {
     }
     public static boolean isCreditDue(int id){
         boolean flag=false;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT due_date,CURDATE() AS 'date today' FROM credit_transaction WHERE due_date IS NOT NULL AND paymentTypeID=243 AND dealer_ID="+id);
             while(rs.next())
@@ -357,7 +357,7 @@ public class SalesOrder_ButtonFunctions {
     }
     private static void updateDealerTotalPenalty(float currentPenalty,Object dealer)
     {
-        createDB();
+        DB.createDB();
         ResultSet result = null;
         float totalPenalty = 0;
         try {
@@ -374,7 +374,7 @@ public class SalesOrder_ButtonFunctions {
     public static void generatePenalty()
     {
         Vector iddealer = new Vector();
-        createDB();
+        DB.createDB();
         try {
             rs=stmt.executeQuery("SELECT iddealer FROM dealer");
             while(rs.next())
@@ -390,7 +390,7 @@ public class SalesOrder_ButtonFunctions {
             {
                 int daysleft=0; float money=0,penalty=0,totalPenalty=0;
                 try {
-                    createDB();
+                    DB.createDB();
                     rs = stmt.executeQuery("SELECT DATEDIFF(due_date,CURDATE()) as 'days',total_net,penalty FROM credit_transaction WHERE due_date IS NOT NULL AND dealer_ID="+iddealer.get(i));
                     while(rs.next())
                     {
@@ -480,7 +480,7 @@ public class SalesOrder_ButtonFunctions {
             else
             {
                 Float creditLine = null,balance=null,penalty=null;
-                createDB();
+                DB.createDB();
                 try {
                     rs = stmt.executeQuery("SELECT credit_limit,balance,total_penalty FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
                     while(rs.next())
@@ -588,7 +588,7 @@ public class SalesOrder_ButtonFunctions {
      public static boolean detectProductExceed()
      {
         boolean flag=false;
-        createDB(); int maxrdays =0;
+        DB.createDB(); int maxrdays =0;
         try {
             if(SalesOrder_ReturnForm.iddealer != 0){ //dealer
                 rs = stmt.executeQuery("SELECT max_return_days FROM dealer WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
@@ -597,7 +597,7 @@ public class SalesOrder_ButtonFunctions {
                     maxrdays=rs.getInt("max_return_days"); //from a specific dealer
                 }
                 rs.close();
-                createDB();
+                DB.createDB();
                 rs = stmt.executeQuery("SELECT CURDATE() as currentdate,DATE_ADD((SELECT date_of_transaction FROM invoice WHERE idinvoice="+txt_ReturnSONo.getText()+"),INTERVAL "+maxrdays+" DAY) AS 'newdate' FROM invoice LIMIT 1");
                 while(rs.next())
                 {
@@ -624,7 +624,7 @@ public class SalesOrder_ButtonFunctions {
      public static int getLastID(String tblName)
     {
         Integer theID = 0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"'");
             while(rs.next())
@@ -654,7 +654,7 @@ public class SalesOrder_ButtonFunctions {
                 dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',"+idinvoice+",'"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"')");
                 for(int i =0;i<rowCount ; i++)
                 {
-                    createDB();
+                    DB.createDB();
                     idinvoice = SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(i, 0);
                     totalnet = Float.parseFloat(SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(i, 8).toString());
                     idprod = SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(i, 1);
@@ -669,7 +669,7 @@ public class SalesOrder_ButtonFunctions {
                         Logger.getLogger(SalesOrder_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     oldquantity+=quantity; int poQuantity = 0;
-                    createDB();
+                    DB.createDB();
                     try {
                         rs=stmt.executeQuery("SELECT quantity FROM purchase_order_list WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
                         while(rs.next())
@@ -694,7 +694,7 @@ public class SalesOrder_ButtonFunctions {
                 if(cbo_ReturnCType.getSelectedItem().equals("Dealer")) //refund to dealer's available credit
                 {
                     float old_availableCredit=0;
-                    createDB();
+                    DB.createDB();
                     try {
                         rs = stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+SalesOrder_ReturnForm.iddealer);
                         while(rs.next())

@@ -46,7 +46,7 @@ public class SalesOrder_ButtonFunctions {
     public static int countIncrementedID()
     {
         Integer theID = 0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'invoice' limit 1");
             while(rs.next())
@@ -62,7 +62,7 @@ public class SalesOrder_ButtonFunctions {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -100,7 +100,7 @@ public class SalesOrder_ButtonFunctions {
     public static int getLastID(String tblName)
     {
         Integer theID = 0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"'");
             while(rs.next())
@@ -114,7 +114,7 @@ public class SalesOrder_ButtonFunctions {
     }
     private static String getproductName(String barcode)
     {
-        createDB(); String name = "";
+        DB.createDB(); String name = "";
         try {
             rs = stmt.executeQuery("SELECT product_name FROM product WHERE product.barcode='"+barcode+"'");
             while(rs.next())
@@ -139,7 +139,7 @@ public class SalesOrder_ButtonFunctions {
     private static boolean isQuantityZero(String barcode)
     {
         boolean flag = false;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
             while(rs.next())
@@ -174,7 +174,7 @@ public class SalesOrder_ButtonFunctions {
     }
     private static Object getSize(String barcode)
     {
-        createDB(); Object size=0;
+        DB.createDB(); Object size=0;
         try {
             rs = stmt.executeQuery("SELECT product_size FROM product WHERE product.barcode='"+barcode+"'");
             while(rs.next())
@@ -188,7 +188,7 @@ public class SalesOrder_ButtonFunctions {
     }
     private static Object getColorCode(String barcode)
     {
-        createDB(); Object color="";
+        DB.createDB(); Object color="";
         try {
             rs = stmt.executeQuery("SELECT product_color.color_code FROM product_color,product WHERE product_color.idproduct_color=(SELECT product.product_color FROM product WHERE product.barcode = '"+barcode+"') limit 1");
             while(rs.next())
@@ -202,7 +202,7 @@ public class SalesOrder_ButtonFunctions {
     }
     public static boolean isHigherQuantity(String barcode,javax.swing.JTextField txtQuantity)
     {
-        createDB(); int quantity = Integer.parseInt(txtQuantity.getText());
+        DB.createDB(); int quantity = Integer.parseInt(txtQuantity.getText());
         int dbQuantity = 0;
         try {
             rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+barcode+"'");
@@ -219,7 +219,7 @@ public class SalesOrder_ButtonFunctions {
     }
     private static float getSellingPrice(String barcode)
     {
-        createDB(); float sellingprice= 0;
+        DB.createDB(); float sellingprice= 0;
         try {
             rs = stmt.executeQuery("SELECT selling_price FROM product WHERE product.barcode='"+barcode+"'");
             while(rs.next())
@@ -233,7 +233,7 @@ public class SalesOrder_ButtonFunctions {
     }
     private static int getDiscount(String barcode) 
     {
-        createDB(); int discount=0;
+        DB.createDB(); int discount=0;
         try {
             rs = stmt.executeQuery("SELECT discount FROM dealer_supplier_bridge WHERE supplierID=(SELECT supplier FROM product WHERE product.barcode = '"+barcode+"') AND dealerID ="+iddealer);//For dealers only
             while(rs.next())
@@ -296,7 +296,7 @@ public class SalesOrder_ButtonFunctions {
     }
     public static void generateDealerInfo(int ID)
     {
-        createDB();
+        DB.createDB();
         customerInfo[0][1]="Dealer";
         try {
             rs = stmt.executeQuery("SELECT CONCAT(dealer.first_name,' ',dealer.last_name),credit_limit,available_credit,balance FROM dealer WHERE iddealer = "+ID);
@@ -443,7 +443,7 @@ public class SalesOrder_ButtonFunctions {
         //ADD TO CART
         try{
             String TRAP = this.salesBarcode;
-            createDB();
+            DB.createDB();
             try {
                 int cartQuantity=0;
                 boolean found = false;
@@ -484,7 +484,7 @@ public class SalesOrder_ButtonFunctions {
                             if(this.salesBarcode.equals(SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 1).toString()))
                             {
                                 cartQuantity = Integer.parseInt(salesOrder.SalesPnl_2ndLayer.tbl_SalesCart.getValueAt(i, 5).toString());
-                                createDB();
+                                DB.createDB();
                                 int currentQuantity=0;
                                 rs = stmt.executeQuery("SELECT quantity FROM product WHERE barcode='"+this.salesBarcode+"'");
                                 while(rs.next())

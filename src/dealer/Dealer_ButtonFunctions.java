@@ -35,7 +35,7 @@ public class Dealer_ButtonFunctions {
     private static void dbHandlerUpdates(String query)
     {
         try{
-        createDB();
+        DB.createDB();
          stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -53,7 +53,7 @@ public class Dealer_ButtonFunctions {
     }
     public void handleEmptySupplier()
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT COUNT(*) FROM supplier");
             while(rs.next())

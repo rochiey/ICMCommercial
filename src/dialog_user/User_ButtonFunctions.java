@@ -44,7 +44,7 @@ public class User_ButtonFunctions {
     {
         int success = 1;
         try{
-        createDB();
+        DB.createDB();
          successExUpdate = stmt.executeUpdate(query);
          
         } catch (SQLException ex) {
@@ -68,7 +68,7 @@ public class User_ButtonFunctions {
     public static void countIncrementedID()
     {
         Integer theID = 0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'systemaccount'");
             while(rs.next())
@@ -116,7 +116,7 @@ public class User_ButtonFunctions {
     }
     public static void generateUpdateDialog()
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT * FROM systemaccount WHERE ID = "+clickedID_onTable);
             ResultSetMetaData meta = rs.getMetaData();

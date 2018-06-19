@@ -51,7 +51,7 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
     {
         DecimalFormat df = new DecimalFormat("#,###.00");
         float originalAmount=0,refund=0;
-        createDB();
+        DB.createDB();
         try {
             rs=stmt.executeQuery("SELECT SUM(invoice.total_net) AS 'orig', SUM(refund) AS 'refund' FROM return_history,invoice WHERE invoiceID=idinvoice");
             while(rs.next())
@@ -87,7 +87,7 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors

@@ -54,7 +54,7 @@ public class InvStatus_1stLayer extends javax.swing.JPanel {
     {
         int success = 1;
         try{
-        createDB();
+        DB.createDB();
          successExUpdate = stmt.executeUpdate(query);
          
         } catch (SQLException ex) {
@@ -78,19 +78,19 @@ public class InvStatus_1stLayer extends javax.swing.JPanel {
     {
         
         try {
-            createDB();
+            DB.createDB();
             rs=stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE quantity <=15");
             while(rs.next())
             {
                 lbl_InvStatLStock.setText(rs.getObject("how").toString());
             }
-            createDB();
+            DB.createDB();
             rs=stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE DATEDIFF(expiration,CURDATE()) BETWEEN 0 AND 90");
             while(rs.next())
             {
                 lbl_InvStatNExProd.setText(rs.getObject("how").toString());
             }
-            createDB();
+            DB.createDB();
             rs=stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE DATEDIFF(expiration,CURDATE())<=0");
             while(rs.next())
             {

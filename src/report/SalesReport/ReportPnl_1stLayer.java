@@ -50,7 +50,7 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
     public static void getAllTotal()
     {
         DecimalFormat df = new DecimalFormat("#,###.00");
-        createDB();
+        DB.createDB();
         float totalNet=0,amountPaid=0,refundAmount=0;
         try {
             rs=stmt.executeQuery("SELECT SUM(total_net) AS 'totalnet',SUM(amount_paid) AS 'amountpaid',SUM(total_refund) AS 'totalrefund' FROM invoice");
@@ -90,7 +90,7 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
     {
         int success = 1;
         try{
-        createDB();
+        DB.createDB();
          successExUpdate = stmt.executeUpdate(query);
          
         } catch (SQLException ex) {

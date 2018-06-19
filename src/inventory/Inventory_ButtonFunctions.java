@@ -74,7 +74,7 @@ public class Inventory_ButtonFunctions {
     public static int countIncrementedID()
     {
         Integer theID = 0;
-        inventory.InventoryPnl_1stLayer.createDB();
+        inventory.InventoryPnl_1stLayer.DB.createDB();
         try {
             inventory.InventoryPnl_1stLayer.rs = inventory.InventoryPnl_1stLayer.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'invoice_supplier' limit 1");
             while(inventory.InventoryPnl_1stLayer.rs.next())

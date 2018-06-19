@@ -66,7 +66,7 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
     private static void getSupplier2ComboBox()
     {
         vecsupplier = new Vector();
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
             while(rs.next())
@@ -82,7 +82,7 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
     private static void getColor2ComboBox()
     {
         veccolor = new Vector();
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT color_code FROM product_color");
             while(rs.next())
@@ -97,7 +97,7 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
     private static void getCategory2ComboBox()
     {
         veccategory = new Vector();
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT category_name FROM category");
             while(rs.next())
@@ -126,7 +126,7 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
     private static void dbHandlerUpdates(String query)
     {
         try{
-        createDB();
+        DB.createDB();
          stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors

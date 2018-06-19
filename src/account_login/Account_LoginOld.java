@@ -105,7 +105,7 @@ public class Account_LoginOld extends javax.swing.JDialog {
     {
         int success = 1;
         try{
-        createDB();
+        DB.createDB();
          successExUpdate = stmt.executeUpdate(query);
          
         } catch (SQLException ex) {

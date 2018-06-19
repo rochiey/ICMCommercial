@@ -119,54 +119,18 @@ public class DbUtils {
 	    return null;
 	}
     }
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static void dbHandlerUpdates(String query)
-    {
-        try{
-        createDB();
-         stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DbUtils.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
     private static Object getValue(Integer ID,String tableName)
     {
-        createDB();
+        DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT "+tableName+"_name FROM "+tableName+" WHERE id"+tableName+" = "+ID);
-            while(rs.next())
-                return rs.getObject(tableName+"_name");
+            DB.rs = DB.stmt.executeQuery("SELECT "+tableName+"_name FROM "+tableName+" WHERE id"+tableName+" = "+ID);
+            while(DB.rs.next())
+                return DB.rs.getObject(tableName+"_name");
         } catch (SQLException ex) {
             Logger.getLogger(DbUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
     }
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
 
     /**
      * @param args

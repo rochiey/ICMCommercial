@@ -51,7 +51,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     public static boolean isCreditDue()
     {
         boolean flag=false;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT due_date,CURDATE() AS 'date today' FROM credit_transaction WHERE due_date IS NOT NULL AND paymentTypeID=243 AND dealer_ID="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
             while(rs.next())
@@ -69,7 +69,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     {
         Vector id = new Vector();
         try {
-            createDB();
+            DB.createDB();
             rs = stmt.executeQuery("SELECT DISTINCT dealer_ID FROM credit_transaction");
             while(rs.next())
             {
@@ -84,7 +84,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
             float totalPenalty=0;
             try
             {
-                createDB();
+                DB.createDB();
                 rs = stmt.executeQuery("SELECT penalty FROM credit_transaction WHERE paymentTypeID=243 AND dealer_ID="+id.get(i));
                 while(rs.next())
                 {
@@ -100,7 +100,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     }
     public static void generateBalance()
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT balance+total_penalty FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
            
@@ -134,7 +134,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -157,7 +157,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     }
     public static boolean hasAvailableCredit()
     {
-        createDB(); float availableCredit = 0;
+        DB.createDB(); float availableCredit = 0;
         try {
             rs = stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
             while(rs.next())
@@ -171,7 +171,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     }
     public static void generateDueDate()
     {
-        createDB();  int days =0; Date newDate = null;
+        DB.createDB();  int days =0; Date newDate = null;
         try {
             rs = stmt.executeQuery("SELECT due_date FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
             while(rs.next()) days = rs.getInt("due_date");
@@ -188,7 +188,7 @@ public class SalesOrder_Tender extends javax.swing.JDialog {
     }
     public static boolean isHugeThanLimit(Float totalNet)
     {
-        createDB(); float availableCredit = 0;
+        DB.createDB(); float availableCredit = 0;
         try {
             rs = stmt.executeQuery("SELECT available_credit FROM dealer WHERE iddealer="+salesOrder.SalesOrder_ButtonFunctions.iddealer);
             while(rs.next())

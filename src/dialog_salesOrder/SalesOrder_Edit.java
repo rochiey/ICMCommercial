@@ -272,7 +272,7 @@ public class SalesOrder_Edit extends javax.swing.JDialog {
     {
         int success = 1;
         try{
-        createDB();
+        DB.createDB();
          successExUpdate = stmt.executeUpdate(query);
          
         } catch (SQLException ex) {
@@ -322,7 +322,7 @@ public class SalesOrder_Edit extends javax.swing.JDialog {
             
             String pass = txt_EditAdminPassword.getText();
             boolean found = false;
-            createDB();
+            DB.createDB();
             try {
                 rs = stmt.executeQuery("SELECT password FROM systemaccount WHERE usertype=51");
                 while(rs.next())
@@ -382,7 +382,7 @@ public class SalesOrder_Edit extends javax.swing.JDialog {
             
             String pass = txt_EditAdminPassword.getText();
             boolean found = false;
-            createDB();
+            DB.createDB();
             try {
                 rs = stmt.executeQuery("SELECT password FROM systemaccount");
                 while(rs.next())

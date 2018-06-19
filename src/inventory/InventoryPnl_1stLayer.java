@@ -80,7 +80,7 @@ public class InventoryPnl_1stLayer extends javax.swing.JPanel {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -108,7 +108,7 @@ public class InventoryPnl_1stLayer extends javax.swing.JPanel {
     }
     private static void generateCompany()
     {
-        createDB();
+        DB.createDB();
         vecsupplier.add("ALL");
         try {
             rs = stmt.executeQuery("SELECT supplier_name FROM supplier");

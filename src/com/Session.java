@@ -48,7 +48,7 @@ public class Session {
     private static void dbHandlerUpdates(String query)
     {
         try{
-        createDB();
+        DB.createDB();
          stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -72,7 +72,7 @@ public class Session {
     {
         boolean privileged = false;
         int userType = 0;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT userType FROM systemaccount WHERE username = '"+user+"'");
             while(rs.next())
@@ -95,7 +95,7 @@ public class Session {
     }
     public static String getCashierName(String user)
     {
-        createDB();
+        DB.createDB();
         String name = "";
         try {
             rs = stmt.executeQuery("SELECT CONCAT(first_name,' ',last_name) AS 'name' FROM systemaccount WHERE username = '"+user+"'");

@@ -33,7 +33,7 @@ public class DatabaseLinker {
     private static void dbHandlerUpdates(String query)
     {
         try{
-        createDB();
+        DB.createDB();
          stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -56,7 +56,7 @@ public class DatabaseLinker {
     }
     public static void updateTable(JTable tblData,String query)
     {
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery(query); //MODIFY THIS NOT_FINAL
             tblData.setModel(DbUtils.resultSetToTableModel(rs));

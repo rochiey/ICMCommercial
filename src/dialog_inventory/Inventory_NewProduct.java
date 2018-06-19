@@ -44,7 +44,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
     private boolean isCategoryExpirable(javax.swing.JComboBox cboCategory)
     {
         boolean flag = false;
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT category_type FROM category WHERE category_name='"+cboCategory.getSelectedItem()+"'");
             while(rs.next())
@@ -101,7 +101,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
     private static void dbHandlerUpdates(String query)
     {
         try{
-        createDB();
+        DB.createDB();
          stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
@@ -121,7 +121,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
     private static void getSupplier2ComboBox()
     {
         vecsupplier = new Vector();
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT supplier_name FROM supplier");
             while(rs.next())
@@ -137,7 +137,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
     private static void getColor2ComboBox()
     {
         veccolor = new Vector();
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT color_code FROM product_color");
             while(rs.next())
@@ -152,7 +152,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
     private static void getCategory2ComboBox()
     {
         veccategory = new Vector();
-        createDB();
+        DB.createDB();
         try {
             rs = stmt.executeQuery("SELECT category_name FROM category");
             while(rs.next())

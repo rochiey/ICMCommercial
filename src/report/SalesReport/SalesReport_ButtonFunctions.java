@@ -38,7 +38,7 @@ public class SalesReport_ButtonFunctions {
     public static void getAllTotal(String where)
     {
         DecimalFormat df = new DecimalFormat("#,###.00");
-        createDB();
+        DB.createDB();
         float totalNet=0,amountPaid=0,refundAmount=0;
         try {
             rs=stmt.executeQuery("SELECT SUM(total_net) AS 'totalnet',SUM(amount_paid) AS 'amountpaid',SUM(total_refund) AS 'totalrefund' FROM invoice WHERE "+where);

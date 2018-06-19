@@ -40,7 +40,7 @@ public class SalesPnl_1stLayer extends javax.swing.JPanel {
     {
         
         try{
-        createDB();
+        DB.createDB();
          successEx = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             // handle any errors
