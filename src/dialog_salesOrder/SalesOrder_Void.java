@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import com.DB;
 
 public class SalesOrder_Void extends javax.swing.JDialog {
 
@@ -248,50 +249,7 @@ public class SalesOrder_Void extends javax.swing.JDialog {
     private void btn_VoidConfirmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_VoidConfirmMouseExited
         btn_VoidConfirm.setBackground(UIManager.getColor("control"));
     }//GEN-LAST:event_btn_VoidConfirmMouseExited
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null;
     
-    static int successExUpdate = 0 ;
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static int dbHandlerUpdates(String query)
-    {
-        int success = 1;
-        try{
-        DB.createDB();
-         successExUpdate = stmt.executeUpdate(query);
-         
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops. Something went wrong. Please try again."
-                   + "</font></center></html>", "Error Message", 0);
-            System.exit(0);
-        }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SalesOrder_Void.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return success;
-    }
     private static String decodeCaesar(String enc, int offset) {
         return encodeCaesar(enc, 26-offset);
     }
@@ -323,10 +281,10 @@ public class SalesOrder_Void extends javax.swing.JDialog {
             boolean found = false;
             DB.createDB();
             try {
-                rs = stmt.executeQuery("SELECT password FROM systemaccount WHERE usertype=51");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT password FROM systemaccount WHERE usertype=51");
+                while(DB.rs.next())
                 {
-                    if(decodeCaesar(rs.getObject("password").toString(), 5).equals(pass)) found = true;
+                    if(decodeCaesar(DB.rs.getObject("password").toString(), 5).equals(pass)) found = true;
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(SalesOrder_Void.class.getName()).log(Level.SEVERE, null, ex);
@@ -384,10 +342,10 @@ public class SalesOrder_Void extends javax.swing.JDialog {
             boolean found = false;
             DB.createDB();
             try {
-                rs = stmt.executeQuery("SELECT password FROM systemaccount WHERE usertype=51");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT password FROM systemaccount WHERE usertype=51");
+                while(DB.rs.next())
                 {
-                    if(decodeCaesar(rs.getObject("password").toString(), 5).equals(pass)) found = true;
+                    if(decodeCaesar(DB.rs.getObject("password").toString(), 5).equals(pass)) found = true;
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(SalesOrder_Void.class.getName()).log(Level.SEVERE, null, ex);
