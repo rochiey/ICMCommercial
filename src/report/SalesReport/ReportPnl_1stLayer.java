@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import com.DB:
+import com.DB;
 
 public class ReportPnl_1stLayer extends javax.swing.JPanel {
 
