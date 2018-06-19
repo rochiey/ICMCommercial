@@ -2,6 +2,7 @@ package dialog_dealer;
 
 
 import com.DbUtils;
+import com.DB;
 import static dialog_dealer.Dealer_NewAccount.*;
 import static dialog_dealer.Dealer_UpdateAccount.*;
 import static dialog_dealer.Dealer_ViewAccount.txt_ViewDealerID;
@@ -20,57 +21,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class Dealer_ButtonFunctions {
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
+   
     static int successEx = 0;
-    private static void dbHandlerUpdates(String query)
-    {
-        
-        try{
-        DB.createDB();
-         successEx = stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Error:Code:Sql Command"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DbUtils.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "<html><center><font size=4>error:session:connectionCloseDbHandlerUpdates(query)"
-                   + "</font></center></html>", "Error Message", 0);
-            }
-        }
-    }
     private int getSponsorID(String name)
     {
         int id =0;
         DB.createDB();
          try {
-             rs = stmt.executeQuery("SELECT iddealer FROM dealer WHERE first_name = '"+name+"'");
-             while(rs.next())
+             DB.rs = DB.stmt.executeQuery("SELECT iddealer FROM dealer WHERE first_name = '"+name+"'");
+             while(DB.rs.next())
              {
-                 id = Integer.parseInt(rs.getObject(1).toString());
+                 id = Integer.parseInt(DB.rs.getObject(1).toString());
              }
          } catch (SQLException ex) {
              Logger.getLogger(Dealer_ViewAccount.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,10 +45,10 @@ public class Dealer_ButtonFunctions {
         Integer theID = 0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'dealer' limit 1");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = 'dealer' limit 1");
+            while(DB.rs.next())
             {
-                theID = Integer.parseInt(rs.getObject("AUTO_INCREMENT").toString());
+                theID = Integer.parseInt(DB.rs.getObject("AUTO_INCREMENT").toString());
             }
             txt_NewDealerID.setText(theID.toString());
         } catch (SQLException ex) {
@@ -123,9 +84,9 @@ public class Dealer_ButtonFunctions {
     {
         DB.createDB();
         try {
-            rs = stmt.executeQuery(query);
+            DB.rs = DB.stmt.executeQuery(query);
             
-            ResultSetMetaData metaData = rs.getMetaData();
+            ResultSetMetaData metaData = DB.rs.getMetaData();
 	    int numberOfColumns = metaData.getColumnCount();
 	    Vector<String> columnNames = new Vector<String>();
 	    // Get the column names
@@ -135,10 +96,10 @@ public class Dealer_ButtonFunctions {
 	    // Get all rows.
 	    Vector<Vector<Object>> rows = new Vector<Vector<Object>>();
 
-	    while (rs.next()) {
+	    while (DB.rs.next()) {
 		Vector<Object> newRow = new Vector<Object>();
 			for (int i = 1; i <= numberOfColumns; i++) {
-				newRow.addElement(rs.getObject(i));
+				newRow.addElement(DB.rs.getObject(i));
 			}
 			rows.addElement(newRow);
 	    }
@@ -174,7 +135,7 @@ public class Dealer_ButtonFunctions {
             String regDate = date_NewDealerRegDate.getEditor().getText();
             String bDate = date_NewDealerBirthday.getEditor().getText();
             String dateFormat = "%Y-%m-%d";
-            dbHandlerUpdates("INSERT INTO dealer(registration_date,first_name,middle_name,last_name,"
+            successEx = DB.dbHandlerUpdates("INSERT INTO dealer(registration_date,first_name,middle_name,last_name,"
                     + "gender,birthday,civil_status,nationality,address,email_address,contact_number,"
                     + "occupation,credit_limit,available_credit,max_return_days,sponsor,balance,due_date) "
                     + "VALUES(STR_TO_DATE('"+regDate+"','"+dateFormat+"'),'"+txt_NewDealerFName.getText()+"',"
@@ -197,10 +158,10 @@ public class Dealer_ButtonFunctions {
         String name = "";
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT first_name FROM dealer WHERE iddealer ="+id);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT first_name FROM dealer WHERE iddealer ="+id);
+            while(DB.rs.next())
             {
-                name = rs.getObject("first_name").toString();
+                name = DB.rs.getObject("first_name").toString();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dealer_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -213,19 +174,19 @@ public class Dealer_ButtonFunctions {
     {
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT * FROM dealer WHERE iddealer ="+clickedID_onTable);
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT * FROM dealer WHERE iddealer ="+clickedID_onTable);
+            while(DB.rs.next())
             {
-                txt_UpdateDealerID.setText(rs.getObject("iddealer").toString());
-                date_UpdateDealerRegDate.getEditor().setText(rs.getObject("registration_date").toString());
-                txt_UpdateDealerFName.setText(rs.getObject("first_name").toString());
-                if(rs.getObject("middle_name") != null) txt_UpdateDealerMName.setText(rs.getObject("middle_name").toString());
-                txt_UpdateDealerLName.setText(rs.getObject("last_name").toString());
-                if (Integer.parseInt(rs.getObject("gender").toString()) == 15) cbo_UpdateDealerGender.setSelectedItem("Male");
+                txt_UpdateDealerID.setText(DB.rs.getObject("iddealer").toString());
+                date_UpdateDealerRegDate.getEditor().setText(DB.rs.getObject("registration_date").toString());
+                txt_UpdateDealerFName.setText(DB.rs.getObject("first_name").toString());
+                if(DB.rs.getObject("middle_name") != null) txt_UpdateDealerMName.setText(DB.rs.getObject("middle_name").toString());
+                txt_UpdateDealerLName.setText(DB.rs.getObject("last_name").toString());
+                if (Integer.parseInt(DB.rs.getObject("gender").toString()) == 15) cbo_UpdateDealerGender.setSelectedItem("Male");
                 else cbo_UpdateDealerGender.setSelectedItem("Female");
-                date_UpdateDealerBirthday.getEditor().setText(rs.getObject("birthday").toString());
-                cbo_UpdateDealerDueDate.setSelectedItem(rs.getObject("due_date"));
-                switch(Integer.parseInt(rs.getObject("civil_status").toString()))
+                date_UpdateDealerBirthday.getEditor().setText(DB.rs.getObject("birthday").toString());
+                cbo_UpdateDealerDueDate.setSelectedItem(DB.rs.getObject("due_date"));
+                switch(Integer.parseInt(DB.rs.getObject("civil_status").toString()))
                 {
                     case 91:
                         cbo_UpdateDealerCivil.setSelectedItem("Single");
@@ -240,15 +201,15 @@ public class Dealer_ButtonFunctions {
                         cbo_UpdateDealerCivil.setSelectedItem("Divorce");
                     break;
                 }
-                if(rs.getObject("nationality") != null) txt_UpdateDealerNationality.setText(rs.getObject("nationality").toString());
-                txt_UpdateDealerAddress.setText(rs.getObject("address").toString());
-                if(rs.getObject("email_address") != null) txt_UpdateDealerEmail.setText(rs.getObject("email_address").toString());
-                txt_UpdateDealerContact.setText(rs.getObject("contact_number").toString());
-                if(rs.getObject("occupation") != null) txt_UpdateDealerOccupation.setText(rs.getObject("occupation").toString());
-                txt_UpdateDealerCredit.setText(rs.getObject("credit_limit").toString());
-                txt_UpdateDealerACLine.setText(rs.getObject("available_credit").toString());
-                txt_UpdateDealerMaxReturn.setText(rs.getObject("max_return_days").toString());
-                txt_UpdateDealerSponsor.setText( rs.getObject("sponsor").toString());
+                if(DB.rs.getObject("nationality") != null) txt_UpdateDealerNationality.setText(DB.rs.getObject("nationality").toString());
+                txt_UpdateDealerAddress.setText(DB.rs.getObject("address").toString());
+                if(DB.rs.getObject("email_address") != null) txt_UpdateDealerEmail.setText(DB.rs.getObject("email_address").toString());
+                txt_UpdateDealerContact.setText(DB.rs.getObject("contact_number").toString());
+                if(DB.rs.getObject("occupation") != null) txt_UpdateDealerOccupation.setText(DB.rs.getObject("occupation").toString());
+                txt_UpdateDealerCredit.setText(DB.rs.getObject("credit_limit").toString());
+                txt_UpdateDealerACLine.setText(DB.rs.getObject("available_credit").toString());
+                txt_UpdateDealerMaxReturn.setText(DB.rs.getObject("max_return_days").toString());
+                txt_UpdateDealerSponsor.setText( DB.rs.getObject("sponsor").toString());
             }
             tbl_UpdateDealerDiscount.setModel(populateSupplierDiscountTable("SELECT supplier.supplier_name AS 'Company',dealer_supplier_bridge.discount AS 'Discount' From supplier,dealer_supplier_bridge WHERE dealer_supplier_bridge.supplierID = supplier.idsupplier AND dealer_supplier_bridge.dealerID ="+clickedID_onTable));
         } catch (SQLException ex) {
@@ -269,15 +230,15 @@ public class Dealer_ButtonFunctions {
             {
                 supplierName.add(tbl_NewDealerDiscount.getValueAt(i, 0));
                 supplierDiscount.add(tbl_NewDealerDiscount.getValueAt(i, 1));
-                rs = stmt.executeQuery("SELECT idsupplier FROM supplier where supplier_name = '"+supplierName.get(i)+"'");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT idsupplier FROM supplier where supplier_name = '"+supplierName.get(i)+"'");
+                while(DB.rs.next())
                 {
-                    supplierID.add(rs.getObject("idsupplier"));
+                    supplierID.add(DB.rs.getObject("idsupplier"));
                 }
             }
             for(int k=0;k<rowCount;k++)
             {
-                dbHandlerUpdates("INSERT INTO dealer_supplier_bridge(supplierID,discount,dealerID) VALUES("+supplierID.get(k)+","+supplierDiscount.get(k)+","+txt_NewDealerID.getText()+")");
+                DB.dbHandlerUpdates("INSERT INTO dealer_supplier_bridge(supplierID,discount,dealerID) VALUES("+supplierID.get(k)+","+supplierDiscount.get(k)+","+txt_NewDealerID.getText()+")");
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dealer_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
@@ -298,10 +259,10 @@ public class Dealer_ButtonFunctions {
             try {
                 supplierName.add(tbl_UpdateDealerDiscount.getValueAt(i, 0));
                 supplierDiscount.add(tbl_UpdateDealerDiscount.getValueAt(i, 1));
-                rs = stmt.executeQuery("SELECT idsupplier FROM supplier where supplier_name = '"+supplierName.get(i)+"'");
-                while(rs.next())
+                DB.rs = DB.stmt.executeQuery("SELECT idsupplier FROM supplier where supplier_name = '"+supplierName.get(i)+"'");
+                while(DB.rs.next())
                 {
-                    supplierID.add(rs.getObject("idsupplier"));
+                    supplierID.add(DB.rs.getObject("idsupplier"));
                 }
                 
             } catch (SQLException ex) {
@@ -310,7 +271,7 @@ public class Dealer_ButtonFunctions {
         }
         for(int k=0;k<rowCount;k++)
         {
-            dbHandlerUpdates("UPDATE dealer_supplier_bridge SET discount = "+supplierDiscount.get(k)+" WHERE dealerID ="+txt_UpdateDealerID.getText()+" AND supplierID ="+supplierID.get(k));
+            DB.dbHandlerUpdates("UPDATE dealer_supplier_bridge SET discount = "+supplierDiscount.get(k)+" WHERE dealerID ="+txt_UpdateDealerID.getText()+" AND supplierID ="+supplierID.get(k));
         }
     }
     public static int clickedID_onTable = 0;
@@ -366,7 +327,7 @@ public class Dealer_ButtonFunctions {
             String regDate = date_UpdateDealerRegDate.getEditor().getText();
             String bDate = date_UpdateDealerBirthday.getEditor().getText();
             String dateFormat = "%Y-%m-%d";
-            dbHandlerUpdates("UPDATE dealer SET registration_date = STR_TO_DATE('"+regDate+"','"+dateFormat+"')"
+            DB.dbHandlerUpdates("UPDATE dealer SET registration_date = STR_TO_DATE('"+regDate+"','"+dateFormat+"')"
                     + ",first_name = '"+txt_UpdateDealerFName.getText()+"'"
                     + ",middle_name ='"+txt_UpdateDealerMName.getText()+"'"
                     + ", last_name = '"+txt_UpdateDealerLName.getText()+"'"
