@@ -52,9 +52,9 @@ public class DB {
     {
         int success = 0;
         try{
-        DB.createDB();
-        success = stmt.executeUpdate(query);
-         
+            DB.createDB();
+            success = stmt.executeUpdate(query);
+            writeFile(query); //writes query to the file
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());

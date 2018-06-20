@@ -448,7 +448,7 @@ public class SalesOrder_ButtonFunctions {
                     Logger.getLogger(SalesOrder_Tender.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 //CREDIT LINE INCREASE IF WHOLE BALANCE IS PAID
-                Float creditLineIncrease = (float)(amountoPurchase*.20)+creditLine;
+                Float creditLineIncrease = (float)(totalNet*.20)+creditLine;
                 balance-=totalNet;
                 penalty-=totalNet;
                 
