@@ -1,10 +1,6 @@
 package salesOrder;
 
 import java.awt.Color;
-import java.sql.*;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 public class SalesPnl_1stLayer extends javax.swing.JPanel {

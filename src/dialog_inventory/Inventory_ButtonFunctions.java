@@ -1,7 +1,6 @@
 package dialog_inventory;
 
 import com.DB;
-import com.DbUtils;
 import static dialog_inventory.Inventory_Category.*;
 import static dialog_inventory.Inventory_Color.*;
 import static dialog_inventory.Inventory_Company.*;
@@ -9,13 +8,9 @@ import static dialog_inventory.Inventory_NewProduct.*;
 import static dialog_inventory.Inventory_ProductMovement.txt_Qty;
 import static dialog_inventory.Inventory_UpdateProduct.*;
 import inventory.InventoryPnl_1stLayer;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Date;
-import java.util.Properties;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;

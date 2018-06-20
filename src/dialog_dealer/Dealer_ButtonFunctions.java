@@ -1,7 +1,6 @@
 package dialog_dealer;
 
 
-import com.DbUtils;
 import com.DB;
 import static dialog_dealer.Dealer_NewAccount.*;
 import static dialog_dealer.Dealer_UpdateAccount.*;
@@ -10,7 +9,6 @@ import static dialog_dealer.Dealer_ViewDiscount.txt_DealerDCode;
 import java.sql.*;
 import java.text.*;
 import java.util.Date;
-import java.util.Properties;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;

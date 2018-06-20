@@ -1,5 +1,4 @@
 package com;
-import dialog_salesOrder.SalesOrder_ButtonFunctions;
 import icm.ICMMainSystem;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -10,7 +9,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

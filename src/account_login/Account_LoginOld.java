@@ -1,21 +1,5 @@
 package account_login;
 
-import com.Session;
-import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
-
 public class Account_LoginOld extends javax.swing.JDialog {
 
     int xMouse, yMouse;

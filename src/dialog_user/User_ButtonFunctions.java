@@ -1,18 +1,12 @@
 package dialog_user;
 
-import com.Session;
 import static dialog_user.User_NewAccount.*;
 import static dialog_user.User_UpdateAccount.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
