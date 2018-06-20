@@ -1,6 +1,11 @@
 
 package com;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.NoSuchFileException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -67,5 +72,25 @@ public class DB {
             }
         }
         return success;
+    }
+    private static void writeFile(String sql) //writes the sql into file
+    {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        PrintWriter out = null;
+        try
+        {
+            fw = new FileWriter("sql.txt", true);
+            bw = new BufferedWriter(fw);
+            out = new PrintWriter(bw);
+                    
+            out.println(sql);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            out.close();
+        }
     }
 }
