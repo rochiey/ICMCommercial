@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.DB;
 
 
 public class Session {
@@ -18,49 +19,13 @@ public class Session {
     public static boolean isRunning = false;
     public static String cashier = "";
     
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
     public static String currentDate(){
         Date today = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return dateFormat.format(today);
     }
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
     public static float round(float d, int decimalPlace) {
          return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).floatValue();
-    }
-    private static void dbHandlerUpdates(String query)
-    {
-        try{
-        DB.createDB();
-         stmt.executeUpdate(query);
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
     public static void start()
     {
@@ -72,14 +37,14 @@ public class Session {
         int userType = 0;
         DB.createDB();
         try {
-            rs = stmt.executeQuery("SELECT userType FROM systemaccount WHERE username = '"+user+"'");
-            while(rs.next())
+            DB.rs = DB.stmt.executeQuery("SELECT userType FROM systemaccount WHERE username = '"+user+"'");
+            while(DB.rs.next())
             {
-                userType = rs.getInt("usertype");
+                userType = DB.rs.getInt("usertype");
             }
             privileged = userType == 51;
             
-            rs.close();
+            DB.rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,9 +61,9 @@ public class Session {
         DB.createDB();
         String name = "";
         try {
-            rs = stmt.executeQuery("SELECT CONCAT(first_name,' ',last_name) AS 'name' FROM systemaccount WHERE username = '"+user+"'");
-           while(rs.next())
-                name = rs.getString("name");
+            DB.rs = DB.stmt.executeQuery("SELECT CONCAT(first_name,' ',last_name) AS 'name' FROM systemaccount WHERE username = '"+user+"'");
+           while(DB.rs.next())
+                name = DB.rs.getString("name");
            
         } catch (SQLException ex) {
             Logger.getLogger(Session.class.getName()).log(Level.SEVERE, null, ex);
