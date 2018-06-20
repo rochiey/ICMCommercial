@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
+import com.DB;
 
 public class InvStatus_1stLayer extends javax.swing.JPanel {
 
@@ -31,70 +32,27 @@ public class InvStatus_1stLayer extends javax.swing.JPanel {
         setJTable();
         getAllTotals();
     }
-    static Connection conn = null;
-    static Statement stmt = null;
-    static ResultSet rs = null; 
-    
-    static int successExUpdate = 0 ;
-    public static void createDB()
-    {
-        try {
-            Properties prop=new Properties();
-            prop.setProperty("user","root");
-            prop.setProperty("password","");
-            conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ICM",prop);
-            stmt= conn.createStatement();
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        }
-    }
-    private static int dbHandlerUpdates(String query)
-    {
-        int success = 1;
-        try{
-        DB.createDB();
-         successExUpdate = stmt.executeUpdate(query);
-         
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Oops. Something went wrong. Please try again."
-                   + "</font></center></html>", "Error Message", 0);
-        }
-        finally{
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(InvStatus_1stLayer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return success;
-    }
     public static void getAllTotals()
     {
         
         try {
             DB.createDB();
-            rs=stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE quantity <=15");
-            while(rs.next())
+            DB.rs=DB.stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE quantity <=15");
+            while(DB.rs.next())
             {
-                lbl_InvStatLStock.setText(rs.getObject("how").toString());
+                lbl_InvStatLStock.setText(DB.rs.getObject("how").toString());
             }
             DB.createDB();
-            rs=stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE DATEDIFF(expiration,CURDATE()) BETWEEN 0 AND 90");
-            while(rs.next())
+            DB.rs=DB.stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE DATEDIFF(expiration,CURDATE()) BETWEEN 0 AND 90");
+            while(DB.rs.next())
             {
-                lbl_InvStatNExProd.setText(rs.getObject("how").toString());
+                lbl_InvStatNExProd.setText(DB.rs.getObject("how").toString());
             }
             DB.createDB();
-            rs=stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE DATEDIFF(expiration,CURDATE())<=0");
-            while(rs.next())
+            DB.rs=DB.stmt.executeQuery("SELECT COUNT(*) as 'how' FROM product WHERE DATEDIFF(expiration,CURDATE())<=0");
+            while(DB.rs.next())
             {
-                lbl_InvStatExProd.setText(rs.getObject("how").toString());
+                lbl_InvStatExProd.setText(DB.rs.getObject("how").toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(InvStatus_1stLayer.class.getName()).log(Level.SEVERE, null, ex);
