@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
@@ -305,7 +306,7 @@ public class ReportPnl_2ndLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_ReportSalesUpdateDBMouseExited
 
     private void btn_ReportSalesUpdateDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReportSalesUpdateDBActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Function under construction.");
     }//GEN-LAST:event_btn_ReportSalesUpdateDBActionPerformed
 
 
