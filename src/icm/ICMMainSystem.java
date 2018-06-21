@@ -1,5 +1,6 @@
 package icm;
 
+import com.DB;
 import javax.swing.JFrame;
 import dealer.*;
 import inventory.*;
@@ -111,6 +112,11 @@ public class ICMMainSystem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         pnl_Main.setBackground(new java.awt.Color(255, 255, 255));
         pnl_Main.setPreferredSize(new java.awt.Dimension(1366, 768));
@@ -395,6 +401,12 @@ public class ICMMainSystem extends javax.swing.JFrame {
             SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
         }
     }//GEN-LAST:event_Tab_MainMouseReleased
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DB.mysqlStop();
+       
+       System.exit(0);
+    }//GEN-LAST:event_formWindowClosed
     
     public static void main(String args[]) {
         try {

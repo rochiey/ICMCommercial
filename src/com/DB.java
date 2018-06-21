@@ -101,4 +101,18 @@ public class DB {
         //initialize database server address
         //then update db online through java
     }
+    private static Process process;
+    public static void mysqlStop()
+    {
+        process.destroy();
+    }
+    public static void mysqlStart()
+    {
+        try {
+           process = Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\mysql\\bin\\mysqld.exe");
+           
+        } catch (IOException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -20,7 +20,7 @@ public class Account_Login extends javax.swing.JFrame {
 
     
     public Account_Login() {
-        mysqlStart(); 
+        DB.mysqlStart(); 
         
         initComponents();
         setPlaceHolder();
@@ -65,15 +65,7 @@ public class Account_Login extends javax.swing.JFrame {
         }
         return encoded.toString();
     }
-    private void mysqlStart()
-    {
-        try {
-           Process process = Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\mysql\\bin\\mysqld.exe");
-           
-        } catch (IOException ex) {
-            Logger.getLogger(Account_Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
     private void loginActionPerformed()
     {
         String user = txt_UserName.getText();
@@ -138,6 +130,11 @@ public class Account_Login extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
         setSize(new java.awt.Dimension(850, 550));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 47, 65));
@@ -296,6 +293,7 @@ public class Account_Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        DB.mysqlStop();
         this.dispose();
     }//GEN-LAST:event_jLabel1MousePressed
 
@@ -333,6 +331,11 @@ public class Account_Login extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DB.mysqlStop();
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosed
     
     /**
      * @param args the command line arguments
