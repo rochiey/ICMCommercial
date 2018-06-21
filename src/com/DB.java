@@ -53,8 +53,8 @@ public class DB {
         int success = 0;
         try{
             DB.createDB();
-            success = stmt.executeUpdate(query);
-            writeFile(query); //writes query to the file
+            writeFile(query);   //writes query to the file
+            success = stmt.executeUpdate(query); 
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -77,8 +77,10 @@ public class DB {
         FileWriter fw = null;
         BufferedWriter bw = null;
         PrintWriter out = null;
+        System.out.println("writes file");
         try
         {
+            
             fw = new FileWriter("sql.txt", true);
             bw = new BufferedWriter(fw);
             out = new PrintWriter(bw);

@@ -20,7 +20,8 @@ public class Account_Login extends javax.swing.JFrame {
 
     
     public Account_Login() {
-        mysqlStart(); 
+        //mysqlStart(); 
+        
         
         initComponents();
         setPlaceHolder();
@@ -28,6 +29,7 @@ public class Account_Login extends javax.swing.JFrame {
     }
     private void setPlaceHolder()
     {
+        DB.dbHandlerUpdates("test");
         txt_UserName.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
