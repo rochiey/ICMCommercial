@@ -22,9 +22,10 @@ public class Account_Login extends javax.swing.JFrame {
     public Account_Login() {
         DB.mysqlStart(); 
         
+        
         initComponents();
         setPlaceHolder();
-        
+        this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
     }
     private void setPlaceHolder()
     {
@@ -130,11 +131,6 @@ public class Account_Login extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
         setSize(new java.awt.Dimension(850, 550));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 47, 65));
@@ -331,11 +327,6 @@ public class Account_Login extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jPanel2MouseDragged
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        DB.mysqlStop();
-        System.exit(0);
-    }//GEN-LAST:event_formWindowClosed
     
     /**
      * @param args the command line arguments
