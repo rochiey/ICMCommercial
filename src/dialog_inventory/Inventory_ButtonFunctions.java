@@ -303,7 +303,7 @@ public class Inventory_ButtonFunctions {
             else{
                 String expDate = date_UpdateProdExpiration.getEditor().getText();
                 String dateFormat = "%Y-%m-%d";
-                DB.dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",expiration = STR_TO_DATE('"+expDate+"','"+dateFormat+"'),selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
+                successEx = DB.dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",expiration = STR_TO_DATE('"+expDate+"','"+dateFormat+"'),selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product information successfully updated!"
                         + "</font></center></html>", "Information Message", 1);
             }
@@ -316,7 +316,7 @@ public class Inventory_ButtonFunctions {
             }
             else{
                 //INSERT SQL QUERY FOR UPDATING PRODUCT
-                DB.dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
+                successEx = DB.dbHandlerUpdates("UPDATE product SET supplier = "+getSupplierID(cbo_UpdateProdCompany)+", product_name = '"+txt_UpdateProdName.getText()+"',category = "+getCategory(cbo_UpdateProdCategory)+", product_size = '"+txt_UpdateProdSize.getText()+"',product_color = "+getProductColor(cbo_UpdateProdColor)+",selling_price = "+txt_UpdateProdPrice.getText()+" WHERE idproduct = "+clickedID_onTable);
                 JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product information successfully updated!"
                         + "</font></center></html>", "Information Message", 1);
             }

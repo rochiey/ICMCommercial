@@ -1,0 +1,1 @@
+UPDATE product SET supplier = 2, product_name = 'La Feur',category = 8, product_size = '220mL',product_color = 10,expiration = STR_TO_DATE('2018-11-30','%Y-%m-%d'),selling_price = 499.0 WHERE idproduct = 34

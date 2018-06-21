@@ -325,7 +325,7 @@ public class Dealer_ButtonFunctions {
             String regDate = date_UpdateDealerRegDate.getEditor().getText();
             String bDate = date_UpdateDealerBirthday.getEditor().getText();
             String dateFormat = "%Y-%m-%d";
-            DB.dbHandlerUpdates("UPDATE dealer SET registration_date = STR_TO_DATE('"+regDate+"','"+dateFormat+"')"
+            successEx = DB.dbHandlerUpdates("UPDATE dealer SET registration_date = STR_TO_DATE('"+regDate+"','"+dateFormat+"')"
                     + ",first_name = '"+txt_UpdateDealerFName.getText()+"'"
                     + ",middle_name ='"+txt_UpdateDealerMName.getText()+"'"
                     + ", last_name = '"+txt_UpdateDealerLName.getText()+"'"

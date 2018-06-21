@@ -305,7 +305,7 @@ public class InventoryPnl_1stLayer extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     protected static javax.swing.JLabel lbl_InventoryCode;
     protected static javax.swing.JLabel lbl_InventoryCompany;
-    protected static javax.swing.JTable tbl_InventoryList;
+    public static javax.swing.JTable tbl_InventoryList;
     protected static javax.swing.JTextField txt_InventoryCode;
     // End of variables declaration//GEN-END:variables
 }
