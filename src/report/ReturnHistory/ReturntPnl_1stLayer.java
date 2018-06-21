@@ -48,7 +48,7 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
         float originalAmount=0,refund=0;
         DB.createDB();
         try {
-            DB.rs=DB.stmt.executeQuery("SELECT SUM(invoice.total_net) AS 'orig', SUM(refund) AS 'refund' FROM return_history,invoice WHERE invoiceID=idinvoice");
+            DB.rs=DB.stmt.executeQuery("SELECT IFNULL(SUM(invoice.total_net),0) AS 'orig', IFNULL(SUM(refund),0) AS 'refund' FROM return_history,invoice WHERE invoiceID=idinvoice");
             while(DB.rs.next())
             {
                 originalAmount = Float.parseFloat(DB.rs.getObject("orig").toString());
