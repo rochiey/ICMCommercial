@@ -1,6 +1,7 @@
 
 package dealer;
 
+import com.DB;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -245,6 +246,7 @@ public class DealerPnl_2ndLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_DealerlLogoutMouseExited
 
     private void btn_DealerlLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DealerlLogoutActionPerformed
+        DB.mysqlStop();
         System.exit(0);
     }//GEN-LAST:event_btn_DealerlLogoutActionPerformed
 

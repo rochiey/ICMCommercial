@@ -1,6 +1,7 @@
 
 package inventory;
 
+import com.DB;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -249,6 +250,7 @@ public class InventoryPnl_2ndLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_InventoryNewActionPerformed
 
     private void btn_InventoryLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InventoryLogoutActionPerformed
+        DB.mysqlStop();
         System.exit(0);
     }//GEN-LAST:event_btn_InventoryLogoutActionPerformed
 

@@ -1,6 +1,7 @@
 
 package salesOrder;
 
+import com.DB;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -489,14 +490,9 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_SalesRemoveMouseExited
 
     private void btn_SalesLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesLogoutActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "<html><center><font size=4>Are you sure you want to logout now?"
-                   + "</font></center></html>", "Confirmation Message",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-           System.exit(0);
-        } 
-        else {
-            
-        }
+        DB.mysqlStop();
+        System.exit(0);
+        
     }//GEN-LAST:event_btn_SalesLogoutActionPerformed
 
     private void btn_SalesTenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesTenderActionPerformed

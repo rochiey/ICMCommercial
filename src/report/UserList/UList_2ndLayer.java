@@ -1,6 +1,7 @@
 
 package report.UserList;
 
+import com.DB;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -228,6 +229,7 @@ public class UList_2ndLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_GenerateUListMouseExited
 
     private void btn_LogOutUListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogOutUListActionPerformed
+        DB.mysqlStop();
         System.exit(0);
     }//GEN-LAST:event_btn_LogOutUListActionPerformed
 

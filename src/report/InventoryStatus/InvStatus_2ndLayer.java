@@ -1,6 +1,7 @@
 
 package report.InventoryStatus;
 
+import com.DB;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -212,6 +213,7 @@ public class InvStatus_2ndLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_PrintInvStatusMouseExited
 
     private void btn_LogOutInvStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogOutInvStatusActionPerformed
+        DB.mysqlStop();
         System.exit(0);
     }//GEN-LAST:event_btn_LogOutInvStatusActionPerformed
 

@@ -1,6 +1,7 @@
 
 package report.DealerAccount;
 
+import com.DB;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -214,6 +215,7 @@ public class DealerAccount_2ndLayer extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_PrintReturnMouseExited
 
     private void btn_LogOutOutstandingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LogOutOutstandingActionPerformed
+        DB.mysqlStop();
         System.exit(0);
     }//GEN-LAST:event_btn_LogOutOutstandingActionPerformed
 
