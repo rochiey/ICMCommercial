@@ -94,4 +94,11 @@ public class DB {
             out.close();
         }
     }
+    public static void updateDBOnline()
+    {
+        //read sql.txt
+        //put every sql query in a vector
+        //initialize database server address
+        //then update db online through java
+    }
 }
