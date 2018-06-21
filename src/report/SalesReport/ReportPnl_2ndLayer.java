@@ -23,6 +23,7 @@ public class ReportPnl_2ndLayer extends javax.swing.JPanel {
         btn_ReportSalesPrint = new javax.swing.JButton();
         btn_ReportSalesDaily = new javax.swing.JButton();
         btn_RefreshSales = new javax.swing.JButton();
+        btn_ReportSalesUpdateDB = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(51, 51, 51));
 
@@ -126,6 +127,31 @@ public class ReportPnl_2ndLayer extends javax.swing.JPanel {
             }
         });
 
+        btn_ReportSalesUpdateDB.setFont(new java.awt.Font("Century", 1, 12)); // NOI18N
+        btn_ReportSalesUpdateDB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/zIcons/Invoice view 2.png"))); // NOI18N
+        btn_ReportSalesUpdateDB.setText("<html><center><font color='green'>Update<br/>Database<br/>Online</font></center></html>");
+        btn_ReportSalesUpdateDB.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                btn_ReportSalesUpdateDBFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                btn_ReportSalesUpdateDBFocusLost(evt);
+            }
+        });
+        btn_ReportSalesUpdateDB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_ReportSalesUpdateDBMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_ReportSalesUpdateDBMouseExited(evt);
+            }
+        });
+        btn_ReportSalesUpdateDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ReportSalesUpdateDBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,13 +165,16 @@ public class ReportPnl_2ndLayer extends javax.swing.JPanel {
                 .addComponent(btn_ReportSalesPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_ReportSalesLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addComponent(btn_ReportSalesUpdateDB, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_ReportSalesUpdateDB, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_RefreshSales, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_ReportSalesLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_ReportSalesPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -259,11 +288,32 @@ public class ReportPnl_2ndLayer extends javax.swing.JPanel {
         button.salesReport_Print();
     }//GEN-LAST:event_btn_ReportSalesPrintActionPerformed
 
+    private void btn_ReportSalesUpdateDBFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ReportSalesUpdateDBFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReportSalesUpdateDBFocusGained
+
+    private void btn_ReportSalesUpdateDBFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btn_ReportSalesUpdateDBFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReportSalesUpdateDBFocusLost
+
+    private void btn_ReportSalesUpdateDBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ReportSalesUpdateDBMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReportSalesUpdateDBMouseEntered
+
+    private void btn_ReportSalesUpdateDBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ReportSalesUpdateDBMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReportSalesUpdateDBMouseExited
+
+    private void btn_ReportSalesUpdateDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReportSalesUpdateDBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ReportSalesUpdateDBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected static javax.swing.JButton btn_RefreshSales;
     protected static javax.swing.JButton btn_ReportSalesDaily;
     private javax.swing.JButton btn_ReportSalesLogOut;
     protected static javax.swing.JButton btn_ReportSalesPrint;
+    private javax.swing.JButton btn_ReportSalesUpdateDB;
     // End of variables declaration//GEN-END:variables
 }
