@@ -288,7 +288,7 @@ public class Dealer_ButtonFunctions {
         date_NewDealerRegDate.setDate(newDealerRegDate);
         
         date_NewDealerBirthday.setFormats("yyyy-MM-dd");
-        String newDealerDateValue = "2016-01-01";  // must be in (yyyy- mm- dd ) format
+        String newDealerDateValue = "1990-01-01";  // must be in (yyyy- mm- dd ) format
                 Date newDealerBDay = null;
                 try {
                     newDealerBDay = new SimpleDateFormat("yyyy-mm-dd").parse(newDealerDateValue);

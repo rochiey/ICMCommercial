@@ -338,7 +338,7 @@ public class Dealer_NewAccount extends javax.swing.JDialog {
     date_NewDealerBirthday.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
     pnl_NewUserPersonal4.add(date_NewDealerBirthday, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 102, 150, 35));
     date_NewDealerBirthday.setFormats("yyyy-MM-dd");
-    String newDealerDateValue = "2016-01-01";  // must be in (yyyy- mm- dd ) format
+    String newDealerDateValue = "1990-01-01";  // must be in (yyyy- mm- dd ) format
     Date newDealerBDay = null;
     try {
         newDealerBDay = new SimpleDateFormat("yyyy-mm-dd").parse(newDealerDateValue);
