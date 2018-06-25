@@ -77,7 +77,6 @@ public class DB {
         FileWriter fw = null;
         BufferedWriter bw = null;
         PrintWriter out = null;
-        System.out.println("writes file");
         try
         {
             
