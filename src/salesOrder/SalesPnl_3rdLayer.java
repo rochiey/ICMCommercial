@@ -510,7 +510,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
                    + "</font></center></html>", "Information Message", 1);
         else {
             button.SalesOrderDiscount();
-            SalesPnl_2ndLayer.tbl_SalesCart.setCellSelectionEnabled(false);
+            SalesPnl_2ndLayer.tbl_SalesCart.clearSelection();
             salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
         }
         
@@ -519,7 +519,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     private void btn_SalesRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesRemoveActionPerformed
        if(SalesPnl_2ndLayer.clickedID_onTable > 0){
            button.SalesOrderRemove();
-           SalesPnl_2ndLayer.tbl_SalesCart.setCellSelectionEnabled(false);
+           SalesPnl_2ndLayer.tbl_SalesCart.clearSelection();
            salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
        }
        else JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please select an item."
@@ -533,7 +533,7 @@ public class SalesPnl_3rdLayer extends javax.swing.JPanel {
     private void btn_SalesEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesEditActionPerformed
         if(SalesPnl_2ndLayer.clickedID_onTable > 0){
             button.SalesOrderEdit();
-            SalesPnl_2ndLayer.tbl_SalesCart.setCellSelectionEnabled(false);
+            SalesPnl_2ndLayer.tbl_SalesCart.clearSelection();
             salesOrder.SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
         }
         else JOptionPane.showMessageDialog(null, "<html><center><font size=4>Please select an item."

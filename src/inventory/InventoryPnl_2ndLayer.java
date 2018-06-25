@@ -256,7 +256,7 @@ public class InventoryPnl_2ndLayer extends javax.swing.JPanel {
 
     private void btn_InventoryUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InventoryUpdateActionPerformed
         button.inventoryUpdate();
-        InventoryPnl_1stLayer.tbl_InventoryList.setCellSelectionEnabled(false);
+        InventoryPnl_1stLayer.tbl_InventoryList.clearSelection();
     }//GEN-LAST:event_btn_InventoryUpdateActionPerformed
 
     private void btn_InventoryStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InventoryStockActionPerformed

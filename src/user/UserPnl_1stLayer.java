@@ -256,7 +256,7 @@ public class UserPnl_1stLayer extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     protected static javax.swing.JLabel lbl_UserCode;
     protected static javax.swing.JLabel lbl_UserTemp;
-    protected static javax.swing.JTable tbl_UserAccounts;
+    public static javax.swing.JTable tbl_UserAccounts;
     protected static javax.swing.JTextField txt_UserCode;
     // End of variables declaration//GEN-END:variables
 }

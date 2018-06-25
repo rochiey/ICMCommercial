@@ -172,7 +172,7 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="tbl_ReportSales.setBackground(Color.WHITE);&#xa;tbl_ReportSales.setRowHeight(27);&#xa;tbl_ReportSales.getTableHeader().setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 15));&#xa;((DefaultTableCellRenderer)tbl_ReportSales.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);&#xa;tbl_ReportSales.setShowGrid(true);&#xa;tbl_ReportSales.getTableHeader().setResizingAllowed(false);"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tbl_ReportSales = new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int colIndex){&#xa;        return false;&#xa;    }&#xa;};"/>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
       </SubComponents>

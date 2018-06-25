@@ -600,7 +600,7 @@ public class Dealer_UpdateAccount extends javax.swing.JDialog {
     private void btn_UpdateDealerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateDealerRegisterActionPerformed
         button.dealerUpdateAccount();
         if(Dealer_ButtonFunctions.successEx > 0 ){
-            dealer.DealerPnl_1stLayer.tbl_DealerAccounts.setCellSelectionEnabled(false);
+            dealer.DealerPnl_1stLayer.tbl_DealerAccounts.clearSelection();
             this.dispose();
         }
         DealerPnl_1stLayer.updateTable();
@@ -644,7 +644,7 @@ public class Dealer_UpdateAccount extends javax.swing.JDialog {
 
     private void btn_UpdateDealerCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateDealerCloseActionPerformed
         this.dispose();
-        DealerPnl_1stLayer.tbl_DealerAccounts.setCellSelectionEnabled(false);
+        DealerPnl_1stLayer.tbl_DealerAccounts.clearSelection();
     }//GEN-LAST:event_btn_UpdateDealerCloseActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus

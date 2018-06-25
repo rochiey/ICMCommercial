@@ -6,3 +6,5 @@ INSERT INTO supplier(supplier_name,contact_number,contact_person,discount) VALUE
 INSERT INTO category(category_name,category_type) VALUES('Shoes',16)
 INSERT INTO product_color(color_code,color_name) VALUES('WHT','White')
 INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('123456789',1,'Lebron 2018',1,'9',1,STR_TO_DATE('2018-06-25','%Y-%m-%d'),3250,0)
+INSERT INTO supplier(supplier_name,contact_number,contact_person,discount) VALUES('Adidas','69','Manuel',15)
+INSERT INTO dealer_supplier_bridge(supplierID,discount,dealerID) VALUES(2,15,1);

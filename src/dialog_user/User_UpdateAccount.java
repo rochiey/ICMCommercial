@@ -476,6 +476,7 @@ public class User_UpdateAccount extends javax.swing.JDialog {
 
     private void btn_UpdateUserRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateUserRegisterActionPerformed
         button.userUpdateAccount();
+        user.UserPnl_1stLayer.tbl_UserAccounts.clearSelection();
         this.dispose();
         UserPnl_1stLayer.updateTable();
     }//GEN-LAST:event_btn_UpdateUserRegisterActionPerformed

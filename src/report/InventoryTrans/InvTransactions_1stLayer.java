@@ -232,7 +232,7 @@ public class InvTransactions_1stLayer extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     protected static javax.swing.JLabel lbl_NewDealerMName2;
-    protected static javax.swing.JTable tbl_InvTransactions;
+    public static javax.swing.JTable tbl_InvTransactions;
     protected static javax.swing.JTable tbl_InvTransactionsDetails;
     // End of variables declaration//GEN-END:variables
 }

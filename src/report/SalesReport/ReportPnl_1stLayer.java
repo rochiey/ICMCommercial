@@ -336,7 +336,7 @@ public class ReportPnl_1stLayer extends javax.swing.JPanel {
     protected static javax.swing.JLabel lbl_RefundAmount;
     protected static javax.swing.JLabel lbl_SalesReportTotal;
     protected static javax.swing.JLabel lbl_TNet;
-    protected static javax.swing.JTable tbl_ReportSales;
+    public static javax.swing.JTable tbl_ReportSales;
     protected static javax.swing.JTable tbl_ReportSalesDetails;
     protected static javax.swing.JTextField txt_SONo;
     // End of variables declaration//GEN-END:variables

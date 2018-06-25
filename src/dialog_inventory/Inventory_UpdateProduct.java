@@ -602,7 +602,7 @@ public class Inventory_UpdateProduct extends javax.swing.JDialog {
     private void btn_UpdateProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateProdActionPerformed
         button.updateNewProduct();
         if(Inventory_ButtonFunctions.successEx > 0 ){
-            inventory.InventoryPnl_1stLayer.tbl_InventoryList.setCellSelectionEnabled(false);
+            inventory.InventoryPnl_1stLayer.tbl_InventoryList.clearSelection();
             this.dispose();
         }
         InventoryPnl_1stLayer.updateTable();

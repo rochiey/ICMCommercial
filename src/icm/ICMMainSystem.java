@@ -234,6 +234,11 @@ public class ICMMainSystem extends javax.swing.JFrame {
         pnl_Reports.setBackground(new java.awt.Color(255, 255, 255));
 
         Tab_Report.setFont(new java.awt.Font("Century", 1, 12)); // NOI18N
+        Tab_Report.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tab_ReportMouseClicked(evt);
+            }
+        });
 
         pnl_SalesReport.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -393,6 +398,14 @@ public class ICMMainSystem extends javax.swing.JFrame {
         {
             SalesPnl_1stLayer.txt_SalesInput.requestFocusInWindow();
         }
+        dealer.DealerPnl_1stLayer.tbl_DealerAccounts.clearSelection();
+        inventory.InventoryPnl_1stLayer.tbl_InventoryList.clearSelection();
+        user.UserPnl_1stLayer.tbl_UserAccounts.clearSelection();
+        report.DealerAccount.DealerAccount_1stLayer.tbl_Outstanding.clearSelection();
+        report.InventoryStatus.InvStatus_1stLayer.tbl_InvStatus.clearSelection();
+        report.InventoryTrans.InvTransactions_1stLayer.tbl_InvTransactions.clearSelection();
+        report.ReturnHistory.ReturntPnl_1stLayer.tbl_ReturnReport.clearSelection();
+        report.SalesReport.ReportPnl_1stLayer.tbl_ReportSales.clearSelection();
     }//GEN-LAST:event_Tab_MainMouseClicked
 
     private void Tab_MainMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tab_MainMouseReleased
@@ -407,6 +420,14 @@ public class ICMMainSystem extends javax.swing.JFrame {
        
        System.exit(0);
     }//GEN-LAST:event_formWindowClosed
+
+    private void Tab_ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tab_ReportMouseClicked
+        report.DealerAccount.DealerAccount_1stLayer.tbl_Outstanding.clearSelection();
+        report.InventoryStatus.InvStatus_1stLayer.tbl_InvStatus.clearSelection();
+        report.InventoryTrans.InvTransactions_1stLayer.tbl_InvTransactions.clearSelection();
+        report.ReturnHistory.ReturntPnl_1stLayer.tbl_ReturnReport.clearSelection();
+        report.SalesReport.ReportPnl_1stLayer.tbl_ReportSales.clearSelection();
+    }//GEN-LAST:event_Tab_ReportMouseClicked
     
     public static void main(String args[]) {
         try {
