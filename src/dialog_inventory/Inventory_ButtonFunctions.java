@@ -364,6 +364,23 @@ public class Inventory_ButtonFunctions {
                     DB.dbHandlerUpdates("INSERT INTO supplier(supplier_name,contact_number,contact_person,discount) VALUES('"+txt_NewCompanyName.getText()+"','"+txt_NewCompanyContact.getText()+"','"+txt_NewCompanyContactPerson.getText()+"',"+txt_NewCompanyDiscount.getText()+")");
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Company successfully added!"
                         + "</font></center></html>", "Information Message", 1);
+                    //Add discount here to all user
+                    DB.createDB();
+                    Vector dealerID = new Vector();
+                    try {
+                        DB.rs = DB.stmt.executeQuery("SELECT iddealer FROM dealer");
+                        while(DB.rs.next())
+                        {
+                            dealerID.add(DB.rs.getObject("iddealer"));
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Inventory_ButtonFunctions.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for(int i=0; i<dealerID.size();i++)
+                    {
+                        DB.dbHandlerUpdates("INSERT INTO dealer_supplier_bridge(supplierID,discount,dealerID) VALUES("+getLastID("supplier")+","+txt_NewCompanyDiscount.getText()+","+dealerID.get(i)+");");
+                    }
+                    //update
                     if(dialogclassification == 1) Inventory_NewProduct.updateSupplierCBO();
                     else Inventory_UpdateProduct.updateSupplierCBO();
                     Inventory_Company.updateTable();
@@ -383,6 +400,21 @@ public class Inventory_ButtonFunctions {
             }
 
         }
+    }
+    public static int getLastID(String tblName)
+    {
+        Integer theID = 0;
+        DB.createDB();
+        try {
+            DB.rs = DB.stmt.executeQuery("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE table_name = '"+tblName+"' LIMIT 1");
+            while(DB.rs.next())
+            {
+                theID = Integer.parseInt(DB.rs.getObject("AUTO_INCREMENT").toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Inventory_ProductMovement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return theID-1;
     }
     private void generateCompanyUpdate()
     {
