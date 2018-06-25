@@ -129,25 +129,32 @@ public class Dealer_ButtonFunctions {
 
         }
         else{
-            //SQL Code for adding New Dealer Account
-            String regDate = date_NewDealerRegDate.getEditor().getText();
-            String bDate = date_NewDealerBirthday.getEditor().getText();
-            String dateFormat = "%Y-%m-%d";
-            successEx = DB.dbHandlerUpdates("INSERT INTO dealer(registration_date,first_name,middle_name,last_name,"
-                    + "gender,birthday,civil_status,nationality,address,email_address,contact_number,"
-                    + "occupation,credit_limit,available_credit,max_return_days,sponsor,balance,due_date,total_penalty) "
-                    + "VALUES(STR_TO_DATE('"+regDate+"','"+dateFormat+"'),'"+txt_NewDealerFName.getText()+"',"
-                    + "'"+txt_NewDealerMName.getText()+"','"+txt_NewDealerLName.getText()+"',"
-                    + ""+getGenderID(cbo_NewDealerGender)+",STR_TO_DATE('"+bDate+"','"+dateFormat+"'),"
-                    + ""+getC_StatusID(cbo_NewDealerCivil)+",'"+txt_NewDealerNationality.getText()+"',"
-                    + "'"+txt_NewDealerAddress.getText()+"','"+txt_NewDealerEmail.getText()+"','"+txt_NewDealerContact.getText()+"',"
-                    + "'"+txt_NewDealerOccupation.getText()+"',"+txt_NewDealerCredit.getText()+","+txt_NewDealerACLine.getText()+","
-                    + ""+txt_NewDealerMaxReturn.getText()+",'"+txt_NewDealerSponsor.getText()+"',0,"+cbo_NewDealerDueDate.getSelectedItem().toString()+",0)");
-            dealer.DealerPnl_1stLayer.updateTable();
-            toNewEntityBridge();
-            
-            JOptionPane.showMessageDialog(null, "<html><center><font size=4>Dealer successfully added!"
-                + "</font></center></html>", "Information Message", 1);
+            if(Float.parseFloat(txt_NewDealerACLine.getText()) > Float.parseFloat(txt_NewDealerCredit.getText()) )
+            {
+                JOptionPane.showMessageDialog(null, "Available Credit Line cannot be bigger than the Credit Limit");
+            }
+            else
+            {
+                //SQL Code for adding New Dealer Account
+                String regDate = date_NewDealerRegDate.getEditor().getText();
+                String bDate = date_NewDealerBirthday.getEditor().getText();
+                String dateFormat = "%Y-%m-%d";
+                successEx = DB.dbHandlerUpdates("INSERT INTO dealer(registration_date,first_name,middle_name,last_name,"
+                        + "gender,birthday,civil_status,nationality,address,email_address,contact_number,"
+                        + "occupation,credit_limit,available_credit,max_return_days,sponsor,balance,due_date,total_penalty) "
+                        + "VALUES(STR_TO_DATE('"+regDate+"','"+dateFormat+"'),'"+txt_NewDealerFName.getText()+"',"
+                        + "'"+txt_NewDealerMName.getText()+"','"+txt_NewDealerLName.getText()+"',"
+                        + ""+getGenderID(cbo_NewDealerGender)+",STR_TO_DATE('"+bDate+"','"+dateFormat+"'),"
+                        + ""+getC_StatusID(cbo_NewDealerCivil)+",'"+txt_NewDealerNationality.getText()+"',"
+                        + "'"+txt_NewDealerAddress.getText()+"','"+txt_NewDealerEmail.getText()+"','"+txt_NewDealerContact.getText()+"',"
+                        + "'"+txt_NewDealerOccupation.getText()+"',"+txt_NewDealerCredit.getText()+","+txt_NewDealerACLine.getText()+","
+                        + ""+txt_NewDealerMaxReturn.getText()+",'"+txt_NewDealerSponsor.getText()+"',0,"+cbo_NewDealerDueDate.getSelectedItem().toString()+",0)");
+                dealer.DealerPnl_1stLayer.updateTable();
+                toNewEntityBridge();
+
+                JOptionPane.showMessageDialog(null, "<html><center><font size=4>Dealer successfully added!"
+                    + "</font></center></html>", "Information Message", 1);
+            }
             
         }
     }
