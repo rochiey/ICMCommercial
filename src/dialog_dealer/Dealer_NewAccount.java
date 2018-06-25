@@ -162,7 +162,7 @@ public class Dealer_NewAccount extends javax.swing.JDialog {
         jPanel80.add(lbl_NewDealerReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 109, -1, -1));
 
         lbl_NewDealerSponsor.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        lbl_NewDealerSponsor.setText("Sponsor ID/Name: *");
+        lbl_NewDealerSponsor.setText("Sponsor ID/Name: ");
         lbl_NewDealerSponsor.setText("<html>Sponsor ID/Name: <font color=red>*</font></html>");
         jPanel80.add(lbl_NewDealerSponsor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 109, -1, -1));
 

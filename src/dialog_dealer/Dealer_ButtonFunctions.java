@@ -120,7 +120,7 @@ public class Dealer_ButtonFunctions {
     }
     protected void dealerNewAccount(){
         if(txt_NewDealerCredit.getText().equals("") || txt_NewDealerACLine.getText().equals("") || txt_NewDealerMaxReturn.getText().equals("") ||
-            txt_NewDealerSponsor.getText().equals("") || txt_NewDealerFName.getText().equals("")||
+             txt_NewDealerFName.getText().equals("")||
             txt_NewDealerLName.getText().equals("") || txt_NewDealerAddress.getText().equals("") || txt_NewDealerContact.getText().equals("") ||
             date_NewDealerRegDate.getDate() == null || date_NewDealerBirthday.getDate() == null){
 
