@@ -603,8 +603,10 @@ public class SalesOrder_ButtonFunctions {
             }
             else
             {
-                int rowCount = SalesOrder_ReturnForm.tbl_ReturnList.getRowCount(); Object idprod = 0,idinvoice=0; Integer quantity = 0, oldquantity=0;
-                float totalnet = 0;
+                int rowCount = SalesOrder_ReturnForm.tbl_ReturnList.getRowCount(); Object idprod = 0,idinvoice=SalesOrder_ReturnForm.tbl_ReturnList.getValueAt(0, 0); Integer quantity = 0, oldquantity=0;
+                StringBuilder sb = new StringBuilder(SalesOrder_ReturnForm.lbl_ReturnSalesTotal.getText());
+                sb.deleteCharAt(0);
+                float totalnet = Float.parseFloat(sb.toString());
                 DB.dbHandlerUpdates("INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'"+SalesOrder_ReturnForm.txt_ReturnCustName.getText()+"','"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"',"+totalnet+","+idinvoice+")");
                 DB.dbHandlerUpdates("INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',"+idinvoice+",'"+SalesOrder_ReturnForm.cbo_ReturnReason.getSelectedItem().toString()+"')");
                 for(int i =0;i<rowCount ; i++)
@@ -643,8 +645,6 @@ public class SalesOrder_ButtonFunctions {
                     DB.dbHandlerUpdates("UPDATE purchase_order_list SET quantity="+poQuantity+",refund="+totalnet+" WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
                     DB.dbHandlerUpdates("INSERT INTO return_list(transactNo,idproduct,total_net,returned_quantity) VALUES("+getLastID("return_history")+","+idprod+","+totalnet+","+quantity+")");
                 }
-                StringBuilder sb = new StringBuilder(SalesOrder_ReturnForm.lbl_ReturnSalesTotal.getText());
-                sb.deleteCharAt(0);
                 DB.dbHandlerUpdates("UPDATE invoice SET total_refund="+sb.toString()+" WHERE idinvoice="+idinvoice);//stock in logs
                 if(cbo_ReturnCType.getSelectedItem().equals("Dealer")) //refund to dealer's available credit
                 {

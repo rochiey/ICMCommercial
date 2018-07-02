@@ -43,3 +43,27 @@ INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VAL
 UPDATE purchase_order_list SET quantity=2,refund=123.0 WHERE item_code=6 AND idinvoice=1
 INSERT INTO return_list(transactNo,idproduct,total_net,returned_quantity) VALUES(1,6,123.0,1)
 UPDATE invoice SET total_refund=123.00 WHERE idinvoice=1
+INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'','Damaged',0.0,0)
+INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',0,'Damaged')
+UPDATE purchase_order_list SET quantity=1,refund=123.0 WHERE item_code=6 AND idinvoice=1
+INSERT INTO return_list(transactNo,idproduct,total_net,returned_quantity) VALUES(1,6,123.0,1)
+UPDATE invoice SET total_refund=123.00 WHERE idinvoice=1
+INSERT INTO invoice_supplier(supplier_SOno,date_of_order,date_of_purchase,balance) VALUES('12313',STR_TO_DATE('2018-07-02','%Y-%m-%d'),STR_TO_DATE('2018-07-02','%Y-%m-%d'),0)
+UPDATE product SET quantity=22 WHERE barcode='12345'
+INSERT purchase_order_supplier(productID,productName,quantity,salesOrderNo) VALUES(6,'Roberta',20,3)
+INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Inventory IN',3,'Good Condition')
+INSERT INTO invoice(payment_type,date_of_transaction,amount_paid,total_net) VALUES(234,(SELECT CURDATE()),700.0,615.0)
+UPDATE product SET quantity=17 WHERE barcode='12345'
+INSERT INTO purchase_order_list(idinvoice,item_code,item_name,quantity,unit_price,discount_percent,discounted_price,total_price) VALUES(2,6,'Roberta',5,123.0,0,123.0,615.0)
+INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'Sales Order',2,'Cash')
+INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'','Damaged',0.0,0)
+INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',0,'Damaged')
+UPDATE purchase_order_list SET quantity=4,refund=123.0 WHERE item_code=6 AND idinvoice=2
+INSERT INTO return_list(transactNo,idproduct,total_net,returned_quantity) VALUES(2,6,123.0,1)
+UPDATE invoice SET total_refund=123.00 WHERE idinvoice=2
+INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'','Change Size',123.0,2)
+INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',2,'Change Size')
+UPDATE product SET quantity=18 WHERE idproduct=6
+UPDATE purchase_order_list SET quantity=3,refund=123.0 WHERE item_code=6 AND idinvoice=2
+INSERT INTO return_list(transactNo,idproduct,total_net,returned_quantity) VALUES(1,6,123.0,1)
+UPDATE invoice SET total_refund=123.00 WHERE idinvoice=2
