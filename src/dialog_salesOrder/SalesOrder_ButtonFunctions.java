@@ -641,7 +641,7 @@ public class SalesOrder_ButtonFunctions {
                         DB.dbHandlerUpdates("UPDATE product SET quantity="+oldquantity+" WHERE idproduct="+idprod);
                     }
                     DB.dbHandlerUpdates("UPDATE purchase_order_list SET quantity="+poQuantity+",refund="+totalnet+" WHERE item_code="+idprod+" AND idinvoice="+txt_ReturnSONo.getText()); 
-                    DB.dbHandlerUpdates("INSERT INTO return_list(transactNo,idproduct,totalNet,returned_quantity) VALUES("+getLastID("return_history")+","+idprod+","+totalnet+","+quantity+")");
+                    DB.dbHandlerUpdates("INSERT INTO return_list(transactNo,idproduct,total_net,returned_quantity) VALUES("+getLastID("return_history")+","+idprod+","+totalnet+","+quantity+")");
                 }
                 StringBuilder sb = new StringBuilder(SalesOrder_ReturnForm.lbl_ReturnSalesTotal.getText());
                 sb.deleteCharAt(0);

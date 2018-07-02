@@ -38,3 +38,8 @@ INSERT INTO product(barcode,supplier,product_name,category,product_size,product_
 INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('55',2,'ROberto ver2',1,'6',1,1500,0)
 INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('55',2,'ROberto ver2',1,'7',1,1500,0)
 INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('55',2,'ROberto ver2',1,'8',1,1500,0)
+INSERT INTO return_history(return_date,customer_name,return_reason,refund,invoiceID) VALUES((SELECT CURDATE()),'','Damaged',0.0,0)
+INSERT INTO inventory_transactions(transact_date,transact_type,POid,remarks) VALUES((SELECT CURDATE()),'RETURN',0,'Damaged')
+UPDATE purchase_order_list SET quantity=2,refund=123.0 WHERE item_code=6 AND idinvoice=1
+INSERT INTO return_list(transactNo,idproduct,total_net,returned_quantity) VALUES(1,6,123.0,1)
+UPDATE invoice SET total_refund=123.00 WHERE idinvoice=1
