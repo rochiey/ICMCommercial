@@ -38,7 +38,7 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
         int row = tbl_ReturnReportDetails.getRowCount();
         for(int i=0;i<row;i++)
         {
-            totalNet+=Float.parseFloat(tbl_ReturnReportDetails.getValueAt(i, 8).toString());
+            totalNet+=Float.parseFloat(tbl_ReturnReportDetails.getValueAt(i, 2).toString());
         }
         lbl_TotalPendingRForm.setText("₱"+df.format(Float.parseFloat(String.format("%.2f", totalNet))));
     }
