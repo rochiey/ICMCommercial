@@ -309,7 +309,7 @@ public class ReturntPnl_1stLayer extends javax.swing.JPanel {
             clickedID_onTable = (int) tbl_data.getValueAt(row, 0);
             DatabaseLinker.updateTable(tbl_ReturnReportDetails, "SELECT transactNo AS 'Transaction No.'"
             + ", product.product_name AS 'Article Name'"
-            + ", totalNet AS 'Total Net'"
+            + ", total_net AS 'Total Net'"
             + ", returned_quantity AS 'Returned Quantity' FROM return_list,product"
             + " WHERE return_list.idproduct=product.idproduct AND return_list.transactNo="+clickedID_onTable);
         }

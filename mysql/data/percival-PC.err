@@ -763,3 +763,21 @@ Version: '10.1.31-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribut
 2018-07-02 17:31:56 4616 [Note] Server socket created on IP: '::'.
 2018-07-02 17:31:56 4616 [Note] C:\Users\percival\Desktop\ICMCommercialSystem\mysql\bin\mysqld.exe: ready for connections.
 Version: '10.1.31-MariaDB'  socket: ''  port: 3306  mariadb.org binary distribution
+2018-07-02 17:36:09 3068 [Note] InnoDB: innodb_empty_free_list_algorithm has been changed to legacy because of small buffer pool size. In order to use backoff, increase buffer pool at least up to 20MB.
+
+2018-07-02 17:36:09 3068 [Note] InnoDB: Using mutexes to ref count buffer pool pages
+2018-07-02 17:36:09 3068 [Note] InnoDB: The InnoDB memory heap is disabled
+2018-07-02 17:36:09 3068 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2018-07-02 17:36:09 3068 [Note] InnoDB: _mm_lfence() and _mm_sfence() are used for memory barrier
+2018-07-02 17:36:09 3068 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2018-07-02 17:36:09 3068 [Note] InnoDB: Using generic crc32 instructions
+2018-07-02 17:36:09 3068 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2018-07-02 17:36:09 3068 [Note] InnoDB: Completed initialization of buffer pool
+2018-07-02 17:36:09 3068 [ERROR] InnoDB: .\ibdata1 can't be opened in read-write mode
+2018-07-02 17:36:09 3068 [ERROR] InnoDB: The system tablespace must be writable!
+2018-07-02 17:36:09 3068 [ERROR] Plugin 'InnoDB' init function returned error.
+2018-07-02 17:36:09 3068 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2018-07-02 17:36:09 3068 [Note] Plugin 'FEEDBACK' is disabled.
+2018-07-02 17:36:09 3068 [ERROR] Unknown/unsupported storage engine: InnoDB
+2018-07-02 17:36:09 3068 [ERROR] Aborting
+
