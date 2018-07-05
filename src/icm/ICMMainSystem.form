@@ -74,6 +74,7 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="/*Tab_Main.setEnabledAt(1, false);&#xa;Tab_Main.setEnabledAt(2, false);&#xa;Tab_Main.setEnabledAt(3, false);&#xa;*/"/>
+            <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="Tab_Main.setUI(new BasicTabbedPaneUI() {&#xa;        @Override&#xa;        protected int calculateTabHeight(&#xa;                int tabPlacement, int tabIndex, int fontHeight) {&#xa;            return 38; // the height of the tab&#xa;        }&#xa;// for the borderless&#xa;        private final Insets borderInsets = new Insets(0, 0, 0, 0);&#xa;        @Override&#xa;        protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {&#xa;        }&#xa;        @Override&#xa;        protected Insets getContentBorderInsets(int tabPlacement) {&#xa;            return borderInsets;&#xa;        }&#xa;    });&#xa;UIManager.put(&quot;TabbedPane.selected&quot;, Color.gray);"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
 

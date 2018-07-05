@@ -4,6 +4,12 @@ import com.DB;
 import javax.swing.JFrame;
 import dealer.*;
 import inventory.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Insets;
+import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import report.InventoryStatus.InvStatus_1stLayer;
 import report.InventoryStatus.InvStatus_2ndLayer;
 import report.InventoryTrans.InvTransactions_1stLayer;
@@ -132,6 +138,23 @@ public class ICMMainSystem extends javax.swing.JFrame {
                 Tab_MainMouseReleased(evt);
             }
         });
+        Tab_Main.setUI(new BasicTabbedPaneUI() {
+            @Override
+            protected int calculateTabHeight(
+                int tabPlacement, int tabIndex, int fontHeight) {
+                return 38; // the height of the tab
+            }
+            // for the borderless
+            private final Insets borderInsets = new Insets(0, 0, 0, 0);
+            @Override
+            protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {
+            }
+            @Override
+            protected Insets getContentBorderInsets(int tabPlacement) {
+                return borderInsets;
+            }
+        });
+        UIManager.put("TabbedPane.selected", Color.gray);
 
         pnl_SalesOrder.setBackground(new java.awt.Color(255, 255, 255));
         pnl_SalesOrder.setPreferredSize(new java.awt.Dimension(1361, 768));
