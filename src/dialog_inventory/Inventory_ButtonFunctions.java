@@ -94,16 +94,20 @@ public class Inventory_ButtonFunctions {
         }
         
     }
-    private Vector getAllSizes()
+//    private Vector getAllSizes()
+//    {
+//        Vector size = new Vector();
+//        int counter = tbl_NewProdSize.getModel().getColumnCount();
+//        int col = 0;
+//        for(int i=0;i<counter;i++)
+//        {
+//            if(!tbl_NewProdSize.getValueAt(0, i).equals("")) size.add(tbl_NewProdSize.getValueAt(0, i));
+//        }
+//        return size;
+//    }
+    private String getSize()
     {
-        Vector sizes = new Vector();
-        int counter = tbl_NewProdSize.getModel().getColumnCount();
-        int col = 0;
-        for(int i=0;i<counter;i++)
-        {
-            if(!tbl_NewProdSize.getValueAt(0, i).equals("")) sizes.add(tbl_NewProdSize.getValueAt(0, i));
-        }
-        return sizes;
+        return Inventory_NewProduct.txt_NewSize.getText();
     }
     public static void disableUpdateRegDate()
     {
@@ -196,17 +200,13 @@ public class Inventory_ButtonFunctions {
                 + "<br/>can add new product information.</font></center></html>", "Complete the form", 0);
             }
             else{
-                Vector sizes = new Vector();
-                sizes = getAllSizes();
+                String size = getSize();
                 String expDate = date_NewProdExpiration.getEditor().getText();
                 String dateFormat = "%Y-%m-%d";
                 String barcode = txt_NewBarcode.getText();
-                if(!sizes.isEmpty())
+                if(!size.equals(""))
                 {
-                    for(int i=0;i<sizes.size();i++)
-                    {
-                        successEx = DB.dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0)");
-                    }
+                    successEx = DB.dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,expiration,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+size+"',"+getProductColor(cbo_NewProdColor)+",STR_TO_DATE('"+expDate+"','"+dateFormat+"'),"+txt_NewProdPrice.getText()+",0)");
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
                         + "</font></center></html>", "Information Message", 1);
@@ -227,17 +227,13 @@ public class Inventory_ButtonFunctions {
             }
             else{
                 //INSERT SQL QUERY FOR ADDING PRODUCT
-                Vector sizes = new Vector();
-                sizes = getAllSizes();
+                String size = getSize();
                 String expDate = date_NewProdExpiration.getEditor().getText();
                 String dateFormat = "%Y-%m-%d";
                 String barcode = txt_NewBarcode.getText();
-                if(!sizes.isEmpty())
+                if(!size.equals(""))
                 {
-                    for(int i=0;i<sizes.size();i++)
-                    {
-                        DB.dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+sizes.get(i)+"',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0)");
-                    }
+                    DB.dbHandlerUpdates("INSERT INTO product(barcode,supplier,product_name,category,product_size,product_color,selling_price,quantity) VALUES('"+barcode+"',"+getSupplierID(cbo_NewProdCompany)+",'"+txt_NewProdName.getText()+"',"+getCategory(cbo_NewProdCategory)+",'"+size+"',"+getProductColor(cbo_NewProdColor)+","+txt_NewProdPrice.getText()+",0)");
                     InventoryPnl_1stLayer.updateTable();
                     JOptionPane.showMessageDialog(null, "<html><center><font size=4>Product successfully added!"
                         + "</font></center></html>", "Information Message", 1);

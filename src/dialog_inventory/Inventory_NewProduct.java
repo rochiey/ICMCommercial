@@ -135,8 +135,6 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         btn_NewProdClose = new javax.swing.JButton();
         btn_NewProdAdd = new javax.swing.JButton();
         btn_NewProdClear = new javax.swing.JButton();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        tbl_NewProdSize = new javax.swing.JTable();
         jLabel133 = new javax.swing.JLabel();
         jLabel137 = new javax.swing.JLabel();
         jLabel127 = new javax.swing.JLabel();
@@ -156,6 +154,7 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         jLabel139 = new javax.swing.JLabel();
         jLabel135 = new javax.swing.JLabel();
         txt_NewBarcode = new javax.swing.JTextField();
+        txt_NewSize = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dealer's Credit Amount");
@@ -266,40 +265,6 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
                 btn_NewProdClearActionPerformed(evt);
             }
         });
-
-        tbl_NewProdSize.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        tbl_NewProdSize.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"", "", "", "", "", "", "", "", "", "", "", ""}
-            },
-            new String [] {
-                "#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8", "#9", "#10", "#11", "#12"
-            }
-        ));
-        tbl_NewProdSize.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        tbl_NewProdSize.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        tbl_NewProdSize.getTableHeader().setReorderingAllowed(false);
-        jScrollPane7.setViewportView(tbl_NewProdSize);
-        tbl_NewProdSize.setBackground(Color.WHITE);
-        tbl_NewProdSize.setShowGrid(true);
-        tbl_NewProdSize.setRowHeight(26);
-        tbl_NewProdSize.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 13));
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        tbl_NewProdSize.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(10).setCellRenderer(centerRenderer);
-        tbl_NewProdSize.getColumnModel().getColumn(11).setCellRenderer(centerRenderer);
-        ((DefaultTableCellRenderer)tbl_NewProdSize.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
         jLabel133.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         jLabel133.setText("Size:");
@@ -443,6 +408,9 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
         txt_NewBarcode.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
         txt_NewBarcode.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
+        txt_NewSize.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
+        txt_NewSize.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -458,8 +426,8 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
                             .addComponent(btn_NewProdClear, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
                             .addComponent(btn_NewProdClose))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_NewSize, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel133)
@@ -545,9 +513,9 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
                             .addComponent(txt_NewProdPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel139)))
                     .addComponent(btn_NewAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(11, 11, 11)
+                .addComponent(txt_NewSize, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lbl_note2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -842,13 +810,12 @@ public class Inventory_NewProduct extends javax.swing.JDialog {
     protected static javax.swing.JLabel jLabel138;
     protected static javax.swing.JLabel jLabel139;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel lbl_note2;
     private javax.swing.JLabel logo;
-    protected static javax.swing.JTable tbl_NewProdSize;
     private javax.swing.JLabel text;
     protected static javax.swing.JTextField txt_NewBarcode;
     protected static javax.swing.JTextField txt_NewProdName;
     protected static javax.swing.JTextField txt_NewProdPrice;
+    protected static javax.swing.JTextField txt_NewSize;
     // End of variables declaration//GEN-END:variables
 }
